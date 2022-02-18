@@ -31,6 +31,10 @@ public void nouveauLecteur(IHM ihm) {
     }
 }
 
+public void nouvelOuvrage(IHM ihm){
+    IHM.InfosOuvrage infosOuvrage = ihm.saisirOuvrage();
+}
+
 public Map<Integer, Lecteur> getLecteurs() {
     return this.lecteurs;
 }

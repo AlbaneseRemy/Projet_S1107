@@ -88,6 +88,43 @@ public InfosLecteur(final Integer num, final String nom, final String prenom, fi
 }
 }
 
+public static class InfosOuvrage{
+    public final String titre;
+    public final String nomEditeur;
+    public final LocalDate dateParution;
+    public final ArrayList<String> nomAuteurs;
+    public final Integer numISBN;
+    public final Public publicVisé;
+
+    public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé) {
+        this.titre = titre;
+        this.nomEditeur = nomEditeur;
+        this.dateParution = dateParution;
+        this.nomAuteurs = nomAuteurs;
+        this.numISBN = numISBN;
+        this.publicVisé = publicVisé;
+    }
+}
+
+public InfosOuvrage saisirOuvrage(){
+    String titre;
+    String nomEditeur;
+    LocalDate dateParution;
+    ArrayList<String> nomAuteurs = new ArrayList<>();
+    Public publicVisé;
+    Integer numISBN;
+    
+    ES.afficherTitre("== Saisie d'un ouvrage ==");
+    titre = ES.lireChaine("Saisir le titre de l'ouvrage");
+    nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur");
+    dateParution = ES.lireDate("Saisir la date de parution");
+    nomAuteurs.add(ES.lireChaine("nomAuteurs"));
+    publicVisé=ES.lirePublic("Quel est le public visé ? Enfant / Ado / Adulte, répondez 1 2 ou 3");
+    numISBN = ES.lireEntier("Saisir le numéro ISBN");
+    
+    return new InfosOuvrage(titre, nomEditeur, dateParution, nomAuteurs, numISBN, publicVisé);
+}
+
 public InfosLecteur saisirLecteur() {
     String nom, prenom, adresse, email;
     LocalDate dateNaiss;
