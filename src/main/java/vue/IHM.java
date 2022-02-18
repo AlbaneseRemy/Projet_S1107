@@ -88,6 +88,30 @@ public InfosLecteur(final Integer num, final String nom, final String prenom, fi
 }
 }
 
+
+public InfosLecteur saisirLecteur() {
+    String nom, prenom, adresse, email;
+    LocalDate dateNaiss;
+    Integer num;
+
+    ES.afficherTitre("== Saisie d'un lecteur ==");
+    num =ES.lireEntier("Saisir le numéro du lecteur :");
+    nom = ES.lireChaine("Saisir le nom du lecteur :");
+    prenom = ES.lireChaine("Saisir le prénom du lecteur :");
+    adresse = ES.lireChaine("Saisir l'adresse du lecteur :");
+    dateNaiss = ES.lireDate("Saisir la date de naissance du lecteur :");
+    email = ES.lireEmail("Saisir l'email du lecteur :");
+
+    return new InfosLecteur(num, nom, prenom, adresse, dateNaiss, email);
+}
+
+public void afficherLecteur(final Integer num, final String nom, final String prenom,
+                    final LocalDate dateNaiss, final int age, final String email){
+    ES.afficherTitre("== affichage du lecteur== " + num);
+    ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + email);
+    ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaiss + " " + age);
+}
+
 public static class InfosOuvrage{
     public final String titre;
     public final String nomEditeur;
@@ -125,28 +149,8 @@ public InfosOuvrage saisirOuvrage(){
     return new InfosOuvrage(titre, nomEditeur, dateParution, nomAuteurs, numISBN, publicVisé);
 }
 
-public InfosLecteur saisirLecteur() {
-    String nom, prenom, adresse, email;
-    LocalDate dateNaiss;
-    Integer num;
 
-    ES.afficherTitre("== Saisie d'un lecteur ==");
-    num =ES.lireEntier("Saisir le numéro du lecteur :");
-    nom = ES.lireChaine("Saisir le nom du lecteur :");
-    prenom = ES.lireChaine("Saisir le prénom du lecteur :");
-    adresse = ES.lireChaine("Saisir l'adresse du lecteur :");
-    dateNaiss = ES.lireDate("Saisir la date de naissance du lecteur :");
-    email = ES.lireEmail("Saisir l'email du lecteur :");
 
-    return new InfosLecteur(num, nom, prenom, adresse, dateNaiss, email);
-}
-
-public void afficherLecteur(final Integer num, final String nom, final String prenom,
-                    final LocalDate dateNaiss, final int age, final String email){
-    ES.afficherTitre("== affichage du lecteur== " + num);
-    ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + email);
-    ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaiss + " " + age);
-}
 
 //-----  Primitives d'affichage  -----------------------------------------------
 public void informerUtilisateur(final String msg, final boolean succes) {

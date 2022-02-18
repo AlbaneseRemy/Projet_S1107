@@ -4,6 +4,7 @@
  */
 package modele;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,14 +15,14 @@ import java.util.Date;
 public class Ouvrage {
     private String titre;
     private String nomEditeur;
-    private Date dateParution;
+    private LocalDate dateParution;
     private ArrayList<String> nomAuteurs;
     private final String numISBN;
     private Public publicVisé;
     private Integer numDernierExemplaire;
     
     
-    public Ouvrage(String titre, String nomEditeur, Date dateParution, ArrayList<String> nomAuteurs, String numISBN, Public publicVisé){
+    public Ouvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, String numISBN, Public publicVisé){
         this.titre = titre;
         this.nomEditeur = nomEditeur;
         this.nomAuteurs = nomAuteurs;
@@ -37,7 +38,7 @@ public class Ouvrage {
         return nomEditeur;
     }
     
-    public Date dateParution(){
+    public LocalDate dateParution(){
         return dateParution;
     }
 
