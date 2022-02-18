@@ -38,7 +38,20 @@ public void nouvelOuvrage(IHM ihm){
     if (o == null){
         // public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé)
         o = new Ouvrage(infosOuvrage.titre, infosOuvrage.nomEditeur, infosOuvrage.dateParution, infosOuvrage.nomAuteurs, infosOuvrage.numISBN, infosOuvrage.publicVisé);
-    }   
+        lierOuvrage(o, infosOuvrage.numISBN);
+        ihm.informerUtilisateur("création de l'ouvrage de numéro ISBN : " + infosOuvrage.numISBN, true);
+    }
+    else{
+        ihm.informerUtilisateur("Numéro d'ouvrage déjà inscrit dans la base",false);
+    }
+       
+}
+
+public void nouvelExemplaire(IHM ihm){
+    
+    
+    
+    
 }
 
 public Map<Integer, Lecteur> getLecteurs() {

@@ -149,7 +149,7 @@ public InfosOuvrage saisirOuvrage(){
     return new InfosOuvrage(titre, nomEditeur, dateParution, nomAuteurs, numISBN, publicVisé);
 }
 
-
+public InfosExemplaires()
 
 
 //-----  Primitives d'affichage  -----------------------------------------------
