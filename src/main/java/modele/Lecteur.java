@@ -7,51 +7,54 @@ import java.time.LocalDate;
 
 public class Lecteur implements Serializable {
 
-private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
-private final Integer num;
-private String nom;
-private String prenom;
-private LocalDate dateNaiss;
-private String email;
+    // Attributs
+    private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
+    private final Integer numLecteur ;
+    private String nomLecteur ;
+    private String prenomLecteur ;
+    private LocalDate dateNaissanceLecteur ;
+    private String mailLecteur ;
 
-public Lecteur(Integer num, String nom, String prenom, LocalDate dateNaiss, String email) {
-    this.num = num;
-    this.nom = nom;
-    this.prenom = prenom;
-    this.dateNaiss = dateNaiss;
-    this.email = email;
-}
-
-public Integer getNum() {
-    return num;
-}
-
-public String getNom() {
-    return nom;
-}
-
-public String getPrenom() {
-    return prenom;
-}
-
-public LocalDate getDateNaiss() {
-    return dateNaiss;
-}
-
-public String getEmail() {
-    return this.email;
-}
-
-public Integer getAge() {
-    int age;
-    LocalDate dateNaissComp;
-    LocalDate dateActuelle = LocalDate.now();
-    dateNaissComp = LocalDate.of(dateActuelle.getYear(), dateNaiss.getMonthValue(), dateNaiss.getDayOfMonth());
-    if (dateNaissComp.isBefore(dateActuelle)) {
-        age = dateActuelle.getYear() - dateNaiss.getYear();
-    } else {
-        age = dateActuelle.getYear() - dateNaiss.getYear() - 1;
+    // Constructeur
+    public Lecteur (Integer numLecteur, String nomLecteur, String prenomLecteur, LocalDate dateNaissanceLecteur, String mailLecteur) {
+        this.numLecteur = numLecteur ;
+        this.nomLecteur = nomLecteur ;
+        this.prenomLecteur = prenomLecteur ;
+        this.dateNaissanceLecteur = dateNaissanceLecteur ;
+        this.mailLecteur = mailLecteur ;
     }
-    return age;
-}
+
+    // Getters
+    public Integer getNumLecteur() {
+        return numLecteur ;
+    }
+
+    public String getNomLecteur() {
+        return nomLecteur ;
+    }
+
+    public String getPrenomLecteur() {
+        return prenomLecteur ;
+    }
+
+    public LocalDate getDateNaissanceLecteur() {
+        return dateNaissanceLecteur ;
+    }
+
+    public String getMailLecteur() {
+        return mailLecteur ;
+    }
+
+    public Integer getAgeLecteur() {
+        int age ;
+        LocalDate dateNaissComp;
+        LocalDate dateActuelle = LocalDate.now();
+        dateNaissComp = LocalDate.of(dateActuelle.getYear(), dateNaissanceLecteur.getMonthValue(), dateNaissanceLecteur.getDayOfMonth());
+        if (dateNaissComp.isBefore(dateActuelle)) {
+            age = dateActuelle.getYear() - dateNaissanceLecteur.getYear();
+        } else {
+            age = dateActuelle.getYear() - dateNaissanceLecteur.getYear() - 1;
+        }
+        return age ;
+    }
 }

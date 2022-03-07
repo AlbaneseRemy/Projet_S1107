@@ -2,10 +2,7 @@ package vue;
 
 import modele.*;
 import util.* ;
-import java.util.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Scanner;
+
 import java.util.Set;
 import java.time.LocalDate;
 
@@ -18,145 +15,103 @@ import java.time.LocalDate;
 
 public class IHM  {
 
-private final Bibliotheque bibliotheque;
+    private final Bibliotheque bibliotheque ;
 
-public IHM(Bibliotheque bibliotheque) {
-    this.bibliotheque = bibliotheque;
-}
-
-//-----  affichage menu et saisie des commandes par l'utilisateur  -------------------------------------------------
-
-/**
-* afficherInterface permet l'affichage du menu et le choix d'une commande
-*par l'utilisateur (dialogueSaisirCommande) puis l'invocation de la méthode
-*de la classe Bibliotheque réalisant l'action  (gererDialogue)
-*/
-
-public void afficherInterface() {
-    Commande cmd;
-    do {
-        cmd = this.dialogueSaisirCommande();
-        this.gererDialogue(cmd);
-    } while (cmd != Commande.QUITTER);
-}
-
-private Commande dialogueSaisirCommande() {
-    ES.afficherTitre("===== Bibliotheque =====");
-    ES.afficherLibelle(Commande.synopsisCommandes());
-    ES.afficherLibelle("===============================================");
-    ES.afficherLibelle("Saisir l'identifiant de l'action choisie :");
-    return Commande.lireCommande();
-}
-
-private void gererDialogue(Commande cmd) {
-    switch (cmd) {
-        case QUITTER:
-            break;
-        case CREER_LECTEUR:
-            bibliotheque.nouveauLecteur(this);
-            break;
-        case CONSULTER_LECTEURS:
-            ES.afficherLibelle("non développé");
-            break;
-        default:
-            assert false : "Commande inconnue.";
+    public IHM (Bibliotheque bibliotheque) {
+        this.bibliotheque = bibliotheque ;
     }
-}
 
-//-----  Classes conteneurs et éléments de dialogue pour le lecteur -------------------------------------------------
+    //-----  affichage menu et saisie des commandes par l'utilisateur  -------------------------------------------------
 
-/** Classe conteneur pour les informations saisies pour la création d'un
-* lecteur. Tous les attributs sont `public` par commodité d'accès.
-* Tous les attributs sont `final` pour ne pas être modifiables.
-*/
-
-public static class InfosLecteur {
-public final Integer num;
-public final String nom;
-public final String prenom;
-public final String adresse;
-public final LocalDate dateNaiss;
-public final String email;
-
-public InfosLecteur(final Integer num, final String nom, final String prenom, final String adresse, final LocalDate dateNaiss, final String email) {
-    this.num = num;
-    this.nom = nom;
-    this.prenom = prenom;
-    this.adresse = adresse ;
-    this.dateNaiss = dateNaiss;
-    this.email = email;
-}
-}
-
-
-public InfosLecteur saisirLecteur() {
-    String nom, prenom, adresse, email;
-    LocalDate dateNaiss;
-    Integer num;
-    ES.afficherTitre("== Saisie d'un lecteur ==");
-    num =ES.lireEntier("Saisir le numéro du lecteur :");
-    nom = ES.lireChaine("Saisir le nom du lecteur :");
-    prenom = ES.lireChaine("Saisir le prénom du lecteur :");
-    dateNaiss = ES.lireDate("Saisir la date de naissance du lecteur :");
-    
-    email = ES.lireEmail("Saisir l'email du lecteur :");
-
-    return new InfosLecteur(num, nom, prenom, dateNaiss, email);
-}
-
-public void afficherLecteur(final Integer num, final String nom, final String prenom,
-                    final LocalDate dateNaiss, final int age, final String email){
-    ES.afficherTitre("== affichage du lecteur== " + num);
-    ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + email);
-    ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaiss + " " + age);
-}
-
-public static class InfosOuvrage{
-    public final String titre;
-    public final String nomEditeur;
-    public final LocalDate dateParution;
-    public final ArrayList<String> nomAuteurs;
-    public final Integer numISBN;
-    public final Public publicVisé;
-
-    public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé) {
-        this.titre = titre;
-        this.nomEditeur = nomEditeur;
-        this.dateParution = dateParution;
-        this.nomAuteurs = nomAuteurs;
-        this.numISBN = numISBN;
-        this.publicVisé = publicVisé;
+    /**
+    * afficherInterface permet l'affichage du menu et le choix d'une commande
+    *par l'utilisateur (dialogueSaisirCommande) puis l'invocation de la méthode
+    *de la classe Bibliotheque réalisant l'action  (gererDialogue)
+    */
+    public void afficherInterface() {
+        Commande cmd ;
+        do {
+            cmd = this.dialogueSaisirCommande();
+            this.gererDialogue(cmd);
+        } while (cmd != Commande.QUITTER);
     }
-}
 
-public InfosOuvrage saisirOuvrage(){
-    String titre;
-    String nomEditeur;
-    LocalDate dateParution;
-    ArrayList<String> nomAuteurs = new ArrayList<>();
-    Public publicVisé;
-    Integer numISBN;
-    
-    ES.afficherTitre("== Saisie d'un ouvrage ==");
-    titre = ES.lireChaine("Saisir le titre de l'ouvrage");
-    nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur");
-    dateParution = ES.lireDate("Saisir la date de parution");
-    nomAuteurs.add(ES.lireChaine("nomAuteurs"));
-    publicVisé=ES.lirePublic("Quel est le public visé ? Enfant / Ado / Adulte, répondez 1 2 ou 3");
-    numISBN = ES.lireEntier("Saisir le numéro ISBN");
-    
-    return new InfosOuvrage(titre, nomEditeur, dateParution, nomAuteurs, numISBN, publicVisé);
-}
+    private Commande dialogueSaisirCommande() {
+        ES.afficherTitre("===== Bibliotheque =====");
+        ES.afficherLibelle(Commande.synopsisCommandes());
+        ES.afficherLibelle("===============================================");
+        ES.afficherLibelle("Saisir l'identifiant de l'action choisie :");
+        return Commande.lireCommande();
+    }
 
+    private void gererDialogue(Commande cmd) {
+        switch (cmd) {
+            case QUITTER :
+                break ;
+            case CREER_LECTEUR :
+                bibliotheque.nouveauLecteur(this) ;
+                break ;
+            case CONSULTER_LECTEURS :
+                //ES.afficherLibelle("non développé") ;
+                bibliotheque.consulterLecteur(this) ;
+                break ;
+            default :
+                assert false : "Commande inconnue." ;
+        }
+    }
 
-//-----  Primitives d'affichage  -----------------------------------------------
-public void informerUtilisateur(final String msg, final boolean succes) {
-    ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
-}
+    //-----  Classes conteneurs et éléments de dialogue pour le lecteur -------------------------------------------------
 
-public void informerUtilisateur(final String msg) {
-    ES.afficherLibelle(msg);
-}
+    /** Classe conteneur pour les informations saisies pour la création d'un
+    * lecteur. Tous les attributs sont `public` par commodité d'accès.
+    * Tous les attributs sont `final` pour ne pas être modifiables.
+    */
+    public static class InfosLecteur {
+        public final String nom ;
+        public final String prenom ;
+        public final LocalDate dateNaissance ;
+        public final String mail ;
+
+        public InfosLecteur (final String nom, final String prenom, final LocalDate dateNaissance, final String mail) {
+            this.nom = nom ;
+            this.prenom = prenom ;
+            this.dateNaissance = dateNaissance ;
+            this.mail = mail ;
+        }
+    }
+
+    public InfosLecteur saisirInfosLecteur (int numLecteur) {
+        String nom, prenom, mail ;
+        LocalDate dateNaissance ;
+
+        ES.afficherTitre("== Saisie d'un lecteur ==");
+        nom = ES.lireChaine("Saisir le nom du lecteur :");
+        prenom = ES.lireChaine("Saisir le prénom du lecteur :");
+        dateNaissance = ES.lireDate("Saisir la date de naissance du lecteur :");
+        mail = ES.lireEmail("Saisir l'email du lecteur :");
+
+        return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
+    }
+
+    public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
+        return new Integer() ;  // A FAIRE
+    }
+
+    public void afficherLecteur(final Integer num, final String nom, final String prenom,
+                                final LocalDate dateNaissance, final String mail) {
+        ES.afficherTitre("== affichage du lecteur== " + num);
+        ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
+        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + age);
+    }
+
+    //-----  Primitives d'affichage  -----------------------------------------------
+    public void informerUtilisateur(final String msg, final boolean succes) {
+        ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
+    }
+
+    public void informerUtilisateur (final String msg) {
+        ES.afficherLibelle(msg);
+    }
 
 }
 
