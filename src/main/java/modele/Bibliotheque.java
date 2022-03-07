@@ -11,6 +11,7 @@ import vue.IHM.InfosLecteur;
 
 public class Bibliotheque implements Serializable {
 
+private int numDernierLecteur;
 private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
 private Map<Integer, Lecteur> lecteurs;  // association qualifiée par le num
 
@@ -19,6 +20,8 @@ public Bibliotheque() {
 }
 
 public void nouveauLecteur(IHM ihm) {
+    //numDernierLecteur++;
+
     IHM.InfosLecteur infosLecteur = ihm.saisirLecteur();
     Lecteur l = lecteurs.get(infosLecteur.num);
     if (l == null) {

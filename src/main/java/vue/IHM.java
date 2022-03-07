@@ -92,16 +92,15 @@ public InfosLecteur saisirLecteur() {
     String nom, prenom, adresse, email;
     LocalDate dateNaiss;
     Integer num;
-
     ES.afficherTitre("== Saisie d'un lecteur ==");
     num =ES.lireEntier("Saisir le numéro du lecteur :");
     nom = ES.lireChaine("Saisir le nom du lecteur :");
     prenom = ES.lireChaine("Saisir le prénom du lecteur :");
-    adresse = ES.lireChaine("Saisir l'adresse du lecteur :");
     dateNaiss = ES.lireDate("Saisir la date de naissance du lecteur :");
+    
     email = ES.lireEmail("Saisir l'email du lecteur :");
 
-    return new InfosLecteur(num, nom, prenom, adresse, dateNaiss, email);
+    return new InfosLecteur(num, nom, prenom, dateNaiss, email);
 }
 
 public void afficherLecteur(final Integer num, final String nom, final String prenom,
