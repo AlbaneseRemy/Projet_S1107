@@ -52,7 +52,7 @@ public void nouvelOuvrage(IHM ihm){
 
 public void nouvelExemplaire(IHM ihm){
     
-    System.out.println("COUCOU");
+    System.out.println("SALUT LES COPAINS !!!");
     
     
 }
