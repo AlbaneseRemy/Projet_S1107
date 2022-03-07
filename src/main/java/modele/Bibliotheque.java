@@ -60,8 +60,14 @@ public void nouvelExemplaire(IHM ihm){
 public void consulterOuvrage(){
     Set<Integer> listISBN = getListISBN();
     Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
+    ihm.informerUtilisateur("Saisir un numéro IBSN : ");
+    ES.lireEntier();
+    while (listISBN.contains() == false){
+        ihm.informerUtilisateur("Saisir un numéro ISBN : ");
+        ES.lireEntier();
+    }
     Ouvrage o = unOuvrage(numOuvrage);
-    ihm.afficher
+    
 }
 
 public Map<Integer, Lecteur> getLecteurs() {
