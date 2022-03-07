@@ -50,11 +50,9 @@ public void nouvelOuvrage(IHM ihm){
        
 }
 
-//coucou lol
-
 public void nouvelExemplaire(IHM ihm){
     
-    System.out.println("test");
+    System.out.println("COUCOU");
     
     
 }
