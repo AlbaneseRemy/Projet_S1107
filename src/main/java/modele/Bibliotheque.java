@@ -57,14 +57,8 @@ public class Bibliotheque implements Serializable {
 public void consulterOuvrage(){
     Set<Integer> listISBN = getListISBN();
     Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
-    ihm.informerUtilisateur("Saisir un numéro IBSN : ");
-    ES.lireEntier();
-    while (listISBN.contains() == false){
-        ihm.informerUtilisateur("Saisir un numéro ISBN : ");
-        ES.lireEntier();
-    }
     Ouvrage o = unOuvrage(numOuvrage);
-    
+    ihm.afficherLecteur(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
 }
 
 public Map<Integer, Lecteur> getLecteurs() {
@@ -78,8 +72,8 @@ public Map<Integer, Ouvrage> getOuvrage(){
 
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
-        Set <Integer> listNumLecteur = getListNumLecteur () ;
-        Integer nLecteur = ihm.saisirNumLecteur (listNumLecteur) ;
+        Set <Integer> listNumLecteur = getListNumLecteur();
+        Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
         Lecteur l = unLecteur (nLecteur) ;
         ihm.afficherLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
     }

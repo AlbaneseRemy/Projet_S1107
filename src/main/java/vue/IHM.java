@@ -96,7 +96,16 @@ public class IHM  {
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         return new Integer() ;  // A FAIRE
     }
-
+    
+    public Integer saisirNumOuvrage(Set<Integer> listISBN){
+        ihm.informerUtilisateur("Saisir un numéro IBSN : ");
+        ES.lireEntier();
+        while (listISBN.contains() == false){
+            ihm.informerUtilisateur("Saisir un numéro ISBN : ");
+            ES.lireEntier();
+        }
+    }
+    
     public void afficherLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail) {
         ES.afficherTitre("== affichage du lecteur== " + num);
