@@ -49,7 +49,7 @@ public void nouvelOuvrage(IHM ihm){
 
 public void nouvelExemplaire(IHM ihm){
     
-    System.out.println("test");
+    System.out.println("test ");
     
     
 }
