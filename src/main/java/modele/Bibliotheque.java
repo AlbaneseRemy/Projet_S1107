@@ -34,6 +34,8 @@ public void nouveauLecteur(IHM ihm) {
     }
 }
 
+
+
 public Map<Integer, Lecteur> getLecteurs() {
     return this.lecteurs;
 }
