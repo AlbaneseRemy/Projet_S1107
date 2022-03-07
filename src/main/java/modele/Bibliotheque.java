@@ -50,7 +50,7 @@ public void nouvelOuvrage(IHM ihm){
        
 }
 
-//coucou
+//coucou lol
 
 public void nouvelExemplaire(IHM ihm){
     
