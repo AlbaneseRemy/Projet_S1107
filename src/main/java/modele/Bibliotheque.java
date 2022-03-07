@@ -57,6 +57,13 @@ public void nouvelExemplaire(IHM ihm){
     
 }
 
+public void consulterOuvrage(){
+    Set<Integer> listISBN = getListISBN();
+    Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
+    Ouvrage o = unOuvrage(numOuvrage);
+    ihm.afficher
+}
+
 public Map<Integer, Lecteur> getLecteurs() {
     return this.lecteur;
 }
