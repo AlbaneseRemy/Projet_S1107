@@ -1,5 +1,3 @@
-// Personnal access Token rémy : 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
-
 import modele.Bibliotheque;
 import util.Persisteur;
 import java.io.IOException;

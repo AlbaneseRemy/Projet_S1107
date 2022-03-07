@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+import modele.Public;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -120,6 +122,25 @@ public static int lireEntier(String libelle) {
 ES.afficherLibelle(libelle);
 return lireEntier();
 }  // Fin de lireEntier
+
+public static Public lirePublic(String libelle){
+    ES.afficherLibelle(libelle);
+    int a = 0;
+    Public publicVisé;
+    Scanner entree = new Scanner(System.in);
+    a=entree.nextInt();
+    entree.nextLine();
+    if (a==1){
+        publicVisé = Public.Enfant;
+    }
+    else if(a==2){
+        publicVisé = Public.Ado;
+    }
+    else{
+        publicVisé = Public.Adulte;
+    }  
+    return publicVisé;
+}
 
 //	---------------------------------------------------------------------------------------------------------------------
 //	Gestion des flottants
