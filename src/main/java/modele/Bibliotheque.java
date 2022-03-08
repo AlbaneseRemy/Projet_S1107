@@ -25,7 +25,7 @@ public class Bibliotheque implements Serializable {
     }
 
     // Cas d'utilisation 'nouveauLecteur'
-    public void nouveauLecteur(IHM ihm) {
+    public void nouveauLecteur (IHM ihm) {
         incrementerNumDernierLecteur() ;
         Integer nLecteur = getNumDernierLecteur () ;
         IHM.InfosLecteur infosLecteur = ihm.saisirInfosLecteur(nLecteur) ;
@@ -38,20 +38,13 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'nouvelOuvrage'
     public void nouvelOuvrage (IHM ihm) {
         Set <String> listISBN = getListISBN () ;
-        IHM.InfosOuvrage infosOuvrage = ihm.saisirInfosOuvrage();
-        Ouvrage o = ouvrage.get(infosOuvrage.numISBN);
-        if (o == null){
-            // public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé)
-            o = new Ouvrage(infosOuvrage.titre, infosOuvrage.nomEditeur, infosOuvrage.dateParution, infosOuvrage.nomAuteurs, infosOuvrage.numISBN, infosOuvrage.publicVisé);
-            lierOuvrage(o, infosOuvrage.numISBN);
-            ihm.informerUtilisateur("création de l'ouvrage de numéro ISBN : " + infosOuvrage.numISBN, true);
-        }
-        else{
-            ihm.informerUtilisateur("Numéro d'ouvrage déjà inscrit dans la base",false);
-        }
+        IHM.InfosOuvrage infosOuvrage = ihm.saisirInfosOuvrage(listISBN) ;
+        // public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé)
+        Ouvrage o = new Ouvrage (infosOuvrage.titre, infosOuvrage.nomEditeur, infosOuvrage.dateParution,
+                infosOuvrage.nomAuteurs, infosOuvrage.numISBN, infosOuvrage.publicVise) ;
+        lierOuvrage (o, infosOuvrage.numISBN) ;
+        ihm.informerUtilisateur("création de l'ouvrage de numéro ISBN : " + infosOuvrage.numISBN, true) ;
     }     
-
-
 
     // Cas d'utilisation 'nouvelExemplaire'
 
