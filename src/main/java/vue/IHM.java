@@ -124,7 +124,7 @@ public class IHM  {
     }
 
     // Pour consulterOuvrage
-    public Integer saisirNumOuvrage(Set<Integer> listISBN){
+    public Integer saisirNumOuvrage(Set<String> listISBN){
         Integer numOuvrage;
         informerUtilisateur("Saisir un numéro IBSN : ");
         numOuvrage = ES.lireEntier();
