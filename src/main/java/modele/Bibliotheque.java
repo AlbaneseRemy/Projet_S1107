@@ -39,7 +39,6 @@ public class Bibliotheque implements Serializable {
     public void nouvelOuvrage (IHM ihm) {
         Set <String> listISBN = getListISBN () ;
         IHM.InfosOuvrage infosOuvrage = ihm.saisirInfosOuvrage(listISBN) ;
-        // public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé)
         Ouvrage o = new Ouvrage (infosOuvrage.titre, infosOuvrage.nomEditeur, infosOuvrage.dateParution,
                 infosOuvrage.nomsAuteurs, infosOuvrage.numISBN, infosOuvrage.publicVise) ;
         lierOuvrage (o, infosOuvrage.numISBN) ;
@@ -58,12 +57,11 @@ public class Bibliotheque implements Serializable {
     }
 
     // Cas d'utilisation 'consulterOuvrage'
-
     public void consulterOuvrage(IHM ihm){
-      Set<String> listISBN = getListISBN();
-      String numOuvrage = ihm.saisirNumOuvrage(listISBN);
-      Ouvrage o = unOuvrage(numOuvrage);
-      ihm.afficherOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
+        Set<String> listISBN = getListISBN();
+        String numOuvrage = ihm.saisirNumOuvrage(listISBN);
+        Ouvrage o = unOuvrage(numOuvrage);
+        ihm.afficherOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
     }
     // Cas d'utilisation 'consulterExemplairesOuvrage'
 
