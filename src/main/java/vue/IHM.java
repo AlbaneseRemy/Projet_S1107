@@ -83,7 +83,7 @@ public class IHM  {
     public InfosLecteur saisirInfosLecteur (int numLecteur) {
         String nom, prenom, mail ;
         LocalDate dateNaissance ;
-
+        
         ES.afficherTitre("== Saisie d'un lecteur ==");
         nom = ES.lireChaine("Saisir le nom du lecteur :");
         prenom = ES.lireChaine("Saisir le prénom du lecteur :");
@@ -94,9 +94,16 @@ public class IHM  {
     }
 
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
-        return new Integer() ;  // A FAIRE
+        Integer numLecteur ;
+        informerUtilisateur("Saisir un numéro de lecteur : ") ;
+        numLecteur = ES.lireEntier() ;
+        while (listNumLecteur.contains(numLecteur) == false) {
+            informerUtilisateur("Saisir un numéro de lecteur valide : ") ;
+            numLecteur = ES.lireEntier() ;
+        }
+        return numLecteur ;
     }
-    
+
     // Pour consulterOuvrage
     public Integer saisirNumOuvrage(Set<Integer> listISBN){
         Integer numOuvrage;
