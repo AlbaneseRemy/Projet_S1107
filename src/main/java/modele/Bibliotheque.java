@@ -104,7 +104,7 @@ public void nouvelExemplaire(IHM ihm){
         return this.lecteurs ;
     }
 
-    private Lecteur unLecteur (Integer nLecteur) {
+    private Lecteur unLecteur (Integer nLecteur) { 
         return lecteurs.get(nLecteur) ;
     }
 
