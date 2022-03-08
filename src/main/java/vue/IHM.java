@@ -62,6 +62,10 @@ public class IHM  {
         }
     }
 
+    private boolean verifDate(LocalDate dateRecep) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     //-----  Classes conteneurs et éléments de dialogue pour le lecteur -------------------------------------------------
 
     /** Classe conteneur pour les informations saisies pour la création d'un
@@ -156,21 +160,21 @@ public class IHM  {
     }
 
     public static class InfosExemplaire {
-        private Date dateRecep;
+        private LocalDate dateRecep;
         private Integer nbExemplairesEntres;
         private Integer nbNonEmpruntables;
         
-        public InfosExemplaire(Date dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
+        public InfosExemplaire(LocalDate dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
             this.dateRecep=dateRecep;
             this.nbExemplairesEntres=nbExemplairesEntres;
             this.nbNonEmpruntables = nbNonEmpruntables;
         }
     }
     
-    public InfosExemplaire saisirInfosExemplaire(Date dateParution){
+    public InfosExemplaire saisirInfosExemplaire(LocalDate dateParution){
         Integer nbExemplairesEntres;
         Integer nbNonEmpruntables;
-        Date dateRecep;
+        LocalDate dateRecep;
         
         
         ES.afficherTitre("== Combien d'exemplaires rentrez vous ? ==");
@@ -178,11 +182,14 @@ public class IHM  {
         nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
         dateRecep = ES.lireDate("A quelle date l'avez vous reçu ?");
         
-        if (verifDate()){
+        while (!verifDate(dateRecep)){
             return new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
         }
+        else{
+        return null;
+            }
+        }
         
-    }
     
     public void informerUtilisateur (final String msg) {
         ES.afficherLibelle(msg);
