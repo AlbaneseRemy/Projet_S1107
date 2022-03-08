@@ -94,9 +94,16 @@ public class IHM  {
     }
 
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
-        return new Integer() ;  // A FAIRE
+        Integer numLecteur ;
+        informerUtilisateur("Saisir un numéro de lecteur : ") ;
+        numLecteur = ES.lireEntier() ;
+        while (listNumLecteur.contains(numLecteur) == false) {
+            informerUtilisateur("Saisir un numéro de lecteur valide : ") ;
+            numLecteur = ES.lireEntier() ;
+        }
+        return numLecteur ;
     }
-    
+
     // Pour consulterOuvrage
     public Integer saisirNumOuvrage(Set<Integer> listISBN){
         Integer numOuvrage;

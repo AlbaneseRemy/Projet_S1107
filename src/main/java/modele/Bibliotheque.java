@@ -72,7 +72,7 @@ public Map<Integer, Ouvrage> getOuvrage(){
 
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
-        Set <Integer> listNumLecteur = getListNumLecteur();
+        Set <Integer> listNumLecteur = getListNumLecteur() ;
         Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
         Lecteur l = unLecteur (nLecteur) ;
         ihm.afficherLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
