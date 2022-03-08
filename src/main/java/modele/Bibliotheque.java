@@ -51,12 +51,7 @@ public class Bibliotheque implements Serializable {
     }     
 
 
-public Map<Integer, Lecteur> getLecteurs(){
-    return this.lecteur;
-}
-public Map<Integer, Ouvrage> getOuvrage(){
-    return this.ouvrage;
-}
+
     // Cas d'utilisation 'nouvelExemplaire'
 
 
@@ -87,9 +82,13 @@ public Map<Integer, Ouvrage> getOuvrage(){
     public int getNumDernierLecteur () {
         return numDernierLecteur ;
     }
-    /*
-    public Map <Integer, Lecteur> getLecteurs() {
-        return this.lecteurs ;
+    
+    
+    /*public Map<Integer, Lecteur> getLecteurs(){
+        return this.lecteur;
+    }
+    public Map<Integer, Ouvrage> getOuvrages(){
+        return this.ouvrage;
     }*/
 
     private Lecteur unLecteur (Integer nLecteur) {
