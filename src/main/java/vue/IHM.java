@@ -116,6 +116,28 @@ public class IHM  {
 
         return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
     }
+    
+    public InfosLecteur saisirInfosOuvrage (int numLecteur) {
+        String titre, nomEditeur, numISBN ;
+        LocalDate dateParution ;
+        ArrayList<String> nomsAuteurs;
+        Public publicVise;
+        
+        
+        ES.afficherTitre("== Saisie d'un Ouvrage ==");
+        titre = ES.lireChaine("Saisir le titre de l'ouvrage :");
+        nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur :");
+        dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
+        // while à faire
+        while(){
+            nomsAuteurs.add(ES.lireChaine("Saisir les noms des auteurs :"));
+        }
+        numISBN = ES.lireChaine("Saisir le numéro ISBN :");
+        // String...
+        publicVise = ES.lireChaine("Saisir le public visé (Enfant, Ado, Adulte) :");
+
+        return new InfosOuvrage(titre, nomEditeur, dateParution, nomsAuteurs, numISBN, publicVise) ;
+    }
 
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         Integer numLecteur ;
