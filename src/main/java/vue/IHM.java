@@ -117,7 +117,7 @@ public class IHM  {
         return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
     }
     
-    public InfosLecteur saisirInfosOuvrage (int numLecteur) {
+    public InfosLecteur saisirInfosOuvrage (int numLecteur) {  // NE PAS OUBLIER DE MODIFIER LE PARAMETRE DE CETTE METHODE, CAMILLE...
         String titre, nomEditeur, numISBN ;
         LocalDate dateParution ;
         ArrayList<String> nomsAuteurs;
@@ -150,16 +150,13 @@ public class IHM  {
         return numLecteur ;
     }
 
-    // Pour consulterOuvrage
-    public Integer saisirNumOuvrage(Set<String> listISBN){
-        Integer numOuvrage;
-        informerUtilisateur("Saisir un numéro IBSN : ");
-        numOuvrage = ES.lireEntier();
-        while(listISBN.contains(numOuvrage) == false){
-            informerUtilisateur("Saisir un numéro ISBN valide : ");
-            numOuvrage = ES.lireEntier();
+    // Pour consulterOuvrage et consulterExemplairesOuvrage
+    public String saisirNumOuvrage (Set <String> listISBN) {
+        String numOuvrage = ES.lireChaine("Saisir un numéro ISBN : ") ;
+        while(!listISBN.contains(numOuvrage)) {
+            numOuvrage = ES.lireChaine("Saisir un numéro ISBN valide : ") ;
         }
-        return numOuvrage;
+        return numOuvrage ;
     }
     
     public void afficherLecteur(final Integer num, final String nom, final String prenom,

@@ -7,12 +7,16 @@ package modele;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+
 
 /**
  *
  * @author albanesr
  */
 public class Ouvrage {
+    
+    // Attributs
     private String titre;
     private String nomEditeur;
     private LocalDate dateParution;
@@ -20,14 +24,16 @@ public class Ouvrage {
     private final String numISBN;
     private Public publicVisé;
     private Integer numDernierExemplaire;
+    private HashSet <Exemplaire> exemplaires;
     
-    
+    // Constructeur
     public Ouvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, String numISBN, Public publicVisé){
         this.titre = titre;
         this.nomEditeur = nomEditeur;
         this.nomAuteurs = nomAuteurs;
-        this.numISBN=numISBN;
+        this.numISBN = numISBN;
         this.publicVisé = publicVisé;
+        this.exemplaires = new HashSet<>();
     }
     
     public String getTitre(){
@@ -58,8 +64,12 @@ public class Ouvrage {
         return numDernierExemplaire;
     }
     
-    public void setNumDernierExemplaire(){
+    public void setNumDernierExemplaire() {
         this.numDernierExemplaire += 1;
+    }
+    
+    public HashSet <Exemplaire> getExemplaires() {
+        return exemplaires;
     }
     
 }

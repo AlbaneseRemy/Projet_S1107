@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.HashSet;
+
 import util.ES;
 import vue.*;
 import vue.IHM.InfosLecteur;
@@ -75,8 +77,15 @@ public void nouvelExemplaire(IHM ihm){
         Ouvrage o = unOuvrage(numOuvrage);
         ihm.afficherOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
     }
-    // Cas d'utilisation 'consulterExemplairesOuvrage'
 
+    // Cas d'utilisation 'consulterExemplairesOuvrage'
+    public void consulterExemplairesOuvrages (IHM ihm) {
+        Set <String> listISBN = getListISBN () ;        
+        String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
+        Ouvrage o = unOuvrage (numOuvrage) ;
+        ihm.afficherInfosOuvrage(numOuvrage, o.getTitre()) ;  // Methode à écrire
+        HashSet <Exemplaire> exemplaires = o.getExemplaires() ;
+    } 
 
     //
     public void incrementerNumDernierLecteur () {
