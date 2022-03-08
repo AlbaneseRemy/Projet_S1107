@@ -83,7 +83,7 @@ public class IHM  {
     public InfosLecteur saisirInfosLecteur (int numLecteur) {
         String nom, prenom, mail ;
         LocalDate dateNaissance ;
-
+        
         ES.afficherTitre("== Saisie d'un lecteur ==");
         nom = ES.lireChaine("Saisir le nom du lecteur :");
         prenom = ES.lireChaine("Saisir le prénom du lecteur :");
