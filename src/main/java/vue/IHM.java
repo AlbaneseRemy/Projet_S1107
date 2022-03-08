@@ -6,6 +6,7 @@ import util.* ;
 import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
 * La classe IHM est responsable des interactions avec l'utilisateur/trice en
@@ -61,6 +62,10 @@ public class IHM  {
         }
     }
 
+    private boolean verifDate(LocalDate dateRecep) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     //-----  Classes conteneurs et éléments de dialogue pour le lecteur -------------------------------------------------
 
     /** Classe conteneur pour les informations saisies pour la création d'un
@@ -111,6 +116,28 @@ public class IHM  {
 
         return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
     }
+    
+    public InfosLecteur saisirInfosOuvrage (int numLecteur) {
+        String titre, nomEditeur, numISBN ;
+        LocalDate dateParution ;
+        ArrayList<String> nomsAuteurs;
+        Public publicVise;
+        
+        
+        ES.afficherTitre("== Saisie d'un Ouvrage ==");
+        titre = ES.lireChaine("Saisir le titre de l'ouvrage :");
+        nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur :");
+        dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
+        // while à faire
+        while(){
+            nomsAuteurs.add(ES.lireChaine("Saisir les noms des auteurs :"));
+        }
+        numISBN = ES.lireChaine("Saisir le numéro ISBN :");
+        // String...
+        publicVise = ES.lireChaine("Saisir le public visé (Enfant, Ado, Adulte) :");
+
+        return new InfosOuvrage(titre, nomEditeur, dateParution, nomsAuteurs, numISBN, publicVise) ;
+    }
 
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         Integer numLecteur ;
@@ -139,7 +166,7 @@ public class IHM  {
                                 final LocalDate dateNaissance, final String mail) {
         ES.afficherTitre("==affichage du lecteur== " + num);
         ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
-        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + age);
+        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + "age"); // A FAIRE //
     }
     
     public void afficherOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
@@ -154,6 +181,38 @@ public class IHM  {
         ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
     }
 
+    public static class InfosExemplaire {
+        private LocalDate dateRecep;
+        private Integer nbExemplairesEntres;
+        private Integer nbNonEmpruntables;
+        
+        public InfosExemplaire(LocalDate dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
+            this.dateRecep=dateRecep;
+            this.nbExemplairesEntres=nbExemplairesEntres;
+            this.nbNonEmpruntables = nbNonEmpruntables;
+        }
+    }
+    
+    public InfosExemplaire saisirInfosExemplaire(LocalDate dateParution){
+        Integer nbExemplairesEntres;
+        Integer nbNonEmpruntables;
+        LocalDate dateRecep;
+        
+        
+        ES.afficherTitre("== Combien d'exemplaires rentrez vous ? ==");
+        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
+        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        dateRecep = ES.lireDate("A quelle date l'avez vous reçu ?");
+        
+        while (!verifDate(dateRecep)){
+            return new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
+        }
+        else{
+        return null;
+            }
+        }
+        
+    
     public void informerUtilisateur (final String msg) {
         ES.afficherLibelle(msg);
     }
