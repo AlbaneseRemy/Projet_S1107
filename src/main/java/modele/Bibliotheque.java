@@ -49,9 +49,26 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Numéro d'ouvrage déjà inscrit dans la base",false);
         }
 
+    } 
+    
+    public void getListISBN(){
+        
     }
+    
+    
+public void consulterOuvrage(){
+    Set<Integer> listISBN = getListISBN();
+    Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
+    Ouvrage o = unOuvrage(numOuvrage);
+    ihm.afficherLecteur(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
+}
 
-
+public Map<Integer, Lecteur> getLecteurs() {
+    return this.lecteur;
+}
+public Map<Integer, Ouvrage> getOuvrage(){
+    return this.ouvrage;
+}
     // Cas d'utilisation 'nouvelExemplaire'
     
     public void nouvelExemplaire(IHM ihm){
@@ -64,11 +81,10 @@ public class Bibliotheque implements Serializable {
 
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
-        Set <Integer> listNumLecteur = getListNumLecteur () ;
-        Integer nLecteur = ihm.saisirNumLecteur (listNumLecteur) ;
+        Set <Integer> listNumLecteur = getListNumLecteur();
+        Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
         Lecteur l = unLecteur (nLecteur) ;
-        ihm.afficherLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(),
-                l.getMailLecteur()) ; // ECRIRE LA RECUPERATION DES ATTRIBUTS DU LECTEUR AVANT OU LA FAIRE DIRECTEMENT AVEC LES PARAMETRES ?
+        ihm.afficherLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
     }
 
     // Cas d'utilisation 'consulterOuvrage
