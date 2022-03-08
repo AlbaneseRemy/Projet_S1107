@@ -97,13 +97,16 @@ public class IHM  {
         return new Integer() ;  // A FAIRE
     }
     
+    // Pour consulterOuvrage
     public Integer saisirNumOuvrage(Set<Integer> listISBN){
-        ihm.informerUtilisateur("Saisir un numéro IBSN : ");
-        ES.lireEntier();
-        while (listISBN.contains() == false){
-            ihm.informerUtilisateur("Saisir un numéro ISBN : ");
-            ES.lireEntier();
+        Integer numOuvrage;
+        informerUtilisateur("Saisir un numéro IBSN : ");
+        numOuvrage = ES.lireEntier();
+        while(listISBN.contains(numOuvrage) == false){
+            informerUtilisateur("Saisir un numéro ISBN valide : ");
+            numOuvrage = ES.lireEntier();
         }
+        return numOuvrage;
     }
     
     public void afficherLecteur(final Integer num, final String nom, final String prenom,

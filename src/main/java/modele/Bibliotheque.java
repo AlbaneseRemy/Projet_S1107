@@ -51,7 +51,7 @@ public class Bibliotheque implements Serializable {
 
     } 
     
-    
+    public void getListISBN()
     
     
 public void consulterOuvrage(){
