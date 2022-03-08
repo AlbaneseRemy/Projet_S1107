@@ -5,6 +5,7 @@ import util.* ;
 
 import java.util.Set;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
 * La classe IHM est responsable des interactions avec l'utilisateur/trice en
@@ -79,6 +80,24 @@ public class IHM  {
             this.mail = mail ;
         }
     }
+    
+    public static class InfosOuvrage{
+        public final String titre;
+        public final String nomEditeur;
+        public final LocalDate dateParution;
+        public final ArrayList<String> nomsAuteurs;
+        public final String numISBN;
+        public final Public publicVise;
+        
+        public InfosOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs, final String numISBN, final Public publicVise){
+            this.titre = titre;
+            this.nomEditeur = nomEditeur;
+            this.dateParution = dateParution;
+            this.nomsAuteurs = nomsAuteurs;
+            this.numISBN = numISBN;
+            this.publicVise = publicVise;
+        }
+    }
 
     public InfosLecteur saisirInfosLecteur (int numLecteur) {
         String nom, prenom, mail ;
@@ -118,9 +137,16 @@ public class IHM  {
     
     public void afficherLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail) {
-        ES.afficherTitre("== affichage du lecteur== " + num);
+        ES.afficherTitre("==affichage du lecteur== " + num);
         ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
         ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + age);
+    }
+    
+    public void afficherOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
+                                final String numISBN, final Public publicVise){
+        ES.afficherTitre("==affichage de l'ouvrage== " + numISBN);
+        ES.afficherLibelle("titre, nom de l'éditeur, date de parution :" + titre + " " + nomEditeur + " " + dateParution);
+        ES.afficherLibelle("noms des auteurs, numéro ISBN, public visé :" + nomsAuteurs + " " + numISBN + " " + publicVise);
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------

@@ -69,7 +69,7 @@ public class Bibliotheque implements Serializable {
       Set<Integer> listISBN = getListISBN();
       Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
       Ouvrage o = unOuvrage(numOuvrage);
-      ihm.afficherLecteur(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
+      ihm.afficherOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
     }
     // Cas d'utilisation 'consulterExemplairesOuvrage'
 
