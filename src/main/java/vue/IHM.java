@@ -134,7 +134,20 @@ public class IHM  {
         }
     }
     
-    public InfosExemplaire saisirExemplaire(){
+    public InfosExemplaire saisirInfosExemplaire(Date dateParution){
+        Integer nbExemplairesEntres;
+        Integer nbNonEmpruntables;
+        Date dateRecep;
+        
+        
+        ES.afficherTitre("== Combien d'exemplaires rentrez vous ? ==");
+        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
+        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        dateRecep = ES.lireDate("A quelle date l'avez vous reçu ?");
+        
+        if (verifDate()){
+            return new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
+        }
         
     }
     

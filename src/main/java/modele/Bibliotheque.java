@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import util.ES;
 import vue.*;
@@ -48,20 +49,10 @@ public class Bibliotheque implements Serializable {
         else{
             ihm.informerUtilisateur("Numéro d'ouvrage déjà inscrit dans la base",false);
         }
+    }     
 
-    } 
-    
-    public void getListISBN(){}
-    
-    
-public void consulterOuvrage(){
-    Set<Integer> listISBN = getListISBN();
-    Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
-    Ouvrage o = unOuvrage(numOuvrage);
-    ihm.afficherLecteur(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
-}
 
-public Map<Integer, Lecteur> getLecteurs() {
+public Map<Integer, Lecteur> getLecteurs(){
     return this.lecteur;
 }
 public Map<Integer, Ouvrage> getOuvrage(){
@@ -70,6 +61,11 @@ public Map<Integer, Ouvrage> getOuvrage(){
     // Cas d'utilisation 'nouvelExemplaire'
     
 public void nouvelExemplaire(IHM ihm){
+    Set<String> gi;
+    gi = getListISBN();
+    String numOuvrage = ihm.saisirNumOuvrage(gi);
+    
+    
     
     IHM.InfosExemplaire infosExemplaire = ihm.saisirExemplaire();
         
@@ -84,9 +80,14 @@ public void nouvelExemplaire(IHM ihm){
         ihm.afficherLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
     }
 
-    // Cas d'utilisation 'consulterOuvrage
+    // Cas d'utilisation 'consulterOuvrage'
 
-
+    public void consulterOuvrage(IHM ihm){
+      Set<Integer> listISBN = getListISBN();
+      Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
+      Ouvrage o = unOuvrage(numOuvrage);
+      ihm.afficherLecteur(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
+    }
     // Cas d'utilisation 'consulterExemplairesOuvrage'
 
 
@@ -98,8 +99,8 @@ public void nouvelExemplaire(IHM ihm){
     public int getNumDernierLecteur () {
         return numDernierLecteur ;
     }
-
-    public Map <Integer, Lecteur> getLecteurs() {
+    
+    public Map <Integer, Lecteur> unLecteur() {
         return this.lecteurs ;
     }
 
@@ -114,8 +115,12 @@ public void nouvelExemplaire(IHM ihm){
     private void lierLecteur (Lecteur l, Integer num) {
         this.lecteurs.put(num, l) ;
     }
+    
+     public Set <String> getListISBN(){
+        return ouvrages.keySet();
+    }
 
-    public Map <Integer, Ouvrage> getOuvrage() {
+    public Map <Integer, Ouvrage> unOuvrage() {
         return this.ouvrages ;
     }
 
