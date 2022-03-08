@@ -113,7 +113,7 @@ public Map<Integer, Ouvrage> getOuvrage(){
     }
 
     private void lierOuvrage(Ouvrage o, Integer ISBN) {
-        this.ouvrage.put(ISBN, o);
+        this.ouvrages.put(ISBN, o);
     }
 
 }
