@@ -98,7 +98,18 @@ public class IHM  {
         return new Integer() ;  // A FAIRE
     }
     
-
+    // Pour consulterOuvrage
+    public Integer saisirNumOuvrage(Set<Integer> listISBN){
+        Integer numOuvrage;
+        informerUtilisateur("Saisir un numéro IBSN : ");
+        numOuvrage = ES.lireEntier();
+        while(listISBN.contains(numOuvrage) == false){
+            informerUtilisateur("Saisir un numéro ISBN valide : ");
+            numOuvrage = ES.lireEntier();
+        }
+        return numOuvrage;
+    }
+    
     public void afficherLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail) {
         ES.afficherTitre("== affichage du lecteur== " + num);

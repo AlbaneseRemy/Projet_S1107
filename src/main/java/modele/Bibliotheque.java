@@ -51,9 +51,7 @@ public class Bibliotheque implements Serializable {
 
     } 
     
-    public void getListISBN(){
-        
-    }
+    public void getListISBN(){}
     
     
 public void consulterOuvrage(){
@@ -71,12 +69,11 @@ public Map<Integer, Ouvrage> getOuvrage(){
 }
     // Cas d'utilisation 'nouvelExemplaire'
     
-    public void nouvelExemplaire(IHM ihm){
-        Ouvrage o = ouvrages.get(infosOuvrage.numISBN);
-        IHM.InfosExemplaire infosExemplaire = ihm.saisirExemplaire();
+public void nouvelExemplaire(IHM ihm){
+    
+    IHM.InfosExemplaire infosExemplaire = ihm.saisirExemplaire();
         
-        
-    }
+}
 
 
     // Cas d'utilisation 'consulterLecteur'
