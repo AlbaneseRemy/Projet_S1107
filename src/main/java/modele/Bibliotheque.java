@@ -27,7 +27,7 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'nouveauLecteur'
     public void nouveauLecteur(IHM ihm) {
         incrementerNumDernierLecteur() ;
-        Integer nLecteur = getNumDernierLecteur () ;
+        Integer nLecteur = getNumDernierLecteur() ;
         IHM.InfosLecteur infosLecteur = ihm.saisirInfosLecteur(nLecteur) ;
         Lecteur l = new Lecteur (nLecteur, infosLecteur.nom, infosLecteur.prenom,
                 infosLecteur.dateNaissance, infosLecteur.mail) ;
@@ -38,7 +38,7 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'nouvelOuvrage'
     public void nouvelOuvrage(IHM ihm){
         IHM.InfosOuvrage infosOuvrage = ihm.saisirOuvrage();
-        Ouvrage o = ouvrage.get(infosOuvrage.numISBN);
+        Ouvrage o = ouvrages.get(infosOuvrage.numISBN);
         if (o == null){
             // public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé)
             o = new Ouvrage(infosOuvrage.titre, infosOuvrage.nomEditeur, infosOuvrage.dateParution, infosOuvrage.nomAuteurs, infosOuvrage.numISBN, infosOuvrage.publicVisé);
@@ -53,6 +53,13 @@ public class Bibliotheque implements Serializable {
 
 
     // Cas d'utilisation 'nouvelExemplaire'
+    
+    public void nouvelExemplaire(IHM ihm){
+        Ouvrage o = ouvrages.get(infosOuvrage.numISBN);
+        IHM.InfosExemplaire infosExemplaire = ihm.saisirExemplaire();
+        
+        
+    }
 
 
     // Cas d'utilisation 'consulterLecteur'
@@ -100,7 +107,7 @@ public class Bibliotheque implements Serializable {
     }
 
     private void lierOuvrage(Ouvrage o, Integer ISBN) {
-        this.ouvrage.put(ISBN, o);
+        this.ouvrages.put(ISBN, o);
     }
 
 }

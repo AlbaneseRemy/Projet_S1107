@@ -5,6 +5,7 @@ import util.* ;
 
 import java.util.Set;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
 * La classe IHM est responsable des interactions avec l'utilisateur/trice en
@@ -79,7 +80,7 @@ public class IHM  {
             this.mail = mail ;
         }
     }
-
+    
     public InfosLecteur saisirInfosLecteur (int numLecteur) {
         String nom, prenom, mail ;
         LocalDate dateNaissance ;
@@ -96,12 +97,13 @@ public class IHM  {
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         return new Integer() ;  // A FAIRE
     }
+    
 
     public void afficherLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail) {
         ES.afficherTitre("== affichage du lecteur== " + num);
         ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
-        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + age);
+        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + "age"); // A FAIRE //
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------
@@ -109,6 +111,22 @@ public class IHM  {
         ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
     }
 
+    public static class InfosExemplaire {
+        private Date dateRecep;
+        private Integer nbExemplairesEntres;
+        private Integer nbNonEmpruntables;
+        
+        public InfosExemplaire(Date dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
+            this.dateRecep=dateRecep;
+            this.nbExemplairesEntres=nbExemplairesEntres;
+            this.nbNonEmpruntables = nbNonEmpruntables;
+        }
+    }
+    
+    public InfosExemplaire saisirExemplaire(){
+        
+    }
+    
     public void informerUtilisateur (final String msg) {
         ES.afficherLibelle(msg);
     }
