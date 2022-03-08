@@ -15,7 +15,7 @@ public class Bibliotheque implements Serializable {
     private static final long serialVersionUID = 1L ;  // nécessaire pour la sérialisation
     private Integer numDernierLecteur ;
     private Map<Integer, Lecteur> lecteurs ;  // association qualifiée par le numéro d'un lecteur
-    private Map<Integer, Ouvrage> ouvrages ;  // association qualifiée par l'ISBN d'un ouvrage
+    private Map<String, Ouvrage> ouvrages ;  // association qualifiée par l'ISBN d'un ouvrage
 
     // Constructeur
     public Bibliotheque() {
@@ -36,8 +36,9 @@ public class Bibliotheque implements Serializable {
     }
 
     // Cas d'utilisation 'nouvelOuvrage'
-    public void nouvelOuvrage(IHM ihm){
-        IHM.InfosOuvrage infosOuvrage = ihm.saisirOuvrage();
+    public void nouvelOuvrage (IHM ihm) {
+        Set <String> listISBN = getListISBN () ;
+        IHM.InfosOuvrage infosOuvrage = ihm.saisirInfosOuvrage();
         Ouvrage o = ouvrage.get(infosOuvrage.numISBN);
         if (o == null){
             // public InfosOuvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, Integer numISBN, Public publicVisé)
@@ -66,8 +67,8 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'consulterOuvrage'
 
     public void consulterOuvrage(IHM ihm){
-      Set<Integer> listISBN = getListISBN();
-      Integer numOuvrage = ihm.saisirNumOuvrage(listISBN);
+      Set<String> listISBN = getListISBN();
+      String numOuvrage = ihm.saisirNumOuvrage(listISBN);
       Ouvrage o = unOuvrage(numOuvrage);
       ihm.afficherLecteur(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
     }
@@ -87,7 +88,7 @@ public class Bibliotheque implements Serializable {
     /*public Map<Integer, Lecteur> getLecteurs(){
         return this.lecteur;
     }
-    public Map<Integer, Ouvrage> getOuvrages(){
+    public Map<String, Ouvrage> getOuvrages(){
         return this.ouvrage;
     }*/
 
@@ -103,15 +104,15 @@ public class Bibliotheque implements Serializable {
         this.lecteurs.put(num, l) ;
     }
     
-     public Set <Integer> getListISBN(){
+     public Set <String> getListISBN(){
         return ouvrages.keySet();
     }
 
-    private Ouvrage unOuvrage(Integer numOuvrage) {
+    private Ouvrage unOuvrage(String numOuvrage) {
         return ouvrages.get(numOuvrage);
     }
 
-    private void lierOuvrage(Ouvrage o, Integer ISBN) {
+    private void lierOuvrage(Ouvrage o, String ISBN) {
         this.ouvrages.put(ISBN, o);
     }
 
