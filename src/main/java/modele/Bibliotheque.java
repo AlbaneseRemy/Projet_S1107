@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import util.ES;
 import vue.*;
@@ -27,7 +28,7 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'nouveauLecteur'
     public void nouveauLecteur (IHM ihm) {
         incrementerNumDernierLecteur() ;
-        Integer nLecteur = getNumDernierLecteur () ;
+        Integer nLecteur = getNumDernierLecteur() ;
         IHM.InfosLecteur infosLecteur = ihm.saisirInfosLecteur(nLecteur) ;
         Lecteur l = new Lecteur (nLecteur, infosLecteur.nom, infosLecteur.prenom,
                 infosLecteur.dateNaissance, infosLecteur.mail) ;
@@ -47,6 +48,17 @@ public class Bibliotheque implements Serializable {
     }     
 
     // Cas d'utilisation 'nouvelExemplaire'
+    
+public void nouvelExemplaire(IHM ihm){
+    Set<String> gi;
+    gi = getListISBN();
+    String numOuvrage = ihm.saisirNumOuvrage(gi);
+    
+    
+    
+    IHM.InfosExemplaire infosExemplaire = ihm.saisirExemplaire();
+        
+}
 
 
     // Cas d'utilisation 'consulterLecteur'
@@ -85,7 +97,7 @@ public class Bibliotheque implements Serializable {
         return this.ouvrage;
     }*/
 
-    private Lecteur unLecteur (Integer nLecteur) {
+    private Lecteur unLecteur (Integer nLecteur) { 
         return lecteurs.get(nLecteur) ;
     }
 

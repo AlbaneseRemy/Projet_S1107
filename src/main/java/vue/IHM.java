@@ -6,6 +6,7 @@ import util.* ;
 import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
 * La classe IHM est responsable des interactions avec l'utilisateur/trice en
@@ -161,7 +162,7 @@ public class IHM  {
                                 final LocalDate dateNaissance, final String mail) {
         ES.afficherTitre("==affichage du lecteur== " + num);
         ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
-        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + age);
+        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + "age"); // A FAIRE //
     }
     
     public void afficherOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
@@ -176,6 +177,35 @@ public class IHM  {
         ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
     }
 
+    public static class InfosExemplaire {
+        private Date dateRecep;
+        private Integer nbExemplairesEntres;
+        private Integer nbNonEmpruntables;
+        
+        public InfosExemplaire(Date dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
+            this.dateRecep=dateRecep;
+            this.nbExemplairesEntres=nbExemplairesEntres;
+            this.nbNonEmpruntables = nbNonEmpruntables;
+        }
+    }
+    
+    public InfosExemplaire saisirInfosExemplaire(Date dateParution){
+        Integer nbExemplairesEntres;
+        Integer nbNonEmpruntables;
+        Date dateRecep;
+        
+        
+        ES.afficherTitre("== Combien d'exemplaires rentrez vous ? ==");
+        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
+        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        dateRecep = ES.lireDate("A quelle date l'avez vous reçu ?");
+        
+        if (verifDate()){
+            return new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
+        }
+        
+    }
+    
     public void informerUtilisateur (final String msg) {
         ES.afficherLibelle(msg);
     }

@@ -207,6 +207,12 @@ public class ES {
         // Extrait le mois de cette variable et la renvoie
         return dateCourante.getMonthValue() ;
     }
+    
+    private static boolean dateValide(LocalDate verif){
+        LocalDate dateCourante = LocalDate.now();
+        // Ajouter condition de vérification de la date
+        return true;
+    }
 
     //	----------------------------------------------------------------------------------------------------------------
     //	Affichage d'informations
