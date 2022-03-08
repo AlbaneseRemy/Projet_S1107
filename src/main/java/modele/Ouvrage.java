@@ -38,11 +38,11 @@ public class Ouvrage {
         return nomEditeur;
     }
     
-    public LocalDate dateParution(){
+    public LocalDate getDateParution(){
         return dateParution;
     }
 
-    public ArrayList<String> getNomAuteurs() {
+    public ArrayList<String> getNomsAuteurs() {
         return nomAuteurs;
     }
 
@@ -50,7 +50,7 @@ public class Ouvrage {
         return numISBN;
     }
 
-    public Public getPublicVisé() {
+    public Public getPublicVise() {
         return publicVisé;
     }
 

@@ -5,6 +5,7 @@ import util.* ;
 
 import java.util.Set;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -81,10 +82,28 @@ public class IHM  {
         }
     }
     
+    public static class InfosOuvrage{
+        public final String titre;
+        public final String nomEditeur;
+        public final LocalDate dateParution;
+        public final ArrayList<String> nomsAuteurs;
+        public final String numISBN;
+        public final Public publicVise;
+        
+        public InfosOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs, final String numISBN, final Public publicVise){
+            this.titre = titre;
+            this.nomEditeur = nomEditeur;
+            this.dateParution = dateParution;
+            this.nomsAuteurs = nomsAuteurs;
+            this.numISBN = numISBN;
+            this.publicVise = publicVise;
+        }
+    }
+
     public InfosLecteur saisirInfosLecteur (int numLecteur) {
         String nom, prenom, mail ;
         LocalDate dateNaissance ;
-
+        
         ES.afficherTitre("== Saisie d'un lecteur ==");
         nom = ES.lireChaine("Saisir le nom du lecteur :");
         prenom = ES.lireChaine("Saisir le prénom du lecteur :");
@@ -95,11 +114,18 @@ public class IHM  {
     }
 
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
-        return new Integer() ;  // A FAIRE
+        Integer numLecteur ;
+        informerUtilisateur("Saisir un numéro de lecteur : ") ;
+        numLecteur = ES.lireEntier() ;
+        while (listNumLecteur.contains(numLecteur) == false) {
+            informerUtilisateur("Saisir un numéro de lecteur valide : ") ;
+            numLecteur = ES.lireEntier() ;
+        }
+        return numLecteur ;
     }
-    
+
     // Pour consulterOuvrage
-    public Integer saisirNumOuvrage(Set<Integer> listISBN){
+    public Integer saisirNumOuvrage(Set<String> listISBN){
         Integer numOuvrage;
         informerUtilisateur("Saisir un numéro IBSN : ");
         numOuvrage = ES.lireEntier();
@@ -112,9 +138,16 @@ public class IHM  {
     
     public void afficherLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail) {
-        ES.afficherTitre("== affichage du lecteur== " + num);
+        ES.afficherTitre("==affichage du lecteur== " + num);
         ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
         ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + "age"); // A FAIRE //
+    }
+    
+    public void afficherOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
+                                final String numISBN, final Public publicVise){
+        ES.afficherTitre("==affichage de l'ouvrage== " + numISBN);
+        ES.afficherLibelle("titre, nom de l'éditeur, date de parution :" + titre + " " + nomEditeur + " " + dateParution);
+        ES.afficherLibelle("noms des auteurs, numéro ISBN, public visé :" + nomsAuteurs + " " + numISBN + " " + publicVise);
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------
