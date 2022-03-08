@@ -87,10 +87,10 @@ public Map<Integer, Ouvrage> getOuvrage(){
     public int getNumDernierLecteur () {
         return numDernierLecteur ;
     }
-    
-    public Map <Integer, Lecteur> unLecteur() {
+    /*
+    public Map <Integer, Lecteur> getLecteurs() {
         return this.lecteurs ;
-    }
+    }*/
 
     private Lecteur unLecteur (Integer nLecteur) {
         return lecteurs.get(nLecteur) ;
@@ -108,8 +108,8 @@ public Map<Integer, Ouvrage> getOuvrage(){
         return ouvrages.keySet();
     }
 
-    public Map <Integer, Ouvrage> unOuvrage() {
-        return this.ouvrages ;
+    private Ouvrage unOuvrage(Integer numOuvrage) {
+        return ouvrages.get(numOuvrage);
     }
 
     private void lierOuvrage(Ouvrage o, Integer ISBN) {
