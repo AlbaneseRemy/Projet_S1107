@@ -107,6 +107,18 @@ public class IHM  {
         }
     }
 
+    public static class InfosExemplaire {
+        public LocalDate dateRecep;
+        public Integer nbExemplairesEntres;
+        public Integer nbNonEmpruntables;
+        
+        public InfosExemplaire(LocalDate dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
+            this.dateRecep=dateRecep;
+            this.nbExemplairesEntres=nbExemplairesEntres;
+            this.nbNonEmpruntables = nbNonEmpruntables;
+        }
+    }
+    
     public InfosLecteur saisirInfosLecteur (int numLecteur) {
         String nom, prenom, mail ;
         LocalDate dateNaissance ;
@@ -157,6 +169,25 @@ public class IHM  {
         return new InfosOuvrage(titre, nomEditeur, dateParution, nomsAuteurs, numISBN, publicVise) ;
     }
 
+    public InfosExemplaire saisirInfosExemplaire(LocalDate dateParution){
+        Integer nbExemplairesEntres;
+        Integer nbNonEmpruntables;
+        LocalDate dateRecep;
+
+        ES.afficherTitre("== Saisie d'exemplaires ==");
+        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
+        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        dateRecep = ES.lireDate("Saisir la date de réception : ");
+
+        while (dateParution > dateRecep || dateRecep > localDate.now()) {
+            new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
+        }
+        else{
+        return null;
+            }
+        }
+     
+    
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         Integer numLecteur ;
         informerUtilisateur("Saisir un numéro de lecteur : ") ;
@@ -200,43 +231,12 @@ public class IHM  {
             ES.afficherLibelle("numéro d'exemplaire :" + numEx);
         }
     }
+    
 
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
         ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
     }
-
-    public static class InfosExemplaire {
-        public LocalDate dateRecep;
-        public Integer nbExemplairesEntres;
-        public Integer nbNonEmpruntables;
-        
-        public InfosExemplaire(LocalDate dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
-            this.dateRecep=dateRecep;
-            this.nbExemplairesEntres=nbExemplairesEntres;
-            this.nbNonEmpruntables = nbNonEmpruntables;
-        }
-    }
-    
-    public InfosExemplaire saisirInfosExemplaire(LocalDate dateParution){
-        Integer nbExemplairesEntres;
-        Integer nbNonEmpruntables;
-        LocalDate dateRecep;
-        
-        
-        ES.afficherTitre("== Combien d'exemplaires rentrez vous ? ==");
-        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
-        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
-        dateRecep = ES.lireDate("A quelle date l'avez vous reçu ?");
-        
-        while (!verifDate(dateRecep)){
-            return new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
-        }
-        else{
-        return null;
-            }
-        }
-        
     
     public void informerUtilisateur (final String msg) {
         ES.afficherLibelle(msg);
