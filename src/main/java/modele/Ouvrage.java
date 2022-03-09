@@ -22,20 +22,38 @@ public class Ouvrage {
     private LocalDate dateParution;
     private ArrayList<String> nomAuteurs;
     private final String numISBN;
-    private Public publicVisé;
+    private Public publicVise;
     private Integer numDernierExemplaire;
     private HashSet <Exemplaire> exemplaires;
-    
+
     // Constructeur
-    public Ouvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, String numISBN, Public publicVisé){
+    public Ouvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, String numISBN, Public publicVise) {
         this.titre = titre;
         this.nomEditeur = nomEditeur;
+        this.dateParution = dateParution;
         this.nomAuteurs = nomAuteurs;
         this.numISBN = numISBN;
-        this.publicVisé = publicVisé;
+        this.publicVise = publicVise;
+        this.numDernierExemplaire = 0;
         this.exemplaires = new HashSet<>();
     }
-    
+
+    // Methode ajouterExemplaire
+    public void ajouterExemplaire (LocalDate dateRecep, Boolean estEmpruntable) {
+        incrementerNumDernierExemplaire() ;
+        Exemplaire e = new Exemplaire (dateRecep, estEmpruntable, this) ;
+        lierExemplaire(e) ;
+    }
+
+    public void incrementerNumDernierExemplaire() {
+        this.numDernierExemplaire++;
+    }
+
+    public void lierExemplaire (Exemplaire e) {
+        this.exemplaires.add(e) ;
+    }
+
+    // Getters
     public String getTitre(){
         return titre;
     }
@@ -62,10 +80,6 @@ public class Ouvrage {
 
     public Integer getNumDernierExemplaire() {
         return numDernierExemplaire;
-    }
-    
-    public void setNumDernierExemplaire() {
-        this.numDernierExemplaire += 1;
     }
     
     public HashSet <Exemplaire> getExemplaires() {

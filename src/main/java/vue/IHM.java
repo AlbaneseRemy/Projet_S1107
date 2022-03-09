@@ -179,9 +179,9 @@ public class IHM  {
     }
 
     public static class InfosExemplaire {
-        private LocalDate dateRecep;
-        private Integer nbExemplairesEntres;
-        private Integer nbNonEmpruntables;
+        public LocalDate dateRecep;
+        public Integer nbExemplairesEntres;
+        public Integer nbNonEmpruntables;
         
         public InfosExemplaire(LocalDate dateRecep, Integer nbExemplairesEntres, Integer nbNonEmpruntables){
             this.dateRecep=dateRecep;

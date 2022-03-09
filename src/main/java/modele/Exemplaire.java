@@ -4,27 +4,37 @@
  */
 package modele;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author albanesr
  */
-public class Exemplaire{
-    private Date dateRecep;
+public class Exemplaire {
+    
+    // Attributs
+    private LocalDate dateRecep;
     private Boolean estEmpruntable;
     private final Integer numExemplaire;
+    private Ouvrage ouvrage;
     
-    public Exemplaire(Date dateRecep, boolean estEmpruntable){
-        this.dateRecep=dateRecep;
-        this.estEmpruntable=estEmpruntable;
-        this.numExemplaire = 1; //A MODIFIER POUR RAJOUTER L'INCRÉMENTATION
+    // Constructeur
+    public Exemplaire(LocalDate dateRecep, Boolean estEmpruntable, Ouvrage ouvrage) {
+        this.dateRecep = dateRecep ;
+        this.estEmpruntable = estEmpruntable ;
+        this.lierOuvrage(ouvrage) ;
+        this.numExemplaire = this.ouvrage.getNumDernierExemplaire() ;
     }
 
-    public Date getDateRecep() {
+    private void lierOuvrage (Ouvrage ouvrage) {
+        this.ouvrage = ouvrage ;
+    }
+
+    // Getters
+    public LocalDate getDateRecep() {
         return dateRecep;
     }
-
+    
     public Integer getNumExemplaire() {
         return numExemplaire;
     }

@@ -12,6 +12,7 @@ import util.ES;
 import vue.*;
 import vue.IHM.InfosLecteur;
 
+
 public class Bibliotheque implements Serializable {
 
     // Attributs
@@ -49,17 +50,21 @@ public class Bibliotheque implements Serializable {
     }     
 
     // Cas d'utilisation 'nouvelExemplaire'
-    
-public void nouvelExemplaire(IHM ihm){
-    Set<String> gi;
-    gi = getListISBN();
-    String numOuvrage = ihm.saisirNumOuvrage(gi);
-    
-    
-    
-    IHM.InfosExemplaire infosExemplaire = ihm.saisirExemplaire();
-        
-}
+    public void nouvelExemplaire(IHM ihm) {
+        Set <String> listISBN = getListISBN () ;
+        String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
+        Ouvrage o = unOuvrage (numOuvrage) ;
+        LocalDate dateParution = o.getDateParution() ;
+        IHM.InfosExemplaire infosExemplaire = ihm.saisirInfosExemplaire(dateParution) ;
+        for (int i=0 ; i<infosExemplaire.nbNonEmpruntables ; i++)
+            o.ajouterExemplaire (infosExemplaire.dateRecep, false) ;
+        for (int i=0 ; i<infosExemplaire.nbExemplairesEntres-infosExemplaire.nbNonEmpruntables ; i++)
+            o.ajouterExemplaire (infosExemplaire.dateRecep, true) ;
+        if (infosExemplaire.nbExemplairesEntres > 1)
+            ihm.informerUtilisateur("Création des exemplaires", true);
+        else
+            ihm.informerUtilisateur("Création de l'exemplaire", true);
+    }
 
 
     // Cas d'utilisation 'consulterLecteur'
@@ -67,7 +72,7 @@ public void nouvelExemplaire(IHM ihm){
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
         Lecteur l = unLecteur (nLecteur) ;
-        ihm.afficherLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
+        ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
     }
 
     // Cas d'utilisation 'consulterOuvrage'
@@ -75,7 +80,7 @@ public void nouvelExemplaire(IHM ihm){
         Set<String> listISBN = getListISBN();
         String numOuvrage = ihm.saisirNumOuvrage(listISBN);
         Ouvrage o = unOuvrage(numOuvrage);
-        ihm.afficherOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
+        ihm.afficherInfosOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
     }
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
