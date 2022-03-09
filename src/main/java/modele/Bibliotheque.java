@@ -67,7 +67,7 @@ public void nouvelExemplaire(IHM ihm){
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
         Lecteur l = unLecteur (nLecteur) ;
-        ihm.afficherLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
+        ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
     }
 
     // Cas d'utilisation 'consulterOuvrage'
@@ -75,7 +75,7 @@ public void nouvelExemplaire(IHM ihm){
         Set<String> listISBN = getListISBN();
         String numOuvrage = ihm.saisirNumOuvrage(listISBN);
         Ouvrage o = unOuvrage(numOuvrage);
-        ihm.afficherOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
+        ihm.afficherInfosOuvrage(o.getTitre(), o.getNomEditeur(), o.getDateParution(), o.getNomsAuteurs(), o.getNumISBN(), o.getPublicVise());
     }
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
@@ -83,7 +83,7 @@ public void nouvelExemplaire(IHM ihm){
         Set <String> listISBN = getListISBN () ;        
         String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
         Ouvrage o = unOuvrage (numOuvrage) ;
-        ihm.afficherInfosOuvrage(numOuvrage, o.getTitre()) ;  // Methode à écrire
+        ihm.afficherInfosExemplaireOuvrage(numOuvrage, o.getTitre()) ;  // Methode à écrire
         HashSet <Exemplaire> exemplaires = o.getExemplaires() ;
     } 
 

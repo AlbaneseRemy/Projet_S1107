@@ -159,18 +159,22 @@ public class IHM  {
         return numOuvrage ;
     }
     
-    public void afficherLecteur(final Integer num, final String nom, final String prenom,
+    public void afficherInfosLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail) {
         ES.afficherTitre("==affichage du lecteur== " + num);
         ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
         ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + "age"); // A FAIRE //
     }
     
-    public void afficherOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
+    public void afficherInfosOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
                                 final String numISBN, final Public publicVise){
         ES.afficherTitre("==affichage de l'ouvrage== " + numISBN);
         ES.afficherLibelle("titre, nom de l'éditeur, date de parution :" + titre + " " + nomEditeur + " " + dateParution);
         ES.afficherLibelle("noms des auteurs, numéro ISBN, public visé :" + nomsAuteurs + " " + numISBN + " " + publicVise);
+    }
+    
+    public void afficherInfosExemplaireOuvrage(final){
+        
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------
