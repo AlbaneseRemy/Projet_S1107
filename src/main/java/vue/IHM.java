@@ -117,7 +117,7 @@ public class IHM  {
         return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
     }
     
-    public InfosLecteur saisirInfosOuvrage (int numLecteur) {  // NE PAS OUBLIER DE MODIFIER LE PARAMETRE DE CETTE METHODE, CAMILLE...
+    public InfosOuvrage saisirInfosOuvrage (Set<String> listISBN) {
         String titre, nomEditeur, numISBN ;
         LocalDate dateParution ;
         ArrayList<String> nomsAuteurs;
@@ -144,8 +144,7 @@ public class IHM  {
         informerUtilisateur("Saisir un numéro de lecteur : ") ;
         numLecteur = ES.lireEntier() ;
         while (listNumLecteur.contains(numLecteur) == false) {
-            informerUtilisateur("Saisir un numéro de lecteur valide : ") ;
-            numLecteur = ES.lireEntier() ;
+            numLecteur = ES.lireEntier("Saisir un numéro de lecteur valide : ") ;
         }
         return numLecteur ;
     }
@@ -173,8 +172,12 @@ public class IHM  {
         ES.afficherLibelle("noms des auteurs, numéro ISBN, public visé :" + nomsAuteurs + " " + numISBN + " " + publicVise);
     }
     
-    public void afficherInfosExemplaireOuvrage(final){
-        
+    public void afficherInfosOuvrage(final String numOuvrage, final String titre){
+        ES.afficherTitre("==affichage de l'ouvrage== " + numOuvrage + ", " + titre);
+    }
+    
+    public void afficherInfosExemplaireOuvrage(final Integer numEx){
+        ES.afficherLibelle("numéro d'exemplaire :" + numEx);
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------

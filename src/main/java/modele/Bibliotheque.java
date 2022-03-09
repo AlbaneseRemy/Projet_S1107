@@ -83,8 +83,9 @@ public void nouvelExemplaire(IHM ihm){
         Set <String> listISBN = getListISBN () ;        
         String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
         Ouvrage o = unOuvrage (numOuvrage) ;
-        ihm.afficherInfosExemplaireOuvrage(numOuvrage, o.getTitre()) ;  // Methode à écrire
+        ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
         HashSet <Exemplaire> exemplaires = o.getExemplaires() ;
+        ihm.afficherInfosExemplaireOuvrage(o.numEx());
     } 
 
     //
