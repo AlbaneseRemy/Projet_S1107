@@ -1,5 +1,6 @@
 package vue;
 
+import static java.lang.reflect.Array.set;
 import modele.*;
 import util.* ;
 
@@ -7,6 +8,8 @@ import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
 * La classe IHM est responsable des interactions avec l'utilisateur/trice en
@@ -117,25 +120,40 @@ public class IHM  {
         return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
     }
     
-    public InfosLecteur saisirInfosOuvrage (int numLecteur) {  // NE PAS OUBLIER DE MODIFIER LE PARAMETRE DE CETTE METHODE, CAMILLE...
+    public InfosOuvrage saisirInfosOuvrage (Set<String> listISBN) {
         String titre, nomEditeur, numISBN ;
         LocalDate dateParution ;
         ArrayList<String> nomsAuteurs;
         Public publicVise;
         
-        
         ES.afficherTitre("== Saisie d'un Ouvrage ==");
+        
         titre = ES.lireChaine("Saisir le titre de l'ouvrage :");
         nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur :");
         dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
-        // while à faire
-        while(){
-            nomsAuteurs.add(ES.lireChaine("Saisir les noms des auteurs :"));
+        nomsAuteurs = new ArrayList<>();
+        nomsAuteurs.add(ES.lireChaine("Saisir le nom de l'auteur (ou un des noms des auteurs) :"));
+        String reponse = ES.lireChaine("Voulez-vous rajouter un auteur ? Saisir o (pour oui) ou n (pour non) :");
+        while(!reponse.equals("n")){
+            nomsAuteurs.add(ES.lireChaine("Saisir le nom de l'auteur (ou un des noms des auteurs) :"));
+            reponse = ES.lireChaine("Voulez-vous rajouter un auteur ? Saisir o (pour oui) ou n (pour non) :");
         }
         numISBN = ES.lireChaine("Saisir le numéro ISBN :");
-        // String...
-        publicVise = ES.lireChaine("Saisir le public visé (Enfant, Ado, Adulte) :");
-
+        String pub = ES.lireChaine("Saisir le public visé (enfant, ado, adulte) :");
+        while(!pub.equals("enfant") && !pub.equals("ado") && !pub.equals("adulte")){
+            pub = ES.lireChaine("Saisir le public visé (enfant, ado, adulte) :");
+        }
+        switch (pub) {
+            case "enfant":
+                publicVise = Public.ENFANT;
+                break;
+            case "ado":
+                publicVise = Public.ADO;
+                break;
+            default:
+                publicVise = Public.ADULTE;
+                break;
+        }
         return new InfosOuvrage(titre, nomEditeur, dateParution, nomsAuteurs, numISBN, publicVise) ;
     }
 
@@ -144,8 +162,7 @@ public class IHM  {
         informerUtilisateur("Saisir un numéro de lecteur : ") ;
         numLecteur = ES.lireEntier() ;
         while (listNumLecteur.contains(numLecteur) == false) {
-            informerUtilisateur("Saisir un numéro de lecteur valide : ") ;
-            numLecteur = ES.lireEntier() ;
+            numLecteur = ES.lireEntier("Saisir un numéro de lecteur valide : ") ;
         }
         return numLecteur ;
     }
@@ -159,18 +176,29 @@ public class IHM  {
         return numOuvrage ;
     }
     
-    public void afficherLecteur(final Integer num, final String nom, final String prenom,
+    public void afficherInfosLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail) {
         ES.afficherTitre("==affichage du lecteur== " + num);
         ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
         ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + "age"); // A FAIRE //
     }
     
-    public void afficherOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
+    public void afficherInfosOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
                                 final String numISBN, final Public publicVise){
         ES.afficherTitre("==affichage de l'ouvrage== " + numISBN);
         ES.afficherLibelle("titre, nom de l'éditeur, date de parution :" + titre + " " + nomEditeur + " " + dateParution);
         ES.afficherLibelle("noms des auteurs, numéro ISBN, public visé :" + nomsAuteurs + " " + numISBN + " " + publicVise);
+    }
+    
+    public void afficherInfosOuvrage(final String numOuvrage, final String titre){
+        ES.afficherTitre("==affichage de l'ouvrage== " + numOuvrage + ", " + titre);
+    }
+    
+    public void afficherInfosExemplaireOuvrage(HashSet <Exemplaire> exemplaires){
+        for (Exemplaire exemplaire : exemplaires ){
+            Integer numEx = exemplaire.getNumExemplaire();            
+            ES.afficherLibelle("numéro d'exemplaire :" + numEx);
+        }
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------

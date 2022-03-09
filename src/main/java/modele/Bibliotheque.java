@@ -80,7 +80,7 @@ public class Bibliotheque implements Serializable {
         Set<String> listISBN = getListISBN();
         String numOuvrage = ihm.saisirNumOuvrage(listISBN);
         Ouvrage o = unOuvrage(numOuvrage);
-        ihm.afficherInfosOuvrage(o.getTitre(), o.getNumISBN(), o.getNomsAuteurs(), o.getNomEditeur(), o.getDateParution(), o.getPublicVise());
+        ihm.afficherInfosOuvrage(o.getTitre(), o.getNomEditeur(), o.getDateParution(), o.getNomsAuteurs(), o.getNumISBN(), o.getPublicVise());
     }
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
@@ -88,8 +88,9 @@ public class Bibliotheque implements Serializable {
         Set <String> listISBN = getListISBN () ;        
         String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
         Ouvrage o = unOuvrage (numOuvrage) ;
-        ihm.afficherInfosOuvrage(numOuvrage, o.getTitre()) ;  // Methode à écrire
+        ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
         HashSet <Exemplaire> exemplaires = o.getExemplaires() ;
+        ihm.afficherInfosExemplaireOuvrage(exemplaires);
     } 
 
     //

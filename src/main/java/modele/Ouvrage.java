@@ -75,7 +75,7 @@ public class Ouvrage {
     }
 
     public Public getPublicVise() {
-        return publicVisé;
+        return publicVise;
     }
 
     public Integer getNumDernierExemplaire() {

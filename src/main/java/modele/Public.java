@@ -9,7 +9,7 @@ package modele;
  * @author albanesr
  */
 public enum Public {
-    Enfant,
-    Ado,
-    Adulte
+    ENFANT,
+    ADO,
+    ADULTE
 }
