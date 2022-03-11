@@ -174,11 +174,17 @@ public class IHM  {
         LocalDate dateRecep;
 
         ES.afficherTitre("== Saisie d'exemplaires ==");
-        
-
+        dateRecep = ES.lireDate("Saisir la date de réception : ");
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0) {
+            dateRecep = ES.lireDate("Saisir la date de réception : ");
         }
+        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
+        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        return new InfosExemplaire(dateRecep, nbExemplairesEntres, nbNonEmpruntables);
+    }
+
      
+    
     
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         Integer numLecteur ;
