@@ -176,11 +176,12 @@ public class IHM  {
 
         ES.afficherTitre("== Saisie d'exemplaires ==");
         
-
-        while (dateParution > dateRecep || dateRecep > localDate.now()) {
+        dateRecep = ES.lireDate("Saisir la date de réception : ");
+        while (){
+            ES.afficherLibelle("La date de parution doit être antérieure à la date de réception et la date de réception doit être antérieur à la date du jour");
             dateRecep = ES.lireDate("Saisir la date de réception : ");
         }
-        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
+        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total d'exemplaires : ");
         nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
         return new InfosExemplaire(dateRecep, nbExemplairesEntres, nbNonEmpruntables);
     }
