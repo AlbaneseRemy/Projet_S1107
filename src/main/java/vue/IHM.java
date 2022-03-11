@@ -174,9 +174,7 @@ public class IHM  {
         LocalDate dateRecep;
 
         ES.afficherTitre("== Saisie d'exemplaires ==");
-        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
-        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
-        dateRecep = ES.lireDate("Saisir la date de réception : ");
+        
 
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0) {
         }
