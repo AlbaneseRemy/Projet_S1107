@@ -175,17 +175,15 @@ public class IHM  {
         LocalDate dateRecep;
 
         ES.afficherTitre("== Saisie d'exemplaires ==");
-        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
-        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
-        dateRecep = ES.lireDate("Saisir la date de réception : ");
+        
 
         while (dateParution > dateRecep || dateRecep > localDate.now()) {
-            new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
+            dateRecep = ES.lireDate("Saisir la date de réception : ");
         }
-        else{
-        return null;
-            }
-        }
+        nbExemplairesEntres = ES.lireEntier("Saisir le nombre total : ");
+        nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        return new InfosExemplaire(dateRecep, nbExemplairesEntres, nbNonEmpruntables);
+    }
      
     
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
