@@ -7,7 +7,6 @@ import util.* ;
 import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -179,12 +178,7 @@ public class IHM  {
         nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
         dateRecep = ES.lireDate("Saisir la date de réception : ");
 
-        while (dateParution > dateRecep || dateRecep > localDate.now()) {
-            new InfosExemplaire(dateParution, nbExemplairesEntres, nbNonEmpruntables); 
-        }
-        else{
-        return null;
-            }
+        while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0) {
         }
      
     
