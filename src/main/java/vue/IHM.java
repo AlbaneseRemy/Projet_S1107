@@ -7,7 +7,6 @@ import util.* ;
 import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -45,7 +44,7 @@ public class IHM  {
         ES.afficherTitre("===== Bibliotheque =====");
         ES.afficherLibelle(Commande.synopsisCommandes());
         ES.afficherLibelle("===============================================");
-        ES.afficherLibelle("Saisir l'identifiant de l'action choisie :");
+        ES.afficherLibelle("Saisir l'identifiant de l'action choisie : ");
         return Commande.lireCommande();
     }
 
@@ -56,9 +55,20 @@ public class IHM  {
             case CREER_LECTEUR :
                 bibliotheque.nouveauLecteur(this) ;
                 break ;
-            case CONSULTER_LECTEURS :
-                //ES.afficherLibelle("non développé") ;
+            case CONSULTER_LECTEUR :
                 bibliotheque.consulterLecteur(this) ;
+                break ;
+            case CREER_OUVRAGE :
+                bibliotheque.nouvelOuvrage(this) ;
+                break ;
+            case CONSULTER_OUVRAGE :
+                bibliotheque.consulterOuvrage(this) ;
+                break ;
+            case CREER_EXEMPLAIRE :
+                bibliotheque.nouvelExemplaire(this) ;
+                break ;
+            case CONSULTER_EXEMPLAIRE :
+                bibliotheque.consulterExemplairesOuvrage(this) ;
                 break ;
             default :
                 assert false : "Commande inconnue." ;
@@ -143,6 +153,10 @@ public class IHM  {
         titre = ES.lireChaine("Saisir le titre de l'ouvrage :");
         nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur :");
         dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
+        while(dateParution.compareTo(LocalDate.now()) > 0){
+            ES.afficherLibelle("La date de parution doit être antérieure à la date du jour");
+            dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
+        }
         nomsAuteurs = new ArrayList<>();
         nomsAuteurs.add(ES.lireChaine("Saisir le nom de l'auteur (ou un des noms des auteurs) :"));
         String reponse = ES.lireChaine("Voulez-vous rajouter un auteur ? Saisir o (pour oui) ou n (pour non) :");
@@ -174,18 +188,23 @@ public class IHM  {
         Integer nbNonEmpruntables;
         LocalDate dateRecep;
 
-        ES.afficherTitre("== Saisie d'exemplaires ==");
+        ES.afficherTitre("== Saisie d'exemplaires ==");        
         
         dateRecep = ES.lireDate("Saisir la date de réception : ");
-        while (){
-            ES.afficherLibelle("La date de parution doit être antérieure à la date de réception et la date de réception doit être antérieur à la date du jour");
+
+        while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0){
+            ES.afficherLibelle("La date de parution doit être antérieure à la date de réception et la date de réception doit être antérieure à la date du jour");
             dateRecep = ES.lireDate("Saisir la date de réception : ");
         }
+        
         nbExemplairesEntres = ES.lireEntier("Saisir le nombre total d'exemplaires : ");
         nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        
         return new InfosExemplaire(dateRecep, nbExemplairesEntres, nbNonEmpruntables);
     }
+
      
+    
     
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         Integer numLecteur ;
@@ -207,30 +226,37 @@ public class IHM  {
     }
     
     public void afficherInfosLecteur(final Integer num, final String nom, final String prenom,
-                                final LocalDate dateNaissance, final String mail) {
-        ES.afficherTitre("==affichage du lecteur== " + num);
-        ES.afficherLibelle("nom, prénom et mail du lecteur :" + nom + " " + prenom + " " + mail);
-        ES.afficherLibelle("date de naissance et age du lecteur :" + dateNaissance + " " + "age"); // A FAIRE //
+                                final LocalDate dateNaissance, final String mail, Integer age) {
+        ES.afficherTitre("== affichage du lecteur ==");
+        ES.afficherLibelle("numéro : " + num);
+        ES.afficherLibelle("nom : " + nom);
+        ES.afficherLibelle("prénom : " + prenom);
+        ES.afficherLibelle("mail : " + mail);
+        ES.afficherLibelle("date de naissance : " + dateNaissance);
+        ES.afficherLibelle("âge : " + age + " ans");
     }
     
     public void afficherInfosOuvrage(final String titre, final String nomEditeur, final LocalDate dateParution, final ArrayList<String> nomsAuteurs,
                                 final String numISBN, final Public publicVise){
-        ES.afficherTitre("==affichage de l'ouvrage== " + numISBN);
-        ES.afficherLibelle("titre, nom de l'éditeur, date de parution :" + titre + " " + nomEditeur + " " + dateParution);
-        ES.afficherLibelle("noms des auteurs, numéro ISBN, public visé :" + nomsAuteurs + " " + numISBN + " " + publicVise);
+        ES.afficherTitre("== affichage de l'ouvrage ==");
+        ES.afficherLibelle("numéro ISBN : " + numISBN);
+        ES.afficherLibelle("titre : " + titre);
+        ES.afficherLibelle("noms des auteurs : " + nomsAuteurs);
+        ES.afficherLibelle("nom de l'éditeur : " + nomEditeur);
+        ES.afficherLibelle("date de parution : " + dateParution);
+        ES.afficherLibelle("public visé : " + publicVise);
     }
     
     public void afficherInfosOuvrage(final String numOuvrage, final String titre){
-        ES.afficherTitre("==affichage de l'ouvrage== " + numOuvrage + ", " + titre);
+        ES.afficherTitre("== affichage des exemplaires de l'ouvrage " + numOuvrage + " : " + titre + " ==");
     }
     
     public void afficherInfosExemplaireOuvrage(HashSet <Exemplaire> exemplaires){
         for (Exemplaire exemplaire : exemplaires ){
             Integer numEx = exemplaire.getNumExemplaire();            
-            ES.afficherLibelle("numéro d'exemplaire :" + numEx);
+            ES.afficherLibelle("numéro d'exemplaire : " + numEx);
         }
     }
-    
 
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
