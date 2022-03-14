@@ -4,6 +4,7 @@
  */
 package modele;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,9 +15,10 @@ import java.util.HashSet;
  *
  * @author albanesr
  */
-public class Ouvrage {
+public class Ouvrage implements Serializable {
     
     // Attributs
+    private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
     private String titre;
     private String nomEditeur;
     private LocalDate dateParution;

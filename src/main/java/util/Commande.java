@@ -10,9 +10,13 @@ import java.util.Map;
 */
 public enum Commande {
 
-QUITTER(0, "Quitter"),
-CREER_LECTEUR(1, "Créer un nouvel lecteur"),
-CONSULTER_LECTEURS (2,"Afficher tous les lecteurs");
+    QUITTER(0, "Quitter"),
+    CREER_LECTEUR(1, "Créer un nouveau lecteur"),
+    CONSULTER_LECTEUR (2,"Consulter un lecteur"),
+    CREER_OUVRAGE (3, "Créer un nouvel ouvrage"),
+    CONSULTER_OUVRAGE (4, "Consulter un ouvrage"),
+    CREER_EXEMPLAIRE (5, "Créer un nouvel exemplaire"),
+    CONSULTER_EXEMPLAIRE (6, "Consulter le(s) exemplaire(s) d'un ouvrage");
 
 private final int code;
 private final String description;

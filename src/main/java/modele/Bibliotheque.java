@@ -66,13 +66,12 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Création de l'exemplaire", true);
     }
 
-
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
         Lecteur l = unLecteur (nLecteur) ;
-        ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur()) ;
+        ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
     }
 
     // Cas d'utilisation 'consulterOuvrage'
@@ -84,7 +83,7 @@ public class Bibliotheque implements Serializable {
     }
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
-    public void consulterExemplairesOuvrages (IHM ihm) {
+    public void consulterExemplairesOuvrage (IHM ihm) {
         Set <String> listISBN = getListISBN () ;        
         String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
         Ouvrage o = unOuvrage (numOuvrage) ;
@@ -102,13 +101,6 @@ public class Bibliotheque implements Serializable {
         return numDernierLecteur ;
     }
     
-    
-    /*public Map<Integer, Lecteur> getLecteurs(){
-        return this.lecteur;
-    }
-    public Map<String, Ouvrage> getOuvrages(){
-        return this.ouvrage;
-    }*/
 
     private Lecteur unLecteur (Integer nLecteur) { 
         return lecteurs.get(nLecteur) ;
