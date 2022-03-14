@@ -194,6 +194,7 @@ public class IHM  {
 
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0){
             ES.afficherLibelle("La date de parution doit être antérieure à la date de réception et la date de réception doit être antérieure à la date du jour");
+
             dateRecep = ES.lireDate("Saisir la date de réception : ");
         }
         
