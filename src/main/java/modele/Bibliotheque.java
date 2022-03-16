@@ -51,18 +51,25 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'nouvelExemplaire'
     public void nouvelExemplaire(IHM ihm) {
         Set <String> listISBN = getListISBN () ;
-        String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
-        Ouvrage o = unOuvrage (numOuvrage) ;
-        LocalDate dateParution = o.getDateParution() ;
-        IHM.InfosExemplaire infosExemplaire = ihm.saisirInfosExemplaire(dateParution) ;
-        for (int i=0 ; i<infosExemplaire.nbNonEmpruntables ; i++)
-            o.ajouterExemplaire (infosExemplaire.dateRecep, false) ;
-        for (int i=0 ; i<infosExemplaire.nbExemplairesEntres-infosExemplaire.nbNonEmpruntables ; i++)
-            o.ajouterExemplaire (infosExemplaire.dateRecep, true) ;
-        if (infosExemplaire.nbExemplairesEntres > 1)
-            ihm.informerUtilisateur("Création des exemplaires", true);
-        else
-            ihm.informerUtilisateur("Création de l'exemplaire", true);
+        if (listISBN.size()>0){
+            ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
+            String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
+            Ouvrage o = unOuvrage (numOuvrage) ;
+            LocalDate dateParution = o.getDateParution() ;
+            IHM.InfosExemplaire infosExemplaire = ihm.saisirInfosExemplaire(dateParution) ;
+            for (int i=0 ; i<infosExemplaire.nbNonEmpruntables ; i++)
+                o.ajouterExemplaire (infosExemplaire.dateRecep, false) ;
+            for (int i=0 ; i<infosExemplaire.nbExemplairesEntres-infosExemplaire.nbNonEmpruntables ; i++)
+                o.ajouterExemplaire (infosExemplaire.dateRecep, true) ;
+            if (infosExemplaire.nbExemplairesEntres > 1)
+                ihm.informerUtilisateur("Création des exemplaires", true);
+            else
+                ihm.informerUtilisateur("Création de l'exemplaire", true);
+        }
+        else {
+            ihm.informerUtilisateur("Aucun ouvrage dans la base.") ;
+            ihm.informerUtilisateur("Création d'exemplaires", false);
+        }
     }
 
     // Cas d'utilisation 'consulterLecteur'
@@ -75,7 +82,8 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
         }
         else{
-            ES.afficherLibelle("Il n'existe pas encore de lecteurs. \nRetour au menu.");
+            ihm.informerUtilisateur("Aucun lecteur dans la base.");
+            ihm.informerUtilisateur("Consultation de lecteurs", false);
         }
     }
 
@@ -89,7 +97,8 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosOuvrage(o.getTitre(), o.getNomEditeur(), o.getDateParution(), o.getNomsAuteurs(), o.getNumISBN(), o.getPublicVise());
         }
         else{
-            ES.afficherLibelle("Il n'existe pas encore d'ouvrages. \nRetour au menu.");
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages. \nRetour au menu.");
+            ihm.informerUtilisateur("Consultation d'ouvrage ",false);
         }
     }
     
