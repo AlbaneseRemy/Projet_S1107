@@ -136,6 +136,10 @@ public class IHM  {
         nom = ES.lireChaine("Saisir le nom du lecteur :");
         prenom = ES.lireChaine("Saisir le prénom du lecteur :");
         dateNaissance = ES.lireDate("Saisir la date de naissance du lecteur :");
+        while(dateNaissance.compareTo(LocalDate.now()) > 0){
+            ES.afficherLibelle("La date de naissance doit être antérieure ou égale à la date du jour.");
+            dateNaissance = ES.lireDate("Saisir la date de naissance du lecteur :");
+        }
         mail = ES.lireEmail("Saisir l'email du lecteur :");
 
         return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
@@ -168,6 +172,11 @@ public class IHM  {
         }
         
         numISBN = ES.lireChaine("Saisir le numéro ISBN :");
+        while(listISBN.contains(numISBN)){
+            ES.afficherLibelle("Le numéro ISBN saisi existe déjà.");
+            numISBN = ES.lireChaine("Saisir le numéro ISBN :");
+        }
+        
         String pub = ES.lireChaine("Saisir le public visé (enfant, ado, adulte) :");
         while(!pub.equals("enfant") && !pub.equals("ado") && !pub.equals("adulte")){
             pub = ES.lireChaine("Saisir le public visé (enfant, ado, adulte) :");
@@ -192,13 +201,13 @@ public class IHM  {
         LocalDate dateRecep;
 
         ES.afficherTitre("== Saisie d'exemplaires ==");        
-        ES.afficherLibelle("date de parution de l'ouvrage : " + dateParution);
         dateRecep = ES.lireDate("Saisir la date de réception : ");
 
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0){
            if(dateParution.compareTo(dateRecep) > 0){
                 ES.afficherLibelle("La date de réception doit être postérieure ou égale à la date de parution.");
                 ES.afficherLibelle("(date de parution <= date de réception)");
+                ES.afficherLibelle("date de parution de l'ouvrage : " + dateParution);
             }
             else if(dateRecep.compareTo(LocalDate.now()) > 0){
                 ES.afficherLibelle("La date de réception doit être antérieure ou égale à la date du jour.");
@@ -235,7 +244,7 @@ public class IHM  {
     public String saisirNumOuvrage (Set <String> listISBN) {
         String numOuvrage = ES.lireChaine("Saisir un numéro ISBN : ") ;
         while(!listISBN.contains(numOuvrage)) {
-            numOuvrage = ES.lireChaine("Saisir un numéro ISBN valide : ") ;
+            numOuvrage = ES.lireChaine("Cet ISBN ne correspond à aucun ouvrage de la liste. Saisir un nouvel ISBN  : ") ;
         }
         return numOuvrage ;
     }
