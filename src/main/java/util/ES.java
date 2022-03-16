@@ -91,7 +91,7 @@ public class ES {
                     valentiere = Integer.parseInt(entree.readLine()) ;
                     ok = true;
                 } catch (NumberFormatException e) {
-                    {System.out.println("Non un entier. Recommencez.");}
+                    {System.out.println("Un nombre entier est exigé. Recommencez.");}
                 }
             } while (!ok) ;
 

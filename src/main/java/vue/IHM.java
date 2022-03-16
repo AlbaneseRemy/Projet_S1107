@@ -7,7 +7,6 @@ import util.* ;
 import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -154,16 +153,20 @@ public class IHM  {
         nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur :");
         dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
         while(dateParution.compareTo(LocalDate.now()) > 0){
-            ES.afficherLibelle("La date de parution doit être antérieure à la date du jour");
+            ES.afficherLibelle("La date de parution doit être antérieure ou égale à la date du jour.");
             dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
         }
         nomsAuteurs = new ArrayList<>();
         nomsAuteurs.add(ES.lireChaine("Saisir le nom de l'auteur (ou un des noms des auteurs) :"));
         String reponse = ES.lireChaine("Voulez-vous rajouter un auteur ? Saisir o (pour oui) ou n (pour non) :");
+        while((!reponse.equals("n")) && (!reponse.equals("o"))){
+            reponse = ES.lireChaine("Saisir o (pour oui) ou n (pour non) :");
+        }
         while(!reponse.equals("n")){
             nomsAuteurs.add(ES.lireChaine("Saisir le nom de l'auteur (ou un des noms des auteurs) :"));
             reponse = ES.lireChaine("Voulez-vous rajouter un auteur ? Saisir o (pour oui) ou n (pour non) :");
         }
+        
         numISBN = ES.lireChaine("Saisir le numéro ISBN :");
         String pub = ES.lireChaine("Saisir le public visé (enfant, ado, adulte) :");
         while(!pub.equals("enfant") && !pub.equals("ado") && !pub.equals("adulte")){
@@ -189,17 +192,28 @@ public class IHM  {
         LocalDate dateRecep;
 
         ES.afficherTitre("== Saisie d'exemplaires ==");        
-        
+        ES.afficherLibelle("date de parution de l'ouvrage : " + dateParution);
         dateRecep = ES.lireDate("Saisir la date de réception : ");
 
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0){
-            ES.afficherLibelle("La date de parution doit être antérieure à la date de réception et la date de réception doit être antérieure à la date du jour");
-
+           if(dateParution.compareTo(dateRecep) > 0){
+                ES.afficherLibelle("La date de réception doit être postérieure ou égale à la date de parution.");
+                ES.afficherLibelle("(date de parution <= date de réception)");
+            }
+            else if(dateRecep.compareTo(LocalDate.now()) > 0){
+                ES.afficherLibelle("La date de réception doit être antérieure ou égale à la date du jour.");
+                ES.afficherLibelle("(date de réception <= date du jour)");
+            }
             dateRecep = ES.lireDate("Saisir la date de réception : ");
         }
         
         nbExemplairesEntres = ES.lireEntier("Saisir le nombre total d'exemplaires : ");
         nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        while (nbExemplairesEntres < nbNonEmpruntables){
+            ES.afficherLibelle("Le nombre d'exemplaires non empruntables doit être inférieur ou égal au nombre d'exemplaires entrés.");
+            ES.afficherLibelle("Vous venez d'entrer " + nbExemplairesEntres + " exemplaires.");
+            nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        }
         
         return new InfosExemplaire(dateRecep, nbExemplairesEntres, nbNonEmpruntables);
     }
@@ -249,10 +263,12 @@ public class IHM  {
     }
     
     public void afficherInfosOuvrage(final String numOuvrage, final String titre){
-        ES.afficherTitre("== affichage des exemplaires de l'ouvrage " + numOuvrage + " : " + titre + " ==");
+        ES.afficherTitre("== affichage des exemplaires de l'ouvrage ==");
+        ES.afficherLibelle("Ouvrage : " + numOuvrage);
+        ES.afficherLibelle("Titre : " + titre);
     }
     
-    public void afficherInfosExemplaireOuvrage(HashSet <Exemplaire> exemplaires){
+    public void afficherInfosExemplaireOuvrage(ArrayList <Exemplaire> exemplaires){
         for (Exemplaire exemplaire : exemplaires ){
             Integer numEx = exemplaire.getNumExemplaire();            
             ES.afficherLibelle("numéro d'exemplaire : " + numEx);

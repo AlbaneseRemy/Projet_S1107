@@ -15,7 +15,7 @@ public enum Commande {
     CONSULTER_LECTEUR (2,"Consulter un lecteur"),
     CREER_OUVRAGE (3, "Créer un nouvel ouvrage"),
     CONSULTER_OUVRAGE (4, "Consulter un ouvrage"),
-    CREER_EXEMPLAIRE (5, "Créer un nouvel exemplaire"),
+    CREER_EXEMPLAIRE (5, "Créer un ou plusieurs exemplaire(s)"),
     CONSULTER_EXEMPLAIRE (6, "Consulter le(s) exemplaire(s) d'un ouvrage");
 
 private final int code;

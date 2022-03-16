@@ -2,12 +2,11 @@ package modele;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.HashSet;
-
 import util.ES;
 import vue.*;
 import vue.IHM.InfosLecteur;
@@ -88,7 +87,7 @@ public class Bibliotheque implements Serializable {
         String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
         Ouvrage o = unOuvrage (numOuvrage) ;
         ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
-        HashSet <Exemplaire> exemplaires = o.getExemplaires() ;
+        ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
         ihm.afficherInfosExemplaireOuvrage(exemplaires);
     } 
 
