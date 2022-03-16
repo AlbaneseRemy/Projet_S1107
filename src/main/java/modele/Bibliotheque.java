@@ -67,7 +67,8 @@ public class Bibliotheque implements Serializable {
                 ihm.informerUtilisateur("Création de l'exemplaire", true);
         }
         else {
-            ES.afficherLibelle("Il n'existe pas encore d'ouvrages, vous ne pouvez pas créer d'exemplaires. \nRetour au menu.");
+            ihm.informerUtilisateur("Aucun ouvrage dans la base.") ;
+            ihm.informerUtilisateur("Création d'exemplaires", false);
         }
     }
 
@@ -81,7 +82,8 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
         }
         else{
-            ES.afficherLibelle("Il n'existe pas encore de lecteurs. \nRetour au menu.");
+            ihm.informerUtilisateur("Aucun lecteur dans la base.");
+            ihm.informerUtilisateur("Consultation de lecteurs", false);
         }
     }
 
@@ -95,7 +97,8 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosOuvrage(o.getTitre(), o.getNomEditeur(), o.getDateParution(), o.getNomsAuteurs(), o.getNumISBN(), o.getPublicVise());
         }
         else{
-            ES.afficherLibelle("Il n'existe pas encore d'ouvrages. \nRetour au menu.");
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages. \nRetour au menu.");
+            ihm.informerUtilisateur("Consultation d'ouvrage ",false);
         }
     }
     
