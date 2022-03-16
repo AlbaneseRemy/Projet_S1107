@@ -69,27 +69,51 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
-        Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
-        Lecteur l = unLecteur (nLecteur) ;
-        ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
+        if (listNumLecteur.size()>0){
+            ES.afficherSetInt(listNumLecteur, "Liste des lecteurs existants :");
+            Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
+            Lecteur l = unLecteur (nLecteur) ;
+            ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
+        }
+        else{
+            ES.afficherLibelle("Il n'existe pas encore de lecteurs. \nRetour au menu.");
+        }
     }
 
     // Cas d'utilisation 'consulterOuvrage'
     public void consulterOuvrage(IHM ihm){
         Set<String> listISBN = getListISBN();
-        String numOuvrage = ihm.saisirNumOuvrage(listISBN);
-        Ouvrage o = unOuvrage(numOuvrage);
-        ihm.afficherInfosOuvrage(o.getTitre(), o.getNomEditeur(), o.getDateParution(), o.getNomsAuteurs(), o.getNumISBN(), o.getPublicVise());
+        if (listISBN.size()>0){
+            ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
+            String numOuvrage = ihm.saisirNumOuvrage(listISBN);
+            Ouvrage o = unOuvrage(numOuvrage);
+            ihm.afficherInfosOuvrage(o.getTitre(), o.getNomEditeur(), o.getDateParution(), o.getNomsAuteurs(), o.getNumISBN(), o.getPublicVise());
+        }
+        else{
+            ES.afficherLibelle("Il n'existe pas encore d'ouvrages. \nRetour au menu.");
+        }
     }
+    
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
     public void consulterExemplairesOuvrage (IHM ihm) {
-        Set <String> listISBN = getListISBN () ;        
-        String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
-        Ouvrage o = unOuvrage (numOuvrage) ;
-        ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
-        HashSet <Exemplaire> exemplaires = o.getExemplaires() ;
-        ihm.afficherInfosExemplaireOuvrage(exemplaires);
+        Set <String> listISBN = getListISBN () ;
+        if (listISBN.size()>0){
+            ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
+            String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
+            Ouvrage o = unOuvrage (numOuvrage) ;
+            if (o.getExemplaires().size()>0){
+                ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
+                HashSet <Exemplaire> exemplaires = o.getExemplaires() ;
+                ihm.afficherInfosExemplaireOuvrage(exemplaires);
+            }
+            else {
+                ES.afficherLibelle("Il n'existe pas encore d'exemplaires pour cet ouvrage. \nRetour au menu.");
+            }
+        }
+        else{
+            ES.afficherLibelle("Il n'y a pas encore d'ouvrages, et donc pas d'exemplaires non plus. \nRetour au menu.");
+        }
     } 
 
     //
