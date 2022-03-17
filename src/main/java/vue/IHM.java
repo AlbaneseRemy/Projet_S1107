@@ -74,9 +74,6 @@ public class IHM  {
         }
     }
 
-    private boolean verifDate(LocalDate dateRecep) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     //-----  Classes conteneurs et éléments de dialogue pour le lecteur -------------------------------------------------
 
