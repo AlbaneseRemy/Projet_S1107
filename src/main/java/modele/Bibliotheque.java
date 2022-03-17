@@ -117,11 +117,13 @@ public class Bibliotheque implements Serializable {
                 ihm.afficherInfosExemplaireOuvrage(exemplaires);
             }
             else {
-                ES.afficherLibelle("Il n'existe pas encore d'exemplaires pour cet ouvrage. \nRetour au menu.");
+                ihm.informerUtilisateur("Il n'existe pas encore d'exemplaires pour cet ouvrage.");
+                ihm.informerUtilisateur("Consultation d'exemplaires ",false);
             }
         }
         else{
-            ES.afficherLibelle("Il n'y a pas encore d'ouvrages, et donc pas d'exemplaires non plus. \nRetour au menu.");
+            ihm.informerUtilisateur("Il n'y a pas encore d'ouvrages, et donc pas d'exemplaires non plus.");
+            ihm.informerUtilisateur("Consultation d'exemplaires ",false);
         }
     } 
 
