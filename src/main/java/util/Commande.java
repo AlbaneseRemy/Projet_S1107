@@ -16,8 +16,8 @@ public enum Commande {
     CREER_OUVRAGE (3, "Créer un nouvel ouvrage"),
     CONSULTER_OUVRAGE (4, "Consulter un ouvrage"),
     CREER_EXEMPLAIRE (5, "Créer un ou plusieurs exemplaire(s)"),
-    CONSULTER_EXEMPLAIRE (6, "Consulter le(s) exemplaire(s) d'un ouvrage");
-    //EMPRUNTER_EXEMPLAIRE (7, "Emprunter l'exemplaire d'un ouvrage"),
+    CONSULTER_EXEMPLAIRE (6, "Consulter le(s) exemplaire(s) d'un ouvrage"),
+    EMPRUNTER_EXEMPLAIRE (7, "Emprunter l'exemplaire d'un ouvrage");
     //RENDRE_EXEMPLAIRE (8, "Rendre l'exemplaire d'un ouvrage"),
     //RELANCER_LECTEUR (9, "Consulter les exemplaires en retard");
 

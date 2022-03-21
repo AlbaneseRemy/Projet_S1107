@@ -69,9 +69,9 @@ public class IHM  {
             case CONSULTER_EXEMPLAIRE :
                 bibliotheque.consulterExemplairesOuvrage(this) ;
                 break ;
-            //case EMPRUNTER_EXEMPLAIRE :
-            //    bibliotheque.
-            //    break ;
+            case EMPRUNTER_EXEMPLAIRE :
+                bibliotheque.emprunterExemplaire(this);
+                break ;
             default :
                 assert false : "Commande inconnue." ;
         }
@@ -247,6 +247,14 @@ public class IHM  {
             numOuvrage = ES.lireChaine("Cet ISBN ne correspond à aucun ouvrage de la liste. Saisir un nouvel ISBN  : ") ;
         }
         return numOuvrage ;
+    }
+    
+    public String saisirNumExemplaire(ArrayList<Exemplaire> listExemplaires){
+        String numExemplaire = ES.lireChaine("Saisir le numéro de l'exemplaire :");
+        while(!listExemplaires.contains(numExemplaire)){
+            numExemplaire = ES.lireChaine("Ce numéro d'exemplaire ne correspond à aucun exemplaire de la liste. Saisir un nouveau numéro :");
+        }
+        return numExemplaire;
     }
     
     public void afficherInfosLecteur(final Integer num, final String nom, final String prenom,

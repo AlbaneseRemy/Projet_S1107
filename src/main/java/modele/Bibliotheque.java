@@ -19,12 +19,14 @@ public class Bibliotheque implements Serializable {
     private Integer numDernierLecteur ;
     private Map<Integer, Lecteur> lecteurs ;  // association qualifiée par le numéro d'un lecteur
     private Map<String, Ouvrage> ouvrages ;  // association qualifiée par l'ISBN d'un ouvrage
+    private Map<String, Exemplaire> exemplaires;
 
     // Constructeur
     public Bibliotheque() {
         this.numDernierLecteur = 0 ;
         this.lecteurs = new HashMap<>() ;
         this.ouvrages = new HashMap<>() ;
+        this.exemplaires = new HashMap<>();
     }
 
     // Cas d'utilisation 'nouveauLecteur'
@@ -140,10 +142,33 @@ public class Bibliotheque implements Serializable {
                 if (listISBN.size()>0){
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
                     String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
-                Ouvrage o = unOuvrage(numOuvrage);
-                
-                }
-                
+                    Ouvrage o = unOuvrage(numOuvrage);
+                    ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
+                    if(exemplaires.size()>0){
+                        String numExemplaire = ihm.saisirNumExemplaire(exemplaires);
+                        Exemplaire e = unExemplaire(numExemplaire);
+                        if(e.empruntable()){
+                            Integer age = l.getAgeLecteur();
+                            if(o.verifAdequationPublic(age)){
+                                l.nouvelEmprunt(e);
+                                ihm.informerUtilisateur("L'exemplaire a bien été emprunté");
+                                ihm.informerUtilisateur("Emprunt de l'exemplaire",true);
+                            }                            
+                            else{
+                                ihm.informerUtilisateur("Le lecteur n'a pas l'âge requis pour cet ouvrage.");
+                                ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                            }
+                        }
+                        else {
+                            ihm.informerUtilisateur("L'exemplaire n'est pas empruntable");
+                            ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                        }                        
+                    }
+                    else{
+                        ihm.informerUtilisateur("Aucun exemplaire pour cet ouvrage.");
+                        ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                    }
+                }                
                 else {
                     ihm.informerUtilisateur("Aucun ouvrage dans la base.");
                     ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
@@ -157,11 +182,8 @@ public class Bibliotheque implements Serializable {
         else{
             ihm.informerUtilisateur("Aucun lecteur dans la base.");
             ihm.informerUtilisateur("Consultation de lecteurs", false);
-        }
-        
-        
-        
-        
+        }      
+              
     }
 
     //
@@ -196,6 +218,10 @@ public class Bibliotheque implements Serializable {
 
     private void lierOuvrage(Ouvrage o, String ISBN) {
         this.ouvrages.put(ISBN, o);
+    }
+    
+    private Exemplaire unExemplaire(String numExemplaire){
+        return exemplaires.get(numExemplaire);
     }
 
 }
