@@ -125,7 +125,6 @@ public class Bibliotheque implements Serializable {
         }
     } 
 
-    //
     public void incrementerNumDernierLecteur () {
         numDernierLecteur++ ;
     }
