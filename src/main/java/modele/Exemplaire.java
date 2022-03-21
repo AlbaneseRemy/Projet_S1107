@@ -19,6 +19,7 @@ public class Exemplaire implements Serializable{
     private Boolean estEmpruntable;
     private final Integer numExemplaire;
     private Ouvrage ouvrage;
+    private Emprunt emprunt;
     
     // Constructeur
     public Exemplaire(LocalDate dateRecep, Boolean estEmpruntable, Ouvrage ouvrage) {

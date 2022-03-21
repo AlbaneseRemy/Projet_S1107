@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Lecteur implements Serializable {
 
@@ -17,6 +18,7 @@ public class Lecteur implements Serializable {
     private String mailLecteur ;
     private Integer nbEmprunts;
     public ArrayList<Exemplaire> listExemplairesEmpruntés;
+    private Set<Emprunt> emprunt;
 
     // Constructeur
     public Lecteur (Integer numLecteur, String nomLecteur, String prenomLecteur, LocalDate dateNaissanceLecteur, String mailLecteur) {

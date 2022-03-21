@@ -291,6 +291,15 @@ public class IHM  {
             ES.afficherLibelle("numéro d'exemplaire : " + numEx);
         }
     }
+    
+    public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
+        System.out.print("[");
+        for (Exemplaire exemplaire : exemplaires ){
+            Integer numEx = exemplaire.getNumExemplaire();
+            ES.afficherArrayList("numéro d'exemplaire : " + numEx);
+        }
+        System.out.print("]");
+    }
 
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
