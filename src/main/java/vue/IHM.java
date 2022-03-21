@@ -69,6 +69,9 @@ public class IHM  {
             case CONSULTER_EXEMPLAIRE :
                 bibliotheque.consulterExemplairesOuvrage(this) ;
                 break ;
+            //case EMPRUNTER_EXEMPLAIRE :
+            //    bibliotheque.
+            //    break ;
             default :
                 assert false : "Commande inconnue." ;
         }

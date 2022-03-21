@@ -126,6 +126,43 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Consultation d'exemplaires ",false);
         }
     } 
+    
+    
+    public void emprunterExemplaire(IHM ihm) {
+        Set <Integer> listNumLecteur = getListNumLecteur() ;
+        if (listNumLecteur.size()>0){
+            ES.afficherSetInt(listNumLecteur,"Liste des lecteurs existants : ");
+            Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur);
+            Lecteur l = unLecteur(nLecteur);
+            boolean sature = l.estSature();
+            if (sature == false){
+                Set<String> listISBN = getListISBN();
+                if (listISBN.size()>0){
+                    ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
+                    String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
+                Ouvrage o = unOuvrage(numOuvrage);
+                
+                }
+                
+                else {
+                    ihm.informerUtilisateur("Aucun ouvrage dans la base.");
+                    ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                }
+            }
+            else {
+                ihm.informerUtilisateur("Ce lecteur a déjà 5 emprunts en cours.");
+                ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+            }
+        }
+        else{
+            ihm.informerUtilisateur("Aucun lecteur dans la base.");
+            ihm.informerUtilisateur("Consultation de lecteurs", false);
+        }
+        
+        
+        
+        
+    }
 
     //
     public void incrementerNumDernierLecteur () {
