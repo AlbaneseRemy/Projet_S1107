@@ -69,14 +69,14 @@ public class IHM  {
             case CONSULTER_EXEMPLAIRE :
                 bibliotheque.consulterExemplairesOuvrage(this) ;
                 break ;
+            case EMPRUNTER_EXEMPLAIRE :
+                bibliotheque.emprunterExemplaire(this);
+                break ;
             default :
                 assert false : "Commande inconnue." ;
         }
     }
 
-    private boolean verifDate(LocalDate dateRecep) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     //-----  Classes conteneurs et éléments de dialogue pour le lecteur -------------------------------------------------
 
@@ -249,6 +249,14 @@ public class IHM  {
         return numOuvrage ;
     }
     
+    public String saisirNumExemplaire(ArrayList<Exemplaire> listExemplaires){
+        String numExemplaire = ES.lireChaine("Saisir le numéro de l'exemplaire :");
+        while(!listExemplaires.contains(numExemplaire)){
+            numExemplaire = ES.lireChaine("Ce numéro d'exemplaire ne correspond à aucun exemplaire de la liste. Saisir un nouveau numéro :");
+        }
+        return numExemplaire;
+    }
+    
     public void afficherInfosLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail, Integer age) {
         ES.afficherTitre("== affichage du lecteur ==");
@@ -282,6 +290,15 @@ public class IHM  {
             Integer numEx = exemplaire.getNumExemplaire();            
             ES.afficherLibelle("numéro d'exemplaire : " + numEx);
         }
+    }
+    
+    public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
+        System.out.print("[");
+        for (Exemplaire exemplaire : exemplaires ){
+            Integer numEx = exemplaire.getNumExemplaire();
+            ES.afficherArrayList("numéro d'exemplaire : " + numEx);
+        }
+        System.out.print("]");
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------

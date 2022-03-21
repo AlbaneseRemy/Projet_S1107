@@ -19,12 +19,14 @@ public class Bibliotheque implements Serializable {
     private Integer numDernierLecteur ;
     private Map<Integer, Lecteur> lecteurs ;  // association qualifiée par le numéro d'un lecteur
     private Map<String, Ouvrage> ouvrages ;  // association qualifiée par l'ISBN d'un ouvrage
+    private Map<String, Exemplaire> exemplaires;
 
     // Constructeur
     public Bibliotheque() {
         this.numDernierLecteur = 0 ;
         this.lecteurs = new HashMap<>() ;
         this.ouvrages = new HashMap<>() ;
+        this.exemplaires = new HashMap<>();
     }
 
     // Cas d'utilisation 'nouveauLecteur'
@@ -117,13 +119,72 @@ public class Bibliotheque implements Serializable {
                 ihm.afficherInfosExemplaireOuvrage(exemplaires);
             }
             else {
-                ES.afficherLibelle("Il n'existe pas encore d'exemplaires pour cet ouvrage. \nRetour au menu.");
+                ihm.informerUtilisateur("Il n'existe pas encore d'exemplaires pour cet ouvrage.");
+                ihm.informerUtilisateur("Consultation d'exemplaires ",false);
             }
         }
         else{
-            ES.afficherLibelle("Il n'y a pas encore d'ouvrages, et donc pas d'exemplaires non plus. \nRetour au menu.");
+            ihm.informerUtilisateur("Il n'y a pas encore d'ouvrages, et donc pas d'exemplaires non plus.");
+            ihm.informerUtilisateur("Consultation d'exemplaires ",false);
         }
     } 
+    
+    
+    public void emprunterExemplaire(IHM ihm) {
+        Set <Integer> listNumLecteur = getListNumLecteur() ;
+        if (listNumLecteur.size()>0){
+            ES.afficherSetInt(listNumLecteur,"Liste des lecteurs existants : ");
+            Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur);
+            Lecteur l = unLecteur(nLecteur);
+            boolean sature = l.estSature();
+            if (sature == false){
+                Set<String> listISBN = getListISBN();
+                if (listISBN.size()>0){
+                    ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
+                    String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
+                    Ouvrage o = unOuvrage(numOuvrage);
+                    ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
+                    if(exemplaires.size()>0){
+                        String numExemplaire = ihm.saisirNumExemplaire(exemplaires);
+                        Exemplaire e = unExemplaire(numExemplaire);
+                        if(e.empruntable()){
+                            Integer age = l.getAgeLecteur();
+                            if(o.verifAdequationPublic(age)){
+                                l.nouvelEmprunt(e);
+                                ihm.informerUtilisateur("L'exemplaire a bien été emprunté");
+                                ihm.informerUtilisateur("Emprunt de l'exemplaire",true);
+                            }                            
+                            else{
+                                ihm.informerUtilisateur("Le lecteur n'a pas l'âge requis pour cet ouvrage.");
+                                ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                            }
+                        }
+                        else {
+                            ihm.informerUtilisateur("L'exemplaire n'est pas empruntable");
+                            ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                        }                        
+                    }
+                    else{
+                        ihm.informerUtilisateur("Aucun exemplaire pour cet ouvrage.");
+                        ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                    }
+                }                
+                else {
+                    ihm.informerUtilisateur("Aucun ouvrage dans la base.");
+                    ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                }
+            }
+            else {
+                ihm.informerUtilisateur("Ce lecteur a déjà 5 emprunts en cours.");
+                ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+            }
+        }
+        else{
+            ihm.informerUtilisateur("Aucun lecteur dans la base.");
+            ihm.informerUtilisateur("Consultation de lecteurs", false);
+        }      
+              
+    }
 
     public void incrementerNumDernierLecteur () {
         numDernierLecteur++ ;
@@ -156,6 +217,10 @@ public class Bibliotheque implements Serializable {
 
     private void lierOuvrage(Ouvrage o, String ISBN) {
         this.ouvrages.put(ISBN, o);
+    }
+    
+    private Exemplaire unExemplaire(String numExemplaire){
+        return exemplaires.get(numExemplaire);
     }
 
 }

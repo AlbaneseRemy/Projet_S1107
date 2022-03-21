@@ -252,4 +252,10 @@ public class ES {
         System.out.flush();
     }
     
+    public static void afficherArrayList(String libelle){
+        System.out.print(libelle+" , ");
+        System.out.flush();
+    }
+
+    
 } // Fin de classe ES

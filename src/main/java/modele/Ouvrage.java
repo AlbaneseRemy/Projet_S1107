@@ -87,4 +87,15 @@ public class Ouvrage implements Serializable {
         return exemplaires;
     }
     
+    public boolean verifAdequationPublic(Integer age){
+        if(getPublicVise().equals("enfant")){
+            return(age>6);
+        }
+        if(getPublicVise().equals("ado")){
+            return(age>12);
+        }
+        else{
+            return(age>16);
+        }
+    }
 }
