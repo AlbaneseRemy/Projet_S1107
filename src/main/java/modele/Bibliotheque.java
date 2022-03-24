@@ -73,6 +73,10 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Création d'exemplaires", false);
         }
     }
+    
+    public void nouvelEmprunt(IHM ihm, ) {
+        
+    }
 
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
