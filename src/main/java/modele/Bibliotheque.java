@@ -189,20 +189,27 @@ public class Bibliotheque implements Serializable {
     
     public void rendreExemplaire (IHM ihm) {
         Set <String> listISBN = getListISBN() ;
-        if (listISBN.size()>0) {
+        if (listISBN.size() > 0) {
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :") ;
             String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
             Ouvrage o = unOuvrage(numOuvrage) ;
-            ArrayList <Integer> listNumExemplaires = o.getListNumExemplairesOuvrage();
-            // if (listExemplaires.size() > 0) { // A FAIRE ??
-            //    ES.afficherSetInt(listExemplaires, "Liste des exemplaires existants :");
-            Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaires) ;
-            Exemplaire ex = o.getUnExemplaire(numExemplaire) ;
- 
+            ArrayList <Integer> listNumExemplaires = o.getListNumExemplairesOuvrage() ;
+            if (listNumExemplaires.size() > 0) {
+                ES.afficherLibelle("Liste des exemplaires existants : " + listNumExemplaires) ;
+                Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaires) ;
+                Exemplaire ex = o.getUnExemplaire(numExemplaire) ;
+                if (!ex.estDisponible()) {
+                    Lecteur l = ex.getLecteur() ;
+                    l.finEmprunt(ex) ;
+                    ihm.informerUtilisateur("Retour de l'exemplaire", true) ;
+                }
+                else {
+                    ihm.informerUtilisateur("Cet ouvrage n'a pas d'exemplaires.\nRetour au menu") ;
+                }
+            }
         }
         else {
-            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages. \nRetour au menu.");
-            ihm.informerUtilisateur("Consultation d'ouvrage ",false);
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages. \nRetour au menu.") ;
         }
     }
 

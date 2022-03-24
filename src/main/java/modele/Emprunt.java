@@ -11,8 +11,18 @@ import java.time.LocalDate;
  * @author albanesr
  */
 public class Emprunt {
+
+    // Attributs
     private LocalDate dateEmprunt;
     private LocalDate dateRetour;
     private Exemplaire exemplaire;
     private Lecteur lecteur;
+    
+    public Emprunt() {
+        
+    }
+
+    public Lecteur getLecteur() {
+        return lecteur ;
+    }
 }

@@ -50,5 +50,20 @@ public class Exemplaire implements Serializable{
             return false;
         }
     }
+
+    public Lecteur getLecteur() {
+        return getEmprunt().getLecteur() ;
+    }
     
+    public Ouvrage getOuvrage() {
+        return ouvrage ;
+    }
+
+    public Emprunt getEmprunt() {
+        return emprunt ;
+    }
+
+    public void retirerEmprunt() {
+        emprunt = null ;
+    }
 }
