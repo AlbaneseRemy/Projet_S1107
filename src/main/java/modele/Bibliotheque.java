@@ -201,7 +201,7 @@ public class Bibliotheque implements Serializable {
                 Exemplaire ex = o.getUnExemplaire(numExemplaire) ;
                 if (!ex.estDisponible()) {
                     Lecteur l = ex.getLecteur() ;
-                    l.finEmprunt(ex) ;
+                    l.finEmprunt(ex, em) ;
                     ihm.informerUtilisateur("Retour de l'exemplaire", true) ;
                 }
                 else {
