@@ -69,6 +69,7 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
+        //System.out.println(listNumLecteur);
         Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
         Lecteur l = unLecteur (nLecteur) ;
         ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
