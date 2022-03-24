@@ -209,7 +209,7 @@ public class Bibliotheque implements Serializable {
             }
         }
         else {
-            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages. \nRetour au menu.") ;
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages.\nRetour au menu.") ;
         }
     }
 
