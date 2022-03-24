@@ -89,7 +89,7 @@ public class Ouvrage implements Serializable {
         return exemplaires;
     }
     
-    public void getUnExemplaire (Integer numExemplaire) { // type de retour : Exemplaire
+    public Exemplaire getUnExemplaire (Integer numExemplaire) { // type de retour : Exemplaire
         
     }
     
