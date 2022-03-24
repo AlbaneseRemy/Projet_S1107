@@ -66,4 +66,8 @@ public class Exemplaire implements Serializable{
     public void retirerEmprunt() {
         emprunt = null ;
     }
+    
+    public void lierEmprunt (Emprunt em) {
+        emprunt = em;
+    }
 }

@@ -19,6 +19,7 @@ public class Emprunt {
     public Emprunt (Lecteur lecteur, Exemplaire exemplaire) {
         this.lecteur = lecteur;
         this.exemplaire = exemplaire;
+        dateEmprunt = LocalDate.now();
     }
     
     private void lierExemplaire (Exemplaire ex) {
@@ -41,10 +42,7 @@ public class Emprunt {
         return dateEmprunt.plusDays(8);
     }
     
-    public Ouvrage getOuvrageExemplaire() {
-        return ;
-    }
-    
+
     
     
 }
