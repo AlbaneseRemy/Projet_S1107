@@ -146,7 +146,7 @@ public class Bibliotheque implements Serializable {
                     ArrayList <Exemplaire> exemplaire = o.getExemplaires() ;
                     if(exemplaire.size()>0){
                         String numExemplaire = ihm.saisirNumExemplaire(exemplaire);
-                        Exemplaire e = unExemplaire(numExemplaire);
+                        Exemplaire e = o.getUnExemplaire(numExemplaire);
                         if(e.empruntable()){
                             Integer age = l.getAgeLecteur();
                             if(o.verifAdequationPublic(age)){
@@ -220,8 +220,5 @@ public class Bibliotheque implements Serializable {
         this.ouvrages.put(ISBN, o);
     }
     
-    private Exemplaire unExemplaire(String numExemplaire){
-        return exemplaires.get(numExemplaire);
-    }
 
 }
