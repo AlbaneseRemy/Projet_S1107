@@ -143,9 +143,9 @@ public class Bibliotheque implements Serializable {
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
                     String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
                     Ouvrage o = unOuvrage(numOuvrage);
-                    ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
-                    if(exemplaires.size()>0){
-                        String numExemplaire = ihm.saisirNumExemplaire(exemplaires);
+                    ArrayList <Exemplaire> exemplaire = o.getExemplaires() ;
+                    if(exemplaire.size()>0){
+                        String numExemplaire = ihm.saisirNumExemplaire(exemplaire);
                         Exemplaire e = unExemplaire(numExemplaire);
                         if(e.empruntable()){
                             Integer age = l.getAgeLecteur();
@@ -185,7 +185,7 @@ public class Bibliotheque implements Serializable {
         }      
               
     }
-
+    
     //
     public void incrementerNumDernierLecteur () {
         numDernierLecteur++ ;
