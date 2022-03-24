@@ -153,7 +153,7 @@ public class Bibliotheque implements Serializable {
                             Public publicVise = o.getPublicVise();
                             if(o.verifAdequationPublic(age, publicVise)){
                                 l.nouvelEmprunt(e);
-                                ihm.informerUtilisateur("L'exemplaire a bien été emprunté");
+                                ihm.informerUtilisateur("L'exemplaire a bien été emprunté.");
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire",true);
                             }                            
                             else{
@@ -162,12 +162,12 @@ public class Bibliotheque implements Serializable {
                             }
                         }
                         else {
-                            ihm.informerUtilisateur("L'exemplaire n'est pas empruntable");
+                            ihm.informerUtilisateur("L'exemplaire n'est pas disponible.");
                             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                         }                        
                     }
                     else{
-                        ihm.informerUtilisateur("Aucun exemplaire pour cet ouvrage.");
+                        ihm.informerUtilisateur("Aucun exemplaire n'existe pour cet ouvrage.");
                         ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                     }
                 }                
