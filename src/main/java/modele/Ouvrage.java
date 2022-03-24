@@ -93,16 +93,17 @@ public class Ouvrage implements Serializable {
         Set <Integer> listExemplaires = new HashSet <Integer>(exemplaires);
         return listExemplaires;
     }
-    //à refaire du coup
+    
+    public Exemplaire getUnExemplaire(Integer numExemplaire) {
+        
+    }
+    
     public boolean verifAdequationPublic(Integer age, Public publicVise){
-        if(){
-            return(age>6);
-        }
-        if(getPublicVise().equals("ado")){
-            return(age>12);
+        if(publicVise.getAgeMin() <= age){
+            return true;
         }
         else{
-            return(age>16);
+            return false;
         }
     }
 }

@@ -249,10 +249,10 @@ public class IHM  {
         return numOuvrage ;
     }
     
-    public String saisirNumExemplaire(ArrayList<Exemplaire> listExemplaires){
-        String numExemplaire = ES.lireChaine("Saisir le numéro de l'exemplaire :");
+    public Integer saisirNumExemplaire(ArrayList<Exemplaire> listExemplaires){
+        Integer numExemplaire = ES.lireEntier("Saisir le numéro de l'exemplaire :");
         while(!listExemplaires.contains(numExemplaire)){
-            numExemplaire = ES.lireChaine("Ce numéro d'exemplaire ne correspond à aucun exemplaire de la liste. Saisir un nouveau numéro :");
+            numExemplaire = ES.lireEntier("Ce numéro d'exemplaire ne correspond à aucun exemplaire de la liste. Saisir un nouveau numéro :");
         }
         return numExemplaire;
     }
