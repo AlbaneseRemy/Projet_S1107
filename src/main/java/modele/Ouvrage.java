@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -87,6 +89,11 @@ public class Ouvrage implements Serializable {
         return exemplaires;
     }
     
+    public Set <Integer> getListNumExemplairesOuvrage() {
+        Set <Integer> listExemplaires = new HashSet <Integer>(exemplaires);
+        return listExemplaires;
+    }
+    //à refaire du coup
     public boolean verifAdequationPublic(Integer age){
         if(getPublicVise().equals("enfant")){
             return(age>6);

@@ -74,9 +74,6 @@ public class Bibliotheque implements Serializable {
         }
     }
     
-    public void nouvelEmprunt(IHM ihm, ) {
-        
-    }
 
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
@@ -147,12 +144,15 @@ public class Bibliotheque implements Serializable {
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
                     String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
                     Ouvrage o = unOuvrage(numOuvrage);
-                    ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
-                    if(exemplaires.size()>0){
-                        String numExemplaire = ihm.saisirNumExemplaire(exemplaires);
-                        Exemplaire e = unExemplaire(numExemplaire);
+                    ArrayList <Exemplaire> exemplaire = o.getExemplaires() ;
+                    if(exemplaire.size()>0){
+                        //String numExemplaire ???????????????????????????,
+                        String numExemplaire = ihm.saisirNumExemplaire(exemplaire);
+                        Exemplaire e = o.getUnExemplaire(numExemplaire);
+                        //estDisponible
                         if(e.empruntable()){
                             Integer age = l.getAgeLecteur();
+                            // recup publicvise
                             if(o.verifAdequationPublic(age)){
                                 l.nouvelEmprunt(e);
                                 ihm.informerUtilisateur("L'exemplaire a bien été emprunté");
@@ -186,8 +186,27 @@ public class Bibliotheque implements Serializable {
         else{
             ihm.informerUtilisateur("Aucun lecteur dans la base.");
             ihm.informerUtilisateur("Consultation de lecteurs", false);
-        }      
-              
+        }          
+    }
+    
+    public void rendreExemplaire (IHM ihm) {
+        Set<String> listISBN = getListISBN();
+        if (listISBN.size()>0){
+            ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
+            String numOuvrage = ihm.saisirNumOuvrage(listISBN);
+            Ouvrage o = unOuvrage(numOuvrage);
+            ArrayList <Exemplaire> listEx = o.getExemplaires();
+            Set<Integer> listExemplaires = listEx.getListNumExemplairesOuvrage();
+            if (listExemplaires.size() > 0) {
+                ES.afficherSetInt(listExemplaires, "Liste des exemplaires existants :");
+                Integer numExemplaire = ihm.saisirNumExemplaire(listExemplaires);
+
+            }
+        }
+        else{
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages. \nRetour au menu.");
+            ihm.informerUtilisateur("Consultation d'ouvrage ",false);
+        }
     }
 
     public void incrementerNumDernierLecteur () {
@@ -221,10 +240,6 @@ public class Bibliotheque implements Serializable {
 
     private void lierOuvrage(Ouvrage o, String ISBN) {
         this.ouvrages.put(ISBN, o);
-    }
-    
-    private Exemplaire unExemplaire(String numExemplaire){
-        return exemplaires.get(numExemplaire);
     }
 
 }
