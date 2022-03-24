@@ -90,7 +90,7 @@ public class Ouvrage implements Serializable {
     }
     
     public Exemplaire getUnExemplaire (Integer numExemplaire) {
-        return 
+        return new Exemplaire() ;
     }
     
     public ArrayList <Integer> getListNumExemplairesOuvrage() {
