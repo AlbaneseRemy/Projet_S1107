@@ -41,8 +41,8 @@ public class Emprunt {
         return dateEmprunt.plusDays(8);
     }
     
-    public Ouvrage getOuvrageExemplaire() {
-        return ;
+    public Exemplaire getExemplaire() {
+        return exemplaire ;
     }
     
     
