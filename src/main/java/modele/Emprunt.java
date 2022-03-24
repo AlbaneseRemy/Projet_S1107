@@ -42,7 +42,10 @@ public class Emprunt {
         return dateEmprunt.plusDays(8);
     }
     
-
+    public Exemplaire getExemplaire() {
+        return exemplaire ;
+    }
+    
     
     
 }

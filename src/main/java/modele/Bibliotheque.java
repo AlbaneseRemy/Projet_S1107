@@ -221,7 +221,23 @@ public class Bibliotheque implements Serializable {
         Collection<Lecteur> collecLecteurs = getLecteurs() ;
         for (Lecteur l : collecLecteurs) {
             Set<Emprunt> emprunts = l.getEmprunts() ;
-            for (Emprunt em : emprunts)
+            for (Emprunt em : emprunts) {
+                LocalDate dateRetour = em.getDateRetour() ;
+                if ((dateRetour.plusDays(14)).isAfter(LocalDate.now())) {
+                    String nom = l.getNomLecteur() ;
+                    String prenom = l.getPrenomLecteur() ;
+                    Integer numLecteur = l.getNumLecteur() ;
+                    LocalDate dateEmprunt = em.getDateEmprunt() ;
+                    Exemplaire ex = em.getExemplaire() ;
+                    Integer numEx = ex.getNumExemplaire() ;
+                    Ouvrage o = ex.getOuvrage() ;
+                    String titre = o.getTitre() ;
+                    String  numISBN = o.getNumISBN() ;
+
+                }
+                    
+                
+            }
         }
     }
     
