@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.* ;
 import util.ES;
 import vue.*;
 import vue.IHM.InfosLecteur;
@@ -204,8 +205,11 @@ public class Bibliotheque implements Serializable {
                     ihm.informerUtilisateur("Retour de l'exemplaire", true) ;
                 }
                 else {
-                    ihm.informerUtilisateur("Cet ouvrage n'a pas d'exemplaires.\nRetour au menu") ;
+                    ihm.informerUtilisateur("Cet exemplaire est disponible, il ne peut être rendu.\nRetour au menu");
                 }
+            }
+            else {
+                ihm.informerUtilisateur("Cet ouvrage n'a pas d'exemplaires.\nRetour au menu.") ;
             }
         }
         else {
@@ -213,6 +217,14 @@ public class Bibliotheque implements Serializable {
         }
     }
 
+    public void relancerLecteur (IHM ihm) {
+        Collection<Lecteur> collecLecteurs = getLecteurs() ;
+        for (Lecteur l : collecLecteurs) {
+            Set<Emprunt> emprunts = l.getEmprunts() ;
+            for (Emprunt em : emprunts)
+        }
+    }
+    
     public void incrementerNumDernierLecteur () {
         numDernierLecteur++ ;
     }
@@ -246,4 +258,7 @@ public class Bibliotheque implements Serializable {
         this.ouvrages.put(ISBN, o);
     }
 
+    private Collection<Lecteur> getLecteurs () {
+        return lecteurs.values() ;
+    }
 }
