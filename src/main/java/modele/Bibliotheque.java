@@ -146,14 +146,13 @@ public class Bibliotheque implements Serializable {
                     Ouvrage o = unOuvrage(numOuvrage);
                     ArrayList <Exemplaire> exemplaire = o.getExemplaires() ;
                     if(exemplaire.size()>0){
-                        //String numExemplaire ???????????????????????????,
-                        String numExemplaire = ihm.saisirNumExemplaire(exemplaire);
+                        Integer numExemplaire = ihm.saisirNumExemplaire(exemplaire);
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
-                        //estDisponible
-                        if(e.empruntable()){
+                        if(e.estDisponible()){
                             Integer age = l.getAgeLecteur();
                             // recup publicvise
-                            if(o.verifAdequationPublic(age)){
+                            Public publicVise = o.getPublicVise();
+                            if(o.verifAdequationPublic(age, publicVise)){
                                 l.nouvelEmprunt(e);
                                 ihm.informerUtilisateur("L'exemplaire a bien été emprunté");
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire",true);

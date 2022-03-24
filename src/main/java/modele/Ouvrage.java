@@ -94,8 +94,8 @@ public class Ouvrage implements Serializable {
         return listExemplaires;
     }
     //à refaire du coup
-    public boolean verifAdequationPublic(Integer age){
-        if(getPublicVise().equals("enfant")){
+    public boolean verifAdequationPublic(Integer age, Public publicVise){
+        if(){
             return(age>6);
         }
         if(getPublicVise().equals("ado")){
