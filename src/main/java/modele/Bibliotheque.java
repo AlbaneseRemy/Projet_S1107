@@ -150,7 +150,6 @@ public class Bibliotheque implements Serializable {
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
                         if(e.estDisponible()){
                             Integer age = l.getAgeLecteur();
-                            // recup publicvise
                             Public publicVise = o.getPublicVise();
                             if(o.verifAdequationPublic(age, publicVise)){
                                 l.nouvelEmprunt(e);

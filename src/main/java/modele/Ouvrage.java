@@ -89,7 +89,7 @@ public class Ouvrage implements Serializable {
         return exemplaires;
     }
     
-    public Exemplaire getUnexemplaire () {
+    public Exemplaire getUnExemplaire (Integer numExemplaire) {
         return 
     }
     
@@ -100,16 +100,12 @@ public class Ouvrage implements Serializable {
         return listNumExemplaires ;
     }
 
-    //à refaire du coup
     public boolean verifAdequationPublic(Integer age, Public publicVise){
-        if(){
-            return(age>6);
-        }
-        if(getPublicVise().equals("ado")){
-            return(age>12);
+        if(publicVise.getAgeMin() <= age){
+            return true;
         }
         else{
-            return(age>16);
+            return false;
         }
     }
 }
