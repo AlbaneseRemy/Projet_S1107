@@ -95,7 +95,7 @@ public class Ouvrage implements Serializable {
     }
     
     public Exemplaire getUnExemplaire(Integer numExemplaire) {
-        
+        return numExemplaire.equals();
     }
     
     public boolean verifAdequationPublic(Integer age, Public publicVise){

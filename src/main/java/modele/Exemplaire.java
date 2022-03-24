@@ -42,8 +42,13 @@ public class Exemplaire implements Serializable{
         return numExemplaire;
     }
     
-    public boolean empruntable(){
-        return estEmpruntable;
+    public boolean estDisponible(){
+        if(estEmpruntable == true && emprunt == null){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
 }
