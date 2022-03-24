@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -26,7 +27,7 @@ public class Ouvrage implements Serializable {
     private final String numISBN;
     private Public publicVise;
     private Integer numDernierExemplaire;
-    private HashSet <Exemplaire> exemplaires;
+    private ArrayList <Exemplaire> exemplaires;
 
     // Constructeur
     public Ouvrage(String titre, String nomEditeur, LocalDate dateParution, ArrayList<String> nomAuteurs, String numISBN, Public publicVise) {
@@ -37,7 +38,7 @@ public class Ouvrage implements Serializable {
         this.numISBN = numISBN;
         this.publicVise = publicVise;
         this.numDernierExemplaire = 0;
-        this.exemplaires = new HashSet<>();
+        this.exemplaires = new ArrayList<>();
     }
 
     // Methode ajouterExemplaire
@@ -84,8 +85,31 @@ public class Ouvrage implements Serializable {
         return numDernierExemplaire;
     }
     
-    public HashSet <Exemplaire> getExemplaires() {
+    public ArrayList <Exemplaire> getExemplaires() {
         return exemplaires;
     }
     
+    public Exemplaire getUnexemplaire () {
+        return 
+    }
+    
+    public ArrayList <Integer> getListNumExemplairesOuvrage() {
+        ArrayList <Integer> listNumExemplaires = new ArrayList<>() ;
+        for (Exemplaire ex : exemplaires)
+            listNumExemplaires.add(ex.getNumExemplaire()) ;
+        return listNumExemplaires ;
+    }
+
+    //à refaire du coup
+    public boolean verifAdequationPublic(Integer age, Public publicVise){
+        if(){
+            return(age>6);
+        }
+        if(getPublicVise().equals("ado")){
+            return(age>12);
+        }
+        else{
+            return(age>16);
+        }
+    }
 }

@@ -7,7 +7,6 @@ import util.* ;
 import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -70,14 +69,14 @@ public class IHM  {
             case CONSULTER_EXEMPLAIRE :
                 bibliotheque.consulterExemplairesOuvrage(this) ;
                 break ;
+            case EMPRUNTER_EXEMPLAIRE :
+                bibliotheque.emprunterExemplaire(this);
+                break ;
             default :
                 assert false : "Commande inconnue." ;
         }
     }
 
-    private boolean verifDate(LocalDate dateRecep) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     //-----  Classes conteneurs et éléments de dialogue pour le lecteur -------------------------------------------------
 
@@ -137,6 +136,10 @@ public class IHM  {
         nom = ES.lireChaine("Saisir le nom du lecteur :");
         prenom = ES.lireChaine("Saisir le prénom du lecteur :");
         dateNaissance = ES.lireDate("Saisir la date de naissance du lecteur :");
+        while(dateNaissance.compareTo(LocalDate.now()) > 0){
+            ES.afficherLibelle("La date de naissance doit être antérieure ou égale à la date du jour.");
+            dateNaissance = ES.lireDate("Saisir la date de naissance du lecteur :");
+        }
         mail = ES.lireEmail("Saisir l'email du lecteur :");
 
         return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
@@ -154,17 +157,26 @@ public class IHM  {
         nomEditeur = ES.lireChaine("Saisir le nom de l'éditeur :");
         dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
         while(dateParution.compareTo(LocalDate.now()) > 0){
-            ES.afficherLibelle("La date de parution doit être antérieure à la date du jour");
+            ES.afficherLibelle("La date de parution doit être antérieure ou égale à la date du jour.");
             dateParution = ES.lireDate("Saisir la date de parution de l'ouvrage :");
         }
         nomsAuteurs = new ArrayList<>();
         nomsAuteurs.add(ES.lireChaine("Saisir le nom de l'auteur (ou un des noms des auteurs) :"));
         String reponse = ES.lireChaine("Voulez-vous rajouter un auteur ? Saisir o (pour oui) ou n (pour non) :");
+        while((!reponse.equals("n")) && (!reponse.equals("o"))){
+            reponse = ES.lireChaine("Saisir o (pour oui) ou n (pour non) :");
+        }
         while(!reponse.equals("n")){
             nomsAuteurs.add(ES.lireChaine("Saisir le nom de l'auteur (ou un des noms des auteurs) :"));
             reponse = ES.lireChaine("Voulez-vous rajouter un auteur ? Saisir o (pour oui) ou n (pour non) :");
         }
+        
         numISBN = ES.lireChaine("Saisir le numéro ISBN :");
+        while(listISBN.contains(numISBN)){
+            ES.afficherLibelle("Le numéro ISBN saisi existe déjà.");
+            numISBN = ES.lireChaine("Saisir le numéro ISBN :");
+        }
+        
         String pub = ES.lireChaine("Saisir le public visé (enfant, ado, adulte) :");
         while(!pub.equals("enfant") && !pub.equals("ado") && !pub.equals("adulte")){
             pub = ES.lireChaine("Saisir le public visé (enfant, ado, adulte) :");
@@ -189,17 +201,28 @@ public class IHM  {
         LocalDate dateRecep;
 
         ES.afficherTitre("== Saisie d'exemplaires ==");        
-        
         dateRecep = ES.lireDate("Saisir la date de réception : ");
 
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0){
-            ES.afficherLibelle("La date de parution doit être antérieure à la date de réception et la date de réception doit être antérieure à la date du jour");
-
+           if(dateParution.compareTo(dateRecep) > 0){
+                ES.afficherLibelle("La date de réception doit être postérieure ou égale à la date de parution.");
+                ES.afficherLibelle("(date de parution <= date de réception)");
+                ES.afficherLibelle("date de parution de l'ouvrage : " + dateParution);
+            }
+            else if(dateRecep.compareTo(LocalDate.now()) > 0){
+                ES.afficherLibelle("La date de réception doit être antérieure ou égale à la date du jour.");
+                ES.afficherLibelle("(date de réception <= date du jour)");
+            }
             dateRecep = ES.lireDate("Saisir la date de réception : ");
         }
         
         nbExemplairesEntres = ES.lireEntier("Saisir le nombre total d'exemplaires : ");
         nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        while (nbExemplairesEntres < nbNonEmpruntables){
+            ES.afficherLibelle("Le nombre d'exemplaires non empruntables doit être inférieur ou égal au nombre d'exemplaires entrés.");
+            ES.afficherLibelle("Vous venez d'entrer " + nbExemplairesEntres + " exemplaires.");
+            nbNonEmpruntables = ES.lireEntier("Saisir le nombre d'exemplaires non empruntables : ");
+        }
         
         return new InfosExemplaire(dateRecep, nbExemplairesEntres, nbNonEmpruntables);
     }
@@ -221,11 +244,19 @@ public class IHM  {
     public String saisirNumOuvrage (Set <String> listISBN) {
         String numOuvrage = ES.lireChaine("Saisir un numéro ISBN : ") ;
         while(!listISBN.contains(numOuvrage)) {
-            numOuvrage = ES.lireChaine("Saisir un numéro ISBN valide : ") ;
+            numOuvrage = ES.lireChaine("Cet ISBN ne correspond à aucun ouvrage de la liste. Saisir un nouvel ISBN  : ") ;
         }
         return numOuvrage ;
     }
     
+    public Integer saisirNumExemplaire(ArrayList<Integer> listNumExemplaires) {
+        Integer numExemplaire = ES.lireEntier("Saisir le numéro de l'exemplaire : ") ;
+        while (!listNumExemplaires.contains(numExemplaire)) {
+            numExemplaire = ES.lireEntier("Ce numéro d'exemplaire ne correspond à aucun exemplaire de la liste. Saisir un nouveau numéro : ") ;
+        }
+        return numExemplaire ;
+    }
+
     public void afficherInfosLecteur(final Integer num, final String nom, final String prenom,
                                 final LocalDate dateNaissance, final String mail, Integer age) {
         ES.afficherTitre("== affichage du lecteur ==");
@@ -249,14 +280,25 @@ public class IHM  {
     }
     
     public void afficherInfosOuvrage(final String numOuvrage, final String titre){
-        ES.afficherTitre("== affichage des exemplaires de l'ouvrage " + numOuvrage + " : " + titre + " ==");
+        ES.afficherTitre("== affichage des exemplaires de l'ouvrage ==");
+        ES.afficherLibelle("Ouvrage : " + numOuvrage);
+        ES.afficherLibelle("Titre : " + titre);
     }
     
-    public void afficherInfosExemplaireOuvrage(HashSet <Exemplaire> exemplaires){
+    public void afficherInfosExemplaireOuvrage(ArrayList <Exemplaire> exemplaires){
         for (Exemplaire exemplaire : exemplaires ){
             Integer numEx = exemplaire.getNumExemplaire();            
             ES.afficherLibelle("numéro d'exemplaire : " + numEx);
         }
+    }
+    
+    public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
+        System.out.print("[");
+        for (Exemplaire exemplaire : exemplaires ){
+            Integer numEx = exemplaire.getNumExemplaire();
+            ES.afficherArrayList("numéro d'exemplaire : " + numEx);
+        }
+        System.out.print("]");
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------

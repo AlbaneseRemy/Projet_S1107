@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Set;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -91,7 +93,7 @@ public class ES {
                     valentiere = Integer.parseInt(entree.readLine()) ;
                     ok = true;
                 } catch (NumberFormatException e) {
-                    {System.out.println("Non un entier. Recommencez.");}
+                    {System.out.println("Un nombre entier est exigé. Recommencez.");}
                 }
             } while (!ok) ;
 
@@ -238,4 +240,22 @@ public class ES {
         System.out.flush() ;
     }
 
+    public static void afficherSetInt(Set<Integer> list, String libelle){
+        System.out.println(libelle);
+        System.out.println(list);
+        System.out.flush();
+    }
+    
+    public static void afficherSetStr(Set<String> list, String libelle){
+        System.out.println(libelle);
+        System.out.println(list);
+        System.out.flush();
+    }
+    
+    public static void afficherArrayList(String libelle){
+        System.out.print(libelle+" , ");
+        System.out.flush();
+    }
+
+    
 } // Fin de classe ES

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Set;
 
 public class Lecteur implements Serializable {
 
@@ -14,6 +16,9 @@ public class Lecteur implements Serializable {
     private String prenomLecteur ;
     private LocalDate dateNaissanceLecteur ;
     private String mailLecteur ;
+    private Integer nbEmprunts;
+    public ArrayList<Exemplaire> listExemplairesEmpruntés;
+    private Set<Emprunt> emprunt;
 
     // Constructeur
     public Lecteur (Integer numLecteur, String nomLecteur, String prenomLecteur, LocalDate dateNaissanceLecteur, String mailLecteur) {
@@ -44,7 +49,7 @@ public class Lecteur implements Serializable {
     public String getMailLecteur() {
         return mailLecteur ;
     }
-
+    
     public Integer getAgeLecteur() {
         int age ;
         LocalDate dateNaissComp;
@@ -56,5 +61,18 @@ public class Lecteur implements Serializable {
             age = dateActuelle.getYear() - dateNaissanceLecteur.getYear() - 1;
         }
         return age ;
+    }
+    
+    public Integer getNbEmprunts(){
+        return nbEmprunts;
+    }
+    
+    public Boolean estSature(){
+        return getNbEmprunts() > 5;
+    }
+    
+    public void nouvelEmprunt(Exemplaire e){
+        this.nbEmprunts+=1;
+        this.listExemplairesEmpruntés.add(e);
     }
 }
