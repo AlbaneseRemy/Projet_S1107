@@ -10,15 +10,14 @@ import java.util.Set;
 public class Lecteur implements Serializable {
 
     // Attributs
-    private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
+    private static final long serialVersionUID = 1L ;  // nécessaire pour la sérialisation
     private final Integer numLecteur ;
     private String nomLecteur ;
     private String prenomLecteur ;
     private LocalDate dateNaissanceLecteur ;
     private String mailLecteur ;
-    private Integer nbEmprunts;
-    public ArrayList<Exemplaire> listExemplairesEmpruntés;
-    private Set<Emprunt> emprunt;
+    public ArrayList<Exemplaire> listExemplairesEmpruntés ;
+    private Set<Emprunt> emprunts ;
 
     // Constructeur
     public Lecteur (Integer numLecteur, String nomLecteur, String prenomLecteur, LocalDate dateNaissanceLecteur, String mailLecteur) {
@@ -64,7 +63,7 @@ public class Lecteur implements Serializable {
     }
     
     public Integer getNbEmprunts(){
-        return nbEmprunts;
+        return emprunts.size();
     }
 
     public Boolean estSature(){
@@ -72,8 +71,7 @@ public class Lecteur implements Serializable {
     }
 
     public void nouvelEmprunt(Exemplaire e){
-        this.nbEmprunts+=1;
-        this.listExemplairesEmpruntés.add(e);
+        Emprunt()
     }
     
     public void finEmprunt (Exemplaire e) {

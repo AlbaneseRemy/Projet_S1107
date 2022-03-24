@@ -12,17 +12,39 @@ import java.time.LocalDate;
  */
 public class Emprunt {
 
-    // Attributs
-    private LocalDate dateEmprunt;
-    private LocalDate dateRetour;
-    private Exemplaire exemplaire;
-    private Lecteur lecteur;
+    private LocalDate dateEmprunt ;
+    private Lecteur lecteur ;
+    private Exemplaire exemplaire ;
     
-    public Emprunt() {
-        
+    public Emprunt (Lecteur lecteur, Exemplaire exemplaire) {
+        this.lecteur = lecteur;
+        this.exemplaire = exemplaire;
     }
-
+    
+    private void lierExemplaire (Exemplaire ex) {
+        exemplaire = ex;
+    }
+    
+    private void lierLecteur (Lecteur l) {
+        lecteur = l;
+    }
+    
     public Lecteur getLecteur() {
-        return lecteur ;
+        return lecteur;
     }
+    
+    public LocalDate getDateEmprunt() {
+        return dateEmprunt;
+    }
+    
+    public LocalDate getDateRetour() {
+        return dateEmprunt.plusDays(8);
+    }
+    
+    public Ouvrage getOuvrageExemplaire() {
+        return ;
+    }
+    
+    
+    
 }

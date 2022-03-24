@@ -144,7 +144,7 @@ public class Bibliotheque implements Serializable {
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
                     String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
                     Ouvrage o = unOuvrage(numOuvrage);
-                    ArrayList <Exemplaire> exemplaire = o.getExemplaires() ;
+                    ArrayList <Integer> exemplaire = o.getListNumExemplairesOuvrage() ;
                     if(exemplaire.size()>0){
                         Integer numExemplaire = ihm.saisirNumExemplaire(exemplaire);
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
