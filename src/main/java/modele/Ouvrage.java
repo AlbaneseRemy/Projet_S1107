@@ -90,9 +90,17 @@ public class Ouvrage implements Serializable {
     }
     
     public Exemplaire getUnExemplaire (Integer numExemplaire) {
-        return new Exemplaire() ;
+        Exemplaire exTemp = null ;
+        int i = 0 ;
+        while (i < exemplaires.size() && numExemplaire != exemplaires.get(i).getNumExemplaire())
+        {
+            i++ ;
+        }
+        if (i < exemplaires.size())
+            exTemp = exemplaires.get(i) ;
+        return exTemp ;
     }
-    
+
     public ArrayList <Integer> getListNumExemplairesOuvrage() {
         ArrayList <Integer> listNumExemplaires = new ArrayList<>() ;
         for (Exemplaire ex : exemplaires)

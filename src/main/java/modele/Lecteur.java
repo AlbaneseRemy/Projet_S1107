@@ -16,7 +16,6 @@ public class Lecteur implements Serializable {
     private String prenomLecteur ;
     private LocalDate dateNaissanceLecteur ;
     private String mailLecteur ;
-    public ArrayList<Exemplaire> listExemplairesEmpruntés ;
     private Set<Emprunt> emprunts ;
 
     // Constructeur
@@ -60,6 +59,10 @@ public class Lecteur implements Serializable {
             age = dateActuelle.getYear() - dateNaissanceLecteur.getYear() - 1;
         }
         return age ;
+    }
+    
+    public Set<Emprunt> getEmprunts() {
+        return emprunts ;
     }
     
     public Integer getNbEmprunts(){
