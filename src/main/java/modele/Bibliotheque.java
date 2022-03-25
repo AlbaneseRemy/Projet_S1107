@@ -74,7 +74,6 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Création d'exemplaires", false);
         }
     }
-    
 
     // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
@@ -123,7 +122,6 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Consultation d'ouvrage ",false);
         }
     }
-    
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
     public void consulterExemplairesOuvrage (IHM ihm) {
@@ -251,26 +249,29 @@ public class Bibliotheque implements Serializable {
         Collection<Lecteur> collecLecteurs = getLecteurs() ;
         for (Lecteur l : collecLecteurs) {
             HashSet<Emprunt> emprunts = l.getEmprunts() ;
+            int nbEmpruntsRetard = 0 ;
             for (Emprunt em : emprunts) {
                 LocalDate dateRetour = em.getDateRetour() ;
                 if ((dateRetour.plusDays(14)).isAfter(LocalDate.now())) {
-                    String nom = l.getNomLecteur() ;
-                    String prenom = l.getPrenomLecteur() ;
-                    Integer numLecteur = l.getNumLecteur() ;
+                    nbEmpruntsRetard++ ;
                     LocalDate dateEmprunt = em.getDateEmprunt() ;
                     Exemplaire ex = em.getExemplaire() ;
                     Integer numEx = ex.getNumExemplaire() ;
                     Ouvrage o = ex.getOuvrage() ;
                     String titre = o.getTitre() ;
                     String  numISBN = o.getNumISBN() ;
-                    
-                }
-                    
-                
+                    if (nbEmpruntsRetard == 1) {
+                        String nom = l.getNomLecteur() ;
+                        String prenom = l.getPrenomLecteur() ;
+                        Integer numLect = l.getNumLecteur() ;
+                        ihm.afficherInfosLecteurRetard (numLect, nom, prenom) ;
+                    }
+                    ihm.afficherInfosRetard (titre, numISBN, numEx, dateEmprunt, dateRetour) ;
+                }                
             }
         }
     }
-    
+
     public void incrementerNumDernierLecteur () {
         numDernierLecteur++ ;
     }

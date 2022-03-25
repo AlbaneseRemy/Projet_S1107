@@ -233,9 +233,6 @@ public class IHM  {
         return new InfosExemplaire(dateRecep, nbExemplairesEntres, nbNonEmpruntables);
     }
 
-     
-    
-    
     public Integer saisirNumLecteur (Set <Integer> listNumLecteur) {
         Integer numLecteur ;
         informerUtilisateur("Saisir un numéro de lecteur : ") ;
@@ -303,16 +300,22 @@ public class IHM  {
         ES.afficherLibelle("nom : " + nom);
         ES.afficherLibelle("prénom : " + prenom);
     }
-    public void afficherInfosEmprunt(String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour){
-        ES.afficherTitre("== affichage des emprunts du lecteur ==");
-        ES.afficherLibelle("titre : "+titre);
-        ES.afficherLibelle("numéro ISBN : "+numISBN);
-        ES.afficherLibelle("numéro de l'exemplaire : "+numEx);
-        ES.afficherLibelle("date de l'emprunt : "+dateEmprunt);
-        ES.afficherLibelle("date de retour : "+dateRetour);
+
+    public void afficherInfosLecteurRetard (Integer numLect, String nom, String prenom) {
+        ES.afficherLibelle("Lecteur n° " + numLect + " : " + prenom + " " + nom) ;        
     }
-    
-    
+
+    public void afficherInfosRetard (String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour) {
+        ES.afficherLibelle("Exemplaire emprunté :") ;
+        ES.afficherLibelle("titre : " + titre) ;
+        ES.afficherLibelle("ISBN : " + numISBN) ;
+        ES.afficherLibelle("numéro de l'exemplaire : " + numEx) ;
+        ES.afficherLibelle("Date d'emorunt : " + dateEmprunt) ;
+        ES.afficherLibelle("Date de retour : " + dateRetour) ;
+        //LocalDate nbJoursRetard = LocalDate.now().
+        //ES.afficherLibelle()
+   }
+
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
         ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
