@@ -25,7 +25,7 @@ public class Lecteur implements Serializable {
         this.prenomLecteur = prenomLecteur ;
         this.dateNaissanceLecteur = dateNaissanceLecteur ;
         this.mailLecteur = mailLecteur ;
-        this.emprunts = new HashSet<>(); //REMPLACEMENT DU SET PAR UN ARRAYLIST POUR POUVOIR L'INITIALISER
+        this.emprunts = new HashSet<>(); //REMPLACEMENT DU SET PAR UN HASHSET POUR POUVOIR L'INITIALISER
     }
 
     // Getters
