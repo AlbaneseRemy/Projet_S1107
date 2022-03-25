@@ -301,6 +301,14 @@ public class IHM  {
         ES.afficherLibelle("prénom : " + prenom);
     }
 
+    public void afficherInfosEmprunt (String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour) {
+        ES.afficherLibelle("titre : " + titre) ;
+        ES.afficherLibelle("Numéro ISBN : " + numISBN) ;
+        ES.afficherLibelle("Numéro de l'exemplaire : " + numEx) ;
+        ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
+        ES.afficherLibelle("Date de retour : " + dateRetour) ;
+    }
+
     public void afficherInfosLecteurRetard (Integer numLect, String nom, String prenom) {
         ES.afficherLibelle("Lecteur n° " + numLect + " : " + prenom + " " + nom) ;        
     }
