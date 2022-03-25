@@ -88,7 +88,7 @@ public class Ouvrage implements Serializable {
     public ArrayList <Exemplaire> getExemplaires() {
         return exemplaires;
     }
-    
+
     public Exemplaire getUnExemplaire (Integer numExemplaire) {
         Exemplaire exTemp = null ;
         int i = 0 ;
