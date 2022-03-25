@@ -136,7 +136,6 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
             ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
             if (exemplaires.size()>0){
-                int i = 0;
                 for (Exemplaire exemplaire : exemplaires ){
                     if(exemplaire.estDisponible()){
                         ihm.afficherInfosExemplaireOuvrage(exemplaire.getNumExemplaire());
