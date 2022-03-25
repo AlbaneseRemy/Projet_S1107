@@ -136,17 +136,18 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
             ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
             if (exemplaires.size()>0){
-                for (Exemplaire exemplaire : exemplaires ){
-                    if(exemplaire.estDisponible()){
-                        ihm.afficherInfosExemplaireOuvrage(exemplaire.getNumExemplaire());
+                for (Exemplaire ex : exemplaires ){
+                    if(ex.estDisponible()){
+                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire());
                         ihm.informerUtilisateur("Cet exemplaire est disponible.");
                     }
                     else {
-                        Emprunt em = exemplaire.getEmprunt();
+                        Emprunt em = ex.getEmprunt();
                         Lecteur l = em.getLecteur();
-                        ihm.afficherInfosExemplaireOuvrage(exemplaire.getNumExemplaire(), em.getDateEmprunt(), em.getDateRetour(), l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur());
+                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), em.getDateEmprunt(), em.getDateRetour(), l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur());
                     }
                 }
+                ihm.informerUtilisateur("Consultation d'exemplaires ",true);
             }
             else {
                 ihm.informerUtilisateur("Il n'existe pas encore d'exemplaires pour cet ouvrage.");
@@ -190,10 +191,10 @@ public class Bibliotheque implements Serializable {
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                             }
                         }
-                        else {
+                        else{
                             ihm.informerUtilisateur("L'exemplaire n'est pas disponible.");
                             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
-                        }                        
+                        }
                     }
                     else{
                         ihm.informerUtilisateur("Aucun exemplaire n'existe pour cet ouvrage.");

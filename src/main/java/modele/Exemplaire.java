@@ -43,13 +43,30 @@ public class Exemplaire implements Serializable{
     }
     
     public boolean estDisponible(){
-        if(estEmpruntable == true && emprunt == null){
+        if (estEmpruntable == true && emprunt == null) {
             return true;
         }
         else {
             return false;
         }
     }
+    
+    /*
+    public int estDisponible(){
+        if(estEmpruntable == true && emprunt == null) {
+            //non disponible (emprunté)
+            return 0;
+        }
+        else if (estEmpruntable == true && emprunt != null) {
+            //disponible
+            return 1;
+        }
+        else {
+            //non empruntable
+            return -1;
+        }
+    }
+*/
 
     public Lecteur getLecteur() {
         return getEmprunt().getLecteur() ;
