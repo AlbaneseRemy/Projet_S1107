@@ -297,15 +297,23 @@ public class IHM  {
         ES.afficherLibelle("nom : " + nom);
         ES.afficherLibelle("prénom : " + prenom);
     }
+    public void afficherInfosEmprunt(String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour){
+        ES.afficherTitre("== affichage des emprunts du lecteur ==");
+        ES.afficherLibelle("titre : "+titre);
+        ES.afficherLibelle("numéro ISBN : "+numISBN);
+        ES.afficherLibelle("numéro de l'exemplaire : "+numEx);
+        ES.afficherLibelle("date de l'emprunt : "+dateEmprunt);
+        ES.afficherLibelle("date de retour : "+dateRetour);
+    }
     
-    public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
+    /*public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
         System.out.print("[");
         for (Exemplaire exemplaire : exemplaires ){
             Integer numEx = exemplaire.getNumExemplaire();
             ES.afficherArrayList("numéro d'exemplaire : " + numEx);
         }
         System.out.print("]");
-    }
+    }*/
 
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
