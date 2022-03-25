@@ -134,15 +134,19 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
             ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
             if (exemplaires.size()>0){
-                for (Exemplaire ex : exemplaires ){
-                    if(ex.estDisponible()){
+                for (Exemplaire ex : exemplaires ) {
+                    if (ex.getEtatExemplaire() == 0) {
                         ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire());
                         ihm.informerUtilisateur("Cet exemplaire est disponible.");
                     }
-                    else {
+                    else if (ex.getEtatExemplaire() == 1) {
                         Emprunt em = ex.getEmprunt();
                         Lecteur l = em.getLecteur();
                         ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), em.getDateEmprunt(), em.getDateRetour(), l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur());
+                    }
+                    else {
+                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire());
+                        ihm.informerUtilisateur("Cet exemplaire n'est pas empruntable.");
                     }
                 }
                 ihm.informerUtilisateur("Consultation d'exemplaires ",true);
@@ -176,7 +180,7 @@ public class Bibliotheque implements Serializable {
                     if(listNumExemplaire.size()>0){
                         Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaire);
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
-                        if(e.estDisponible()){
+                        if(e.getEtatExemplaire() == 0){
                             Integer age = l.getAgeLecteur();
                             Public publicVise = o.getPublicVise();
                             if(o.verifAdequationPublic(age, publicVise)){
@@ -189,7 +193,7 @@ public class Bibliotheque implements Serializable {
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                             }
                         }
-                        else{
+                        else {
                             ihm.informerUtilisateur("L'exemplaire n'est pas disponible.");
                             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                         }
@@ -226,14 +230,18 @@ public class Bibliotheque implements Serializable {
                 ES.afficherLibelle("Liste des exemplaires existants : " + listNumExemplaires) ;
                 Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaires) ;
                 Exemplaire ex = o.getUnExemplaire(numExemplaire) ;
-                if (!ex.estDisponible()) {
+                if (ex.getEtatExemplaire() == 1) {
                     Emprunt em = ex.getEmprunt() ;
                     Lecteur l = em.getLecteur() ;
                     l.finEmprunt(ex, em) ;
                     ihm.informerUtilisateur("Retour de l'exemplaire", true) ;
                 }
-                else {
+                else if (ex.getEtatExemplaire() == 0) {
                     ihm.informerUtilisateur("Cet exemplaire est disponible, il ne peut être rendu.\nRetour au menu");
+                }
+                else {
+                    ihm.informerUtilisateur("Cet exemplaire n'est pas empruntable....\nRetour au menu");
+                    //à voir
                 }
             }
             else {

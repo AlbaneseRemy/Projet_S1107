@@ -42,23 +42,13 @@ public class Exemplaire implements Serializable{
         return numExemplaire;
     }
     
-    public boolean estDisponible(){
-        if (estEmpruntable == true && emprunt == null) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    
-    /*
-    public int estDisponible(){
+    public int getEtatExemplaire(){
         if(estEmpruntable == true && emprunt == null) {
-            //non disponible (emprunté)
+            //disponible
             return 0;
         }
         else if (estEmpruntable == true && emprunt != null) {
-            //disponible
+            //non disponible (emprunté)
             return 1;
         }
         else {
@@ -66,7 +56,6 @@ public class Exemplaire implements Serializable{
             return -1;
         }
     }
-*/
 
     public Lecteur getLecteur() {
         return getEmprunt().getLecteur() ;
