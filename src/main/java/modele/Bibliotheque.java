@@ -126,7 +126,7 @@ public class Bibliotheque implements Serializable {
             }
         }
         else{
-            ihm.informerUtilisateur("Il n'y a pas encore d'ouvrages, et donc pas d'exemplaires non plus.");
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages, il n'existe donc pas encore d'exemplaires.");
             ihm.informerUtilisateur("Consultation d'exemplaires ",false);
         }
     } 
