@@ -289,17 +289,6 @@ public class IHM  {
         }
     }
 
-/*    
-    public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
-        System.out.print("[");
-        for (Exemplaire exemplaire : exemplaires ){
-            Integer numEx = exemplaire.getNumExemplaire();
-            ES.afficherArrayList("numéro d'exemplaire : " + numEx);
-        }
-        System.out.print("]");
-    }
-*/
-
     public void afficherInfosLecteurRetard (Integer numLect, String nom, String prenom) {
         ES.afficherLibelle("Lecteur n° " + numLect + " : " + prenom + " " + nom) ;        
     }
