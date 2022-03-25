@@ -46,6 +46,9 @@ public class Emprunt {
         return exemplaire ;
     }
     
+    public Ouvrage getOuvrageExemplaire(){
+        return exemplaire.getOuvrage();
+    }
     
     
 }

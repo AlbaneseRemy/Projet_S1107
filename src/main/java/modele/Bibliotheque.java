@@ -84,6 +84,19 @@ public class Bibliotheque implements Serializable {
             Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
             Lecteur l = unLecteur (nLecteur) ;
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
+            
+            Set<Emprunt> collecEmprunts = l.getEmprunts();
+            for (Emprunt em : collecEmprunts){
+                Ouvrage o = em.getOuvrageExemplaire();
+                Exemplaire e=em.getExemplaire(); //MODIFICATION ICI PAS SUR LE DdsD_CONSULTERLECTEUR
+                String titre = o.getTitre();
+                String numISBN = o.getNumISBN();
+                Integer numEx = e.getNumExemplaire();
+                LocalDate dateEmprunt = em.getDateEmprunt();
+                LocalDate dateRetour = em.getDateRetour();
+                ihm.afficherInfosEmprunt(titre, numISBN, numEx, dateEmprunt, dateRetour);
+            }
+            ihm.informerUtilisateur("Consultation d'un lecteur et de ses emprunts",true);
         }
         else{
             ihm.informerUtilisateur("Aucun lecteur dans la base.");
