@@ -88,7 +88,7 @@ public class Bibliotheque implements Serializable {
             Set<Emprunt> collecEmprunts = l.getEmprunts();
             for (Emprunt em : collecEmprunts){
                 Ouvrage o = em.getOuvrageExemplaire();
-                Exemplaire e=em.getExemplaire(); //MODIFICATION ICI PAS SUR LE DdsD_CONSULTERLECTEUR
+                Exemplaire e=em.getExemplaire();
                 String titre = o.getTitre();
                 String numISBN = o.getNumISBN();
                 Integer numEx = e.getNumExemplaire();
