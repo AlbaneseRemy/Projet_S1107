@@ -263,7 +263,7 @@ public class Bibliotheque implements Serializable {
                     Ouvrage o = ex.getOuvrage() ;
                     String titre = o.getTitre() ;
                     String  numISBN = o.getNumISBN() ;
-
+                    
                 }
                     
                 

@@ -312,15 +312,7 @@ public class IHM  {
         ES.afficherLibelle("date de retour : "+dateRetour);
     }
     
-    /*public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
-        System.out.print("[");
-        for (Exemplaire exemplaire : exemplaires ){
-            Integer numEx = exemplaire.getNumExemplaire();
-            ES.afficherArrayList("numéro d'exemplaire : " + numEx);
-        }
-        System.out.print("]");
-    }*/
-
+    
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
         ES.afficherLibelle((succes ? "[OK]" : "[KO]") + " " + msg);
