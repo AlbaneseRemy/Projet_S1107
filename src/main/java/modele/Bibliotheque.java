@@ -126,7 +126,7 @@ public class Bibliotheque implements Serializable {
             }
         }
         else{
-            ihm.informerUtilisateur("Il n'y a pas encore d'ouvrages, et donc pas d'exemplaires non plus.");
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages, il n'existe donc pas encore d'exemplaires.");
             ihm.informerUtilisateur("Consultation d'exemplaires ",false);
         }
     } 
@@ -154,7 +154,7 @@ public class Bibliotheque implements Serializable {
                             Public publicVise = o.getPublicVise();
                             if(o.verifAdequationPublic(age, publicVise)){
                                 l.nouvelEmprunt(e);
-                                ihm.informerUtilisateur("L'exemplaire a bien été emprunté");
+                                ihm.informerUtilisateur("L'exemplaire a bien été emprunté.");
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire",true);
                             }                            
                             else{
@@ -163,12 +163,12 @@ public class Bibliotheque implements Serializable {
                             }
                         }
                         else {
-                            ihm.informerUtilisateur("L'exemplaire n'est pas empruntable");
+                            ihm.informerUtilisateur("L'exemplaire n'est pas disponible.");
                             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                         }                        
                     }
                     else{
-                        ihm.informerUtilisateur("Aucun exemplaire pour cet ouvrage.");
+                        ihm.informerUtilisateur("Aucun exemplaire n'existe pour cet ouvrage.");
                         ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                     }
                 }                
@@ -200,8 +200,9 @@ public class Bibliotheque implements Serializable {
                 Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaires) ;
                 Exemplaire ex = o.getUnExemplaire(numExemplaire) ;
                 if (!ex.estDisponible()) {
+                    Emprunt em = ex.getEmprunt() ;
                     Lecteur l = ex.getLecteur() ;
-                    l.finEmprunt(ex) ;
+                    l.finEmprunt(ex, em) ;
                     ihm.informerUtilisateur("Retour de l'exemplaire", true) ;
                 }
                 else {
@@ -213,7 +214,7 @@ public class Bibliotheque implements Serializable {
             }
         }
         else {
-            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages. \nRetour au menu.") ;
+            ihm.informerUtilisateur("Il n'existe pas encore d'ouvrages.\nRetour au menu.") ;
         }
     }
 
