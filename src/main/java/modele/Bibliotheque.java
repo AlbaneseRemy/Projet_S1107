@@ -85,16 +85,21 @@ public class Bibliotheque implements Serializable {
             Lecteur l = unLecteur (nLecteur) ;
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
             
-            Set<Emprunt> collecEmprunts = l.getEmprunts();
-            for (Emprunt em : collecEmprunts){
-                Ouvrage o = em.getOuvrageExemplaire();
-                Exemplaire e=em.getExemplaire();
-                String titre = o.getTitre();
-                String numISBN = o.getNumISBN();
-                Integer numEx = e.getNumExemplaire();
-                LocalDate dateEmprunt = em.getDateEmprunt();
-                LocalDate dateRetour = em.getDateRetour();
-                ihm.afficherInfosEmprunt(titre, numISBN, numEx, dateEmprunt, dateRetour);
+            HashSet<Emprunt> collecEmprunts = l.getEmprunts();
+            if (collecEmprunts.size()>0){
+                for (Emprunt em : collecEmprunts){
+                    LocalDate dateEmprunt = em.getDateEmprunt();
+                    LocalDate dateRetour = em.getDateRetour();
+                    Exemplaire e=em.getExemplaire();
+                    Integer numEx = e.getNumExemplaire();
+                    Ouvrage o = e.getOuvrage();
+                    String titre = o.getTitre();
+                    String numISBN = o.getNumISBN();
+                    ihm.afficherInfosEmprunt(titre, numISBN, numEx, dateEmprunt, dateRetour);
+                }
+            }
+            else {
+                ihm.informerUtilisateur("Le lecteur n'a aucun emprunt en cours.");
             }
             ihm.informerUtilisateur("Consultation d'un lecteur et de ses emprunts",true);
         }
@@ -158,9 +163,9 @@ public class Bibliotheque implements Serializable {
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
                     String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
                     Ouvrage o = unOuvrage(numOuvrage);
-                    ArrayList <Integer> exemplaire = o.getListNumExemplairesOuvrage() ;
-                    if(exemplaire.size()>0){
-                        Integer numExemplaire = ihm.saisirNumExemplaire(exemplaire);
+                    ArrayList <Integer> listNumExemplaire = o.getListNumExemplairesOuvrage() ; //Pourquoi a-t-on un arraylist alors que l'on utilise des sets avant
+                    if(listNumExemplaire.size()>0){
+                        Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaire);
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
                         if(e.estDisponible()){
                             Integer age = l.getAgeLecteur();
@@ -234,7 +239,7 @@ public class Bibliotheque implements Serializable {
     public void relancerLecteur (IHM ihm) {
         Collection<Lecteur> collecLecteurs = getLecteurs() ;
         for (Lecteur l : collecLecteurs) {
-            Set<Emprunt> emprunts = l.getEmprunts() ;
+            HashSet<Emprunt> emprunts = l.getEmprunts() ;
             for (Emprunt em : emprunts) {
                 LocalDate dateRetour = em.getDateRetour() ;
                 if ((dateRetour.plusDays(14)).isAfter(LocalDate.now())) {
