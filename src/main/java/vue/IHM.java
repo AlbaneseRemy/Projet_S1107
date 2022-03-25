@@ -72,6 +72,12 @@ public class IHM  {
             case EMPRUNTER_EXEMPLAIRE :
                 bibliotheque.emprunterExemplaire(this);
                 break ;
+            case RENDRE_EXEMPLAIRE :
+                bibliotheque.rendreExemplaire(this);
+                break;
+            case RELANCER_LECTEUR :
+                bibliotheque.relancerLecteur(this);
+                break;
             default :
                 assert false : "Commande inconnue." ;
         }
