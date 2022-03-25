@@ -285,11 +285,17 @@ public class IHM  {
         ES.afficherLibelle("Titre : " + titre);
     }
     
-    public void afficherInfosExemplaireOuvrage(ArrayList <Exemplaire> exemplaires){
-        for (Exemplaire exemplaire : exemplaires ){
-            Integer numEx = exemplaire.getNumExemplaire();            
-            ES.afficherLibelle("numéro d'exemplaire : " + numEx);
-        }
+    public void afficherInfosExemplaireOuvrage(Integer numEx){          
+        ES.afficherLibelle("numéro d'exemplaire : " + numEx);
+    }
+    
+    public void afficherInfosExemplaireOuvrage(Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour, Integer numLect, String nom, String prenom){  
+        ES.afficherLibelle("numéro d'exemplaire : " + numEx);
+        ES.afficherLibelle("date d'emprunt : " + dateEmprunt);
+        ES.afficherLibelle("date de retour : " + dateRetour);
+        ES.afficherLibelle("numéro : " + numLect);
+        ES.afficherLibelle("nom : " + nom);
+        ES.afficherLibelle("prénom : " + prenom);
     }
     
     public void afficherListeExemplaire(ArrayList <Exemplaire> exemplaires){
