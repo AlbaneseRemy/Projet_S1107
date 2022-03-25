@@ -4,13 +4,14 @@
  */
 package modele;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author albanesr
  */
-public class Emprunt {
+public class Emprunt implements Serializable{
 
     private LocalDate dateEmprunt ;
     private Lecteur lecteur ;

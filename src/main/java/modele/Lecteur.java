@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.HashSet;
 
 public class Lecteur implements Serializable {
 
@@ -16,7 +16,7 @@ public class Lecteur implements Serializable {
     private String prenomLecteur ;
     private LocalDate dateNaissanceLecteur ;
     private String mailLecteur ;
-    private Set<Emprunt> emprunts ;
+    private HashSet<Emprunt> emprunts ;
 
     // Constructeur
     public Lecteur (Integer numLecteur, String nomLecteur, String prenomLecteur, LocalDate dateNaissanceLecteur, String mailLecteur) {
@@ -25,6 +25,7 @@ public class Lecteur implements Serializable {
         this.prenomLecteur = prenomLecteur ;
         this.dateNaissanceLecteur = dateNaissanceLecteur ;
         this.mailLecteur = mailLecteur ;
+        this.emprunts = new HashSet<>(); //REMPLACEMENT DU SET PAR UN HASHSET POUR POUVOIR L'INITIALISER
     }
 
     // Getters
@@ -61,7 +62,7 @@ public class Lecteur implements Serializable {
         return age ;
     }
     
-    public Set<Emprunt> getEmprunts() {
+    public HashSet<Emprunt> getEmprunts() {
         return emprunts ;
     }
     
