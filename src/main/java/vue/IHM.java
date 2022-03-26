@@ -315,6 +315,15 @@ public class IHM  {
         //LocalDate nbJoursRetard = LocalDate.now().
         //ES.afficherLibelle()
    }
+    
+    public void afficherInfosEmprunt(String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour){
+        ES.afficherTitre("== affichage des emprunts en cours ==");
+        ES.afficherLibelle("titre : "+titre);
+        ES.afficherLibelle("ISBN : "+numISBN);
+        ES.afficherLibelle("numéro de l'exemplaire : " + numEx);
+        ES.afficherLibelle("Date d'emorunt : " + dateEmprunt) ;
+        ES.afficherLibelle("Date de retour : " + dateRetour) ;
+    }
 
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
