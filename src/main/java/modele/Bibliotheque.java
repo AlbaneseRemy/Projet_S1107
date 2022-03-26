@@ -75,7 +75,7 @@ public class Bibliotheque implements Serializable {
         }
     }
 
-    // Cas d'utilisation '8Lecteur'
+    // Cas d'utilisation 'Lecteur'
     public void consulterLecteur (IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         if (listNumLecteur.size()>0){
@@ -125,7 +125,6 @@ public class Bibliotheque implements Serializable {
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
     public void consulterExemplairesOuvrage (IHM ihm) {
-
         Set <String> listISBN = getListISBN () ;
         if (listISBN.size()>0){
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
@@ -162,7 +161,7 @@ public class Bibliotheque implements Serializable {
         }
     } 
     
-    
+    // Cas d'utilisation 'emprunterExemplaire'
     public void emprunterExemplaire(IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         if (listNumLecteur.size()>0){
@@ -223,6 +222,7 @@ public class Bibliotheque implements Serializable {
         }          
     }
     
+    // Cas d'utilisation 'rendreExemplaire'
     public void rendreExemplaire (IHM ihm) {
         Set <String> listISBN = getListISBN() ;
         if (listISBN.size() > 0) {
@@ -253,6 +253,7 @@ public class Bibliotheque implements Serializable {
         }
     }
 
+    // Cas d'utilisation 'relancerLecteur'
     public void relancerLecteur (IHM ihm) {
         Collection<Lecteur> collecLecteurs = getLecteurs() ;
         if (collecLecteurs.size() > 0) {
@@ -293,6 +294,7 @@ public class Bibliotheque implements Serializable {
             }
     }
 
+    // Méthodes liées aux lecteurs
     public void incrementerNumDernierLecteur () {
         numDernierLecteur++ ;
     }
@@ -300,7 +302,6 @@ public class Bibliotheque implements Serializable {
     public int getNumDernierLecteur () {
         return numDernierLecteur ;
     }
-    
 
     private Lecteur unLecteur (Integer nLecteur) { 
         return lecteurs.get(nLecteur) ;
@@ -310,11 +311,16 @@ public class Bibliotheque implements Serializable {
         return lecteurs.keySet() ;
     }
 
+    private Collection<Lecteur> getLecteurs () {
+        return lecteurs.values() ;
+    }
+
     private void lierLecteur (Lecteur l, Integer num) {
         this.lecteurs.put(num, l) ;
     }
     
-     public Set <String> getListISBN(){
+    // Méthodes liées aux ouvrages
+    public Set <String> getListISBN(){
         return ouvrages.keySet();
     }
 
@@ -324,9 +330,5 @@ public class Bibliotheque implements Serializable {
 
     private void lierOuvrage(Ouvrage o, String ISBN) {
         this.ouvrages.put(ISBN, o);
-    }
-
-    private Collection<Lecteur> getLecteurs () {
-        return lecteurs.values() ;
     }
 }
