@@ -267,6 +267,7 @@ public class Bibliotheque implements Serializable {
                     for (Emprunt em : emprunts) {
                         LocalDate dateRetour = em.getDateRetour() ;
                         if ((dateRetour.plusDays(14)).isAfter(LocalDate.now())) {
+                        //if ((dateRetour.plusDays(9)).isAfter(LocalDate.now())) {
                             nbEmpruntsRetard++ ;
                             nbRetardsTotal++ ;
                             LocalDate dateEmprunt = em.getDateEmprunt() ;
