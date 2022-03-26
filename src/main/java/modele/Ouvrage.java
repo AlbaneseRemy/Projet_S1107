@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -90,15 +91,11 @@ public class Ouvrage implements Serializable {
     }
 
     public Exemplaire getUnExemplaire (Integer numExemplaire) {
-        Exemplaire exTemp = null ;
-        int i = 0 ;
-        while (i < exemplaires.size() && numExemplaire != exemplaires.get(i).getNumExemplaire())
-        {
-            i++ ;
+        for (Exemplaire ex : exemplaires) {
+            if (Objects.equals(ex.getNumExemplaire(), numExemplaire))
+                return ex ;
         }
-        if (i < exemplaires.size())
-            exTemp = exemplaires.get(i) ;
-        return exTemp ;
+        return null ;
     }
 
     public ArrayList <Integer> getListNumExemplairesOuvrage() {

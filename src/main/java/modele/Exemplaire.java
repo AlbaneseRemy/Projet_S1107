@@ -42,19 +42,13 @@ public class Exemplaire implements Serializable{
         return numExemplaire;
     }
     
-    public int getEtatExemplaire(){
-        if(estEmpruntable == true && emprunt == null) {
-            //disponible
-            return 0;
-        }
-        else if (estEmpruntable == true && emprunt != null) {
-            //non disponible (emprunté)
-            return 1;
-        }
-        else {
-            //non empruntable
-            return -1;
-        }
+    public boolean estDisponible(){
+        return (estEmpruntable == true && emprunt == null) ;
+    }
+
+    public boolean estEmprunte()
+    {
+        return (estEmpruntable == true && emprunt != null) ;
     }
 
     public Lecteur getLecteur() {

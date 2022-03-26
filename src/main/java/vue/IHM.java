@@ -286,19 +286,31 @@ public class IHM  {
         ES.afficherTitre("== affichage des exemplaires de l'ouvrage ==");
         ES.afficherLibelle("Ouvrage : " + numOuvrage);
         ES.afficherLibelle("Titre : " + titre);
+        ES.afficherLibelle("n° exemplaire - état") ;
     }
-    
-    public void afficherInfosExemplaireOuvrage(Integer numEx){          
-        ES.afficherLibelle("numéro d'exemplaire : " + numEx);
+
+    public void afficherInfosExemplaireOuvrage(Integer numEx, int etat) {          
+        String mention = "" ;
+        switch (etat) {
+            case 1 :
+                mention = "\tnon empruntable" ;
+                break ;
+            case 3 :
+                mention = "\tdisponible" ;
+                break ;
+        }
+        ES.afficherLibelle("\t" + numEx + mention);
+        
     }
-    
+
     public void afficherInfosExemplaireOuvrage(Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour, Integer numLect, String nom, String prenom){  
-        ES.afficherLibelle("numéro d'exemplaire : " + numEx);
-        ES.afficherLibelle("date d'emprunt : " + dateEmprunt);
-        ES.afficherLibelle("date de retour : " + dateRetour);
-        ES.afficherLibelle("numéro : " + numLect);
-        ES.afficherLibelle("nom : " + nom);
-        ES.afficherLibelle("prénom : " + prenom);
+        //ES.afficherLibelle("numéro d'exemplaire : " + numEx + " -> cet exemplaire est emprunté");
+        ES.afficherLibelle("\t" + numEx + "\temprunté");
+        ES.afficherLibelle("\t    | date d'emprunt : " + dateEmprunt);
+        ES.afficherLibelle("\t    | date de retour : " + dateRetour);
+        ES.afficherLibelle("\t    | numéro : " + numLect);
+        ES.afficherLibelle("\t    | nom : " + nom);
+        ES.afficherLibelle("\t    | prénom : " + prenom);
     }
 
     public void afficherInfosLecteurRetard (Integer numLect, String nom, String prenom) {
@@ -310,7 +322,7 @@ public class IHM  {
         ES.afficherLibelle("titre : " + titre) ;
         ES.afficherLibelle("ISBN : " + numISBN) ;
         ES.afficherLibelle("numéro de l'exemplaire : " + numEx) ;
-        ES.afficherLibelle("Date d'emorunt : " + dateEmprunt) ;
+        ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
         ES.afficherLibelle("Date de retour : " + dateRetour) ;
         //LocalDate nbJoursRetard = LocalDate.now().
         //ES.afficherLibelle()
@@ -321,7 +333,7 @@ public class IHM  {
         ES.afficherLibelle("titre : "+titre);
         ES.afficherLibelle("ISBN : "+numISBN);
         ES.afficherLibelle("numéro de l'exemplaire : " + numEx);
-        ES.afficherLibelle("Date d'emorunt : " + dateEmprunt) ;
+        ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
         ES.afficherLibelle("Date de retour : " + dateRetour) ;
     }
 

@@ -12,14 +12,16 @@ import java.time.LocalDate;
  * @author albanesr
  */
 public class Emprunt implements Serializable{
-
+    
+    // Attributs
     private LocalDate dateEmprunt ;
     private Lecteur lecteur ;
     private Exemplaire exemplaire ;
     
+    // Constructeur
     public Emprunt (Lecteur lecteur, Exemplaire exemplaire) {
-        this.lecteur = lecteur;
-        this.exemplaire = exemplaire;
+        lierLecteur(lecteur) ;
+        lierExemplaire(exemplaire) ;
         dateEmprunt = LocalDate.now();
     }
     
@@ -31,6 +33,7 @@ public class Emprunt implements Serializable{
         lecteur = l;
     }
     
+    // Getters
     public Lecteur getLecteur() {
         return lecteur;
     }
@@ -49,7 +52,5 @@ public class Emprunt implements Serializable{
     
     public Ouvrage getOuvrageExemplaire(){
         return exemplaire.getOuvrage();
-    }
-    
-    
+    } 
 }
