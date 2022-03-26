@@ -13,10 +13,6 @@ import java.util.Objects;
 import java.util.Set;
 
 
-/**
- *
- * @author albanesr
- */
 public class Ouvrage implements Serializable {
     
     // Attributs
@@ -42,7 +38,10 @@ public class Ouvrage implements Serializable {
         this.exemplaires = new ArrayList<>();
     }
 
-    // Methode ajouterExemplaire
+    public void lierExemplaire (Exemplaire e) {
+        this.exemplaires.add(e) ;
+    }
+
     public void ajouterExemplaire (LocalDate dateRecep, Boolean estEmpruntable) {
         incrementerNumDernierExemplaire() ;
         Exemplaire e = new Exemplaire (dateRecep, estEmpruntable, this) ;
@@ -51,10 +50,6 @@ public class Ouvrage implements Serializable {
 
     public void incrementerNumDernierExemplaire() {
         this.numDernierExemplaire++;
-    }
-
-    public void lierExemplaire (Exemplaire e) {
-        this.exemplaires.add(e) ;
     }
 
     // Getters
@@ -106,11 +101,6 @@ public class Ouvrage implements Serializable {
     }
 
     public boolean verifAdequationPublic(Integer age, Public publicVise){
-        if(publicVise.getAgeMin() <= age){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return publicVise.getAgeMin() <= age ;
     }
 }

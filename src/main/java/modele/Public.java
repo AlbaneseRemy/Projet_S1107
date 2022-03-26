@@ -4,10 +4,7 @@
  */
 package modele;
 
-/**
- *
- * @author albanesr
- */
+
 public enum Public {
     ENFANT(3),
     ADO(10),

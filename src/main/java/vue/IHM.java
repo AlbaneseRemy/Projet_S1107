@@ -206,7 +206,7 @@ public class IHM  {
         Integer nbNonEmpruntables;
         LocalDate dateRecep;
 
-        ES.afficherTitre("== Saisie d'exemplaires ==");        
+        ES.afficherTitre("== Saisie d'exemplaires ==");
         dateRecep = ES.lireDate("Saisir la date de réception : ");
 
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0){
@@ -306,11 +306,11 @@ public class IHM  {
     public void afficherInfosExemplaireOuvrage(Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour, Integer numLect, String nom, String prenom){  
         //ES.afficherLibelle("numéro d'exemplaire : " + numEx + " -> cet exemplaire est emprunté");
         ES.afficherLibelle("\t" + numEx + "\temprunté");
-        ES.afficherLibelle("\t    | date d'emprunt : " + dateEmprunt);
-        ES.afficherLibelle("\t    | date de retour : " + dateRetour);
-        ES.afficherLibelle("\t    | numéro : " + numLect);
-        ES.afficherLibelle("\t    | nom : " + nom);
-        ES.afficherLibelle("\t    | prénom : " + prenom);
+        ES.afficherLibelle("\t\t   | date d'emprunt : " + dateEmprunt);
+        ES.afficherLibelle("\t\t   | date de retour : " + dateRetour);
+        ES.afficherLibelle("\t\t   | numéro : " + numLect);
+        ES.afficherLibelle("\t\t   | nom : " + nom);
+        ES.afficherLibelle("\t\t   | prénom : " + prenom);
     }
 
     public void afficherInfosLecteurRetard (Integer numLect, String nom, String prenom) {

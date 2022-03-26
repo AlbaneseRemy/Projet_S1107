@@ -7,10 +7,7 @@ package modele;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-/**
- *
- * @author albanesr
- */
+
 public class Emprunt implements Serializable{
 
     // Attributs

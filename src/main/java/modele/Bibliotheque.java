@@ -59,6 +59,8 @@ public class Bibliotheque implements Serializable {
             String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
             Ouvrage o = unOuvrage (numOuvrage) ;
             LocalDate dateParution = o.getDateParution() ;
+            ES.afficherLibelle("Titre de l'ouvrage : " + o.getTitre()) ;
+            ES.afficherLibelle("Date de parution : " + dateParution) ;
             IHM.InfosExemplaire infosExemplaire = ihm.saisirInfosExemplaire(dateParution) ;
             for (int i=0 ; i<infosExemplaire.nbNonEmpruntables ; i++)
                 o.ajouterExemplaire (infosExemplaire.dateRecep, false) ;
@@ -83,7 +85,6 @@ public class Bibliotheque implements Serializable {
             Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
             Lecteur l = unLecteur (nLecteur) ;
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
-            
             HashSet<Emprunt> collecEmprunts = l.getEmprunts();
             if (collecEmprunts.size()>0){
                 for (Emprunt em : collecEmprunts){
@@ -151,7 +152,7 @@ public class Bibliotheque implements Serializable {
                 ihm.informerUtilisateur("Consultation d'exemplaires ",true);
             }
             else {
-                ihm.informerUtilisateur("Il n'existe pas encore d'exemplaires pour cet ouvrage.");
+                ihm.informerUtilisateur("pas d'exemplaires /");
                 ihm.informerUtilisateur("Consultation d'exemplaires ",false);
             }
         }
@@ -160,7 +161,7 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Consultation d'exemplaires ",false);
         }
     } 
-    
+
     // Cas d'utilisation 'emprunterExemplaire'
     public void emprunterExemplaire(IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
@@ -238,6 +239,7 @@ public class Bibliotheque implements Serializable {
                     Emprunt em = ex.getEmprunt() ;
                     Lecteur l = em.getLecteur() ;
                     l.finEmprunt(ex, em) ;
+                    ihm.informerUtilisateur("L'exemplaire a bien été rendu.");
                     ihm.informerUtilisateur("Retour de l'exemplaire", true) ;
                 }
                 else {
