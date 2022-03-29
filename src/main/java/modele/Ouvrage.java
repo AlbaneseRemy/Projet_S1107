@@ -100,7 +100,5 @@ public class Ouvrage implements Serializable {
         return listNumExemplaires ;
     }
 
-    public boolean verifAdequationPublic(Integer age, Public publicVise){
-        return publicVise.getAgeMin() <= age ;
-    }
+    
 }

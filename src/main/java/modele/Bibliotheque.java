@@ -132,14 +132,14 @@ public class Bibliotheque implements Serializable {
             ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
             if (exemplaires.size()>0){
                 for (Exemplaire ex : exemplaires ) {
-                    if (ex.estDisponible()) {
-                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), 3);
-                        //ihm.informerUtilisateur("Cet exemplaire est disponible.");
-                    }
-                    else if (ex.estEmprunte()) {
+                    if (ex.estEmprunte()) {
                         Emprunt em = ex.getEmprunt();
                         Lecteur l = em.getLecteur();
                         ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), em.getDateEmprunt(), em.getDateRetour(), l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur());
+                    }
+                    else if (ex.estDisponible()) {
+                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), 3);
+                        //ihm.informerUtilisateur("Cet exemplaire est disponible.");
                     }
                     else {
                         ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), 1);
@@ -173,14 +173,14 @@ public class Bibliotheque implements Serializable {
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
                     String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
                     Ouvrage o = unOuvrage(numOuvrage);
-                    ArrayList <Integer> listNumExemplaire = o.getListNumExemplairesOuvrage() ; //Pourquoi a-t-on un arraylist alors que l'on utilise des sets avant
+                    ArrayList <Integer> listNumExemplaire = o.getListNumExemplairesOuvrage() ;
                     if(listNumExemplaire.size()>0){
                         Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaire);
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
                         if(e.estDisponible()){
                             Integer age = l.getAgeLecteur();
                             Public publicVise = o.getPublicVise();
-                            if(o.verifAdequationPublic(age, publicVise)){
+                            if(verifAdequationPublic(age, publicVise)){
                                 l.nouvelEmprunt(e);
                                 ihm.informerUtilisateur("L'exemplaire a bien été emprunté.");
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire",true);
@@ -298,7 +298,7 @@ public class Bibliotheque implements Serializable {
         numDernierLecteur++ ;
     }
 
-    public int getNumDernierLecteur () {
+    public Integer getNumDernierLecteur () {
         return numDernierLecteur ;
     }
 
@@ -329,5 +329,9 @@ public class Bibliotheque implements Serializable {
 
     private void lierOuvrage(Ouvrage o, String ISBN) {
         this.ouvrages.put(ISBN, o);
+    }
+    
+    public boolean verifAdequationPublic(Integer age, Public publicVise){
+        return publicVise.getAgeMin() <= age ;
     }
 }
