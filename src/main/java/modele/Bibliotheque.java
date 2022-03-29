@@ -226,8 +226,8 @@ public class Bibliotheque implements Serializable {
         Set <String> listISBN = getListISBN() ;
         if (listISBN.size() > 0) {
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :") ;
-            String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
-            Ouvrage o = unOuvrage(numOuvrage) ;
+            String numISBN = ihm.saisirNumOuvrage(listISBN) ;
+            Ouvrage o = unOuvrage(numISBN) ;
             ArrayList <Integer> listNumExemplaires = o.getListNumExemplairesOuvrage() ;
             if (listNumExemplaires.size() > 0) {
                 ES.afficherLibelle("Liste des exemplaires existants : " + listNumExemplaires) ;
