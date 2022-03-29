@@ -3,6 +3,7 @@ import util.Persisteur;
 import java.io.IOException;
 import vue.IHM;
 
+
 public class Main {
 
     public static final int EXIT_ERR_LOAD = 2;
@@ -21,7 +22,6 @@ public class Main {
         }
 
         IHM ihm = new IHM (bibliotheque) ;
-
         ihm.afficherInterface() ;
 
         try {

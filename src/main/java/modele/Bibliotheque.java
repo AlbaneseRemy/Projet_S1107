@@ -72,7 +72,7 @@ public class Bibliotheque implements Serializable {
         }
     }
 
-    // Cas d'utilisation 'Lecteur'
+    // Cas d'utilisation 'consulterLecteur'
     public void consulterLecteur (IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         if (listNumLecteur.size()>0){
@@ -82,6 +82,7 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
             HashSet<Emprunt> collecEmprunts = l.getEmprunts();
             if (collecEmprunts.size()>0){
+                ES.afficherTitre("== affichage des emprunts en cours ==");
                 for (Emprunt em : collecEmprunts){
                     LocalDate dateEmprunt = em.getDateEmprunt();
                     LocalDate dateRetour = em.getDateRetour();
@@ -330,7 +331,8 @@ public class Bibliotheque implements Serializable {
         this.ouvrages.put(numISBN, o);
     }
     
-    public boolean verifAdequationPublic(Integer age, Public publicVise){
+    // Méthode partagée entre un lecteur et un ouvrage
+    public boolean verifAdequationPublic (Integer age, Public publicVise) {
         return publicVise.getAgeMin() <= age ;
     }
 }

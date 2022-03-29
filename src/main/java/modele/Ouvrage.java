@@ -92,6 +92,4 @@ public class Ouvrage implements Serializable {
             listNumExemplaires.add(ex.getNumExemplaire()) ;
         return listNumExemplaires ;
     }
-
-    
 }

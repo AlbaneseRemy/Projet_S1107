@@ -68,10 +68,12 @@ public class Lecteur implements Serializable {
         return emprunts.size();
     }
 
+    // Méthode d'état d'un lecteur
     public Boolean estSature () {
         return getNbEmprunts() == 5;
     }
 
+    // Méthodes liées à un emprunt
     public void ajouterEmprunt (Exemplaire ex) {
         Emprunt em = new Emprunt(this, ex);
         lierEmprunt(em);

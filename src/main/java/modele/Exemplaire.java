@@ -55,7 +55,7 @@ public class Exemplaire implements Serializable{
         return emprunt ;
     }
 
-    // Méthodes d'état
+    // Méthodes d'état d'un exemplaire
     public boolean estDisponible(){
         return (estEmpruntable == true && emprunt == null) ;
     }

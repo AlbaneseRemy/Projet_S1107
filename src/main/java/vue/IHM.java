@@ -102,7 +102,7 @@ public class IHM  {
         }
     }
     
-    public static class InfosOuvrage{
+    public static class InfosOuvrage {
         public final String titre;
         public final String nomEditeur;
         public final LocalDate dateParution;
@@ -301,7 +301,6 @@ public class IHM  {
     }
 
     public void afficherInfosExemplaireOuvrage(Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour, Integer numLect, String nom, String prenom){  
-        //ES.afficherLibelle("numéro d'exemplaire : " + numEx + " -> cet exemplaire est emprunté");
         ES.afficherLibelle("\t" + numEx + "\temprunté");
         ES.afficherLibelle("\t\t   | date d'emprunt : " + dateEmprunt);
         ES.afficherLibelle("\t\t   | date de retour : " + dateRetour);
@@ -324,12 +323,13 @@ public class IHM  {
    }
     
     public void afficherInfosEmprunt(String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour){
-        ES.afficherTitre("== affichage des emprunts en cours ==");
-        ES.afficherLibelle("titre : "+titre);
-        ES.afficherLibelle("ISBN : "+numISBN);
-        ES.afficherLibelle("numéro de l'exemplaire : " + numEx);
+        //ES.afficherTitre("== affichage des emprunts en cours ==");
+        ES.afficherLibelle("titre : " + titre) ;
+        ES.afficherLibelle("ISBN : " + numISBN) ;
+        ES.afficherLibelle("numéro de l'exemplaire : " + numEx) ;
         ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
         ES.afficherLibelle("Date de retour : " + dateRetour) ;
+        ES.afficherLibelle("") ;
     }
 
     //-----  Primitives d'affichage  -----------------------------------------------
