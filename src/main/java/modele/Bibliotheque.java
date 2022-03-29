@@ -175,12 +175,12 @@ public class Bibliotheque implements Serializable {
                     if(listNumExemplaire.size()>0){
                         ES.afficherArrayInt(listNumExemplaire, "Liste des exemplaires existants");
                         Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaire);
-                        Exemplaire e = o.unExemplaire(numExemplaire);
-                        if(e.estDisponible()){
+                        Exemplaire ex = o.unExemplaire(numExemplaire);
+                        if(ex.estDisponible()){
                             Integer age = l.getAgeLecteur();
                             Public publicVise = o.getPublicVise();
                             if(verifAdequationPublic(age, publicVise)){
-                                l.nouvelEmprunt(e);
+                                l.ajouterEmprunt(ex);
                                 ihm.informerUtilisateur("L'exemplaire a bien été emprunté.");
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire",true);
                             }                            
@@ -189,7 +189,7 @@ public class Bibliotheque implements Serializable {
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                             }
                         }
-                        else if (e.estEmprunte()) {
+                        else if (ex.estEmprunte()) {
                             ihm.informerUtilisateur("L'exemplaire n'est pas disponible.");
                             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                         }

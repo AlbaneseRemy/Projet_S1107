@@ -26,10 +26,10 @@ public class Exemplaire implements Serializable{
         this.ouvrage = ouvrage ;
     }
 
-    public void lierEmprunt (Emprunt em) {
+    public void setEmprunt (Emprunt em) {
         emprunt = em;
     }
-    
+
     public void retirerEmprunt() {
         emprunt = null ;
     }

@@ -64,27 +64,27 @@ public class Lecteur implements Serializable {
         return emprunts ;
     }
     
-    public Integer getNbEmprunts(){
+    public Integer getNbEmprunts() {
         return emprunts.size();
     }
 
-    public Boolean estSature (){
+    public Boolean estSature () {
         return getNbEmprunts() == 5;
     }
 
-    public void nouvelEmprunt (Exemplaire e){
-        Emprunt em = new Emprunt(this, e);
+    public void ajouterEmprunt (Exemplaire ex) {
+        Emprunt em = new Emprunt(this, ex);
         lierEmprunt(em);
-        e.lierEmprunt(em);
+        ex.setEmprunt(em);
     }
     
     private void lierEmprunt (Emprunt em) {
         emprunts.add(em);
     }
     
-    public void finEmprunt (Exemplaire e, Emprunt em) {
+    public void finEmprunt (Exemplaire ex, Emprunt em) {
         this.retirerEmprunt(em) ;
-        e.retirerEmprunt() ;
+        ex.retirerEmprunt() ;
     }
     
     public void retirerEmprunt(Emprunt em) {
