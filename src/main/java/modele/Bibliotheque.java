@@ -20,14 +20,12 @@ public class Bibliotheque implements Serializable {
     private Integer numDernierLecteur ;
     private Map<Integer, Lecteur> lecteurs ;  // association qualifiée par le numéro d'un lecteur
     private Map<String, Ouvrage> ouvrages ;  // association qualifiée par l'ISBN d'un ouvrage
-    private Map<String, Exemplaire> exemplaires;
 
     // Constructeur
     public Bibliotheque() {
         this.numDernierLecteur = 0 ;
         this.lecteurs = new HashMap<>() ;
         this.ouvrages = new HashMap<>() ;
-        this.exemplaires = new HashMap<>();
     }
 
     // Cas d'utilisation 'nouveauLecteur'
@@ -35,8 +33,7 @@ public class Bibliotheque implements Serializable {
         incrementerNumDernierLecteur() ;
         Integer nLecteur = getNumDernierLecteur() ;
         IHM.InfosLecteur infosLecteur = ihm.saisirInfosLecteur(nLecteur) ;
-        Lecteur l = new Lecteur (nLecteur, infosLecteur.nom, infosLecteur.prenom,
-                infosLecteur.dateNaissance, infosLecteur.mail) ;
+        Lecteur l = new Lecteur (nLecteur, infosLecteur.nom, infosLecteur.prenom, infosLecteur.dateNaissance, infosLecteur.mail) ;
         lierLecteur (l, nLecteur) ;
         ihm.informerUtilisateur("création du lecteur de numéro : " + nLecteur, true) ;
     }
@@ -59,6 +56,8 @@ public class Bibliotheque implements Serializable {
             String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
             Ouvrage o = unOuvrage (numOuvrage) ;
             LocalDate dateParution = o.getDateParution() ;
+            ES.afficherLibelle("Titre de l'ouvrage : " + o.getTitre()) ;
+            ES.afficherLibelle("Date de parution : " + dateParution) ;
             IHM.InfosExemplaire infosExemplaire = ihm.saisirInfosExemplaire(dateParution) ;
             for (int i=0 ; i<infosExemplaire.nbNonEmpruntables ; i++)
                 o.ajouterExemplaire (infosExemplaire.dateRecep, false) ;
@@ -75,7 +74,7 @@ public class Bibliotheque implements Serializable {
         }
     }
 
-    // Cas d'utilisation 'consulterLecteur'
+    // Cas d'utilisation 'Lecteur'
     public void consulterLecteur (IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         if (listNumLecteur.size()>0){
@@ -83,7 +82,6 @@ public class Bibliotheque implements Serializable {
             Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
             Lecteur l = unLecteur (nLecteur) ;
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
-            
             HashSet<Emprunt> collecEmprunts = l.getEmprunts();
             if (collecEmprunts.size()>0){
                 for (Emprunt em : collecEmprunts){
@@ -125,7 +123,6 @@ public class Bibliotheque implements Serializable {
 
     // Cas d'utilisation 'consulterExemplairesOuvrage'
     public void consulterExemplairesOuvrage (IHM ihm) {
-
         Set <String> listISBN = getListISBN () ;
         if (listISBN.size()>0){
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
@@ -134,20 +131,25 @@ public class Bibliotheque implements Serializable {
             ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
             ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
             if (exemplaires.size()>0){
-                for (Exemplaire exemplaire : exemplaires ){
-                    if(exemplaire.estDisponible()){
-                        ihm.afficherInfosExemplaireOuvrage(exemplaire.getNumExemplaire());
-                        ihm.informerUtilisateur("Cet exemplaire est disponible.");
+                for (Exemplaire ex : exemplaires ) {
+                    if (ex.estEmprunte()) {
+                        Emprunt em = ex.getEmprunt();
+                        Lecteur l = em.getLecteur();
+                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), em.getDateEmprunt(), em.getDateRetour(), l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur());
+                    }
+                    else if (ex.estDisponible()) {
+                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), 3);
+                        //ihm.informerUtilisateur("Cet exemplaire est disponible.");
                     }
                     else {
-                        Emprunt em = exemplaire.getEmprunt();
-                        Lecteur l = em.getLecteur();
-                        ihm.afficherInfosExemplaireOuvrage(exemplaire.getNumExemplaire(), em.getDateEmprunt(), em.getDateRetour(), l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur());
+                        ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), 1);
+                        //ihm.informerUtilisateur("Cet exemplaire n'est pas empruntable.");
                     }
                 }
+                ihm.informerUtilisateur("Consultation d'exemplaires ",true);
             }
             else {
-                ihm.informerUtilisateur("Il n'existe pas encore d'exemplaires pour cet ouvrage.");
+                ihm.informerUtilisateur("pas d'exemplaires /");
                 ihm.informerUtilisateur("Consultation d'exemplaires ",false);
             }
         }
@@ -156,8 +158,8 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Consultation d'exemplaires ",false);
         }
     } 
-    
-    
+
+    // Cas d'utilisation 'emprunterExemplaire'
     public void emprunterExemplaire(IHM ihm) {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         if (listNumLecteur.size()>0){
@@ -171,14 +173,15 @@ public class Bibliotheque implements Serializable {
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
                     String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
                     Ouvrage o = unOuvrage(numOuvrage);
-                    ArrayList <Integer> listNumExemplaire = o.getListNumExemplairesOuvrage() ; //Pourquoi a-t-on un arraylist alors que l'on utilise des sets avant
+                    ArrayList <Integer> listNumExemplaire = o.getListNumExemplairesOuvrage() ;
                     if(listNumExemplaire.size()>0){
+                        ES.afficherArrayInt(listNumExemplaire, "Liste des exemplaires existants");
                         Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaire);
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
                         if(e.estDisponible()){
                             Integer age = l.getAgeLecteur();
                             Public publicVise = o.getPublicVise();
-                            if(o.verifAdequationPublic(age, publicVise)){
+                            if(verifAdequationPublic(age, publicVise)){
                                 l.nouvelEmprunt(e);
                                 ihm.informerUtilisateur("L'exemplaire a bien été emprunté.");
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire",true);
@@ -188,10 +191,14 @@ public class Bibliotheque implements Serializable {
                                 ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
                             }
                         }
-                        else {
+                        else if (e.estEmprunte()) {
                             ihm.informerUtilisateur("L'exemplaire n'est pas disponible.");
                             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
-                        }                        
+                        }
+                        else {
+                            ihm.informerUtilisateur("L'exemplaire n'est pas empruntable.");
+                            ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
+                        }
                     }
                     else{
                         ihm.informerUtilisateur("Aucun exemplaire n'existe pour cet ouvrage.");
@@ -210,10 +217,11 @@ public class Bibliotheque implements Serializable {
         }
         else{
             ihm.informerUtilisateur("Aucun lecteur dans la base.");
-            ihm.informerUtilisateur("Consultation de lecteurs", false);
+            ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
         }          
     }
     
+    // Cas d'utilisation 'rendreExemplaire'
     public void rendreExemplaire (IHM ihm) {
         Set <String> listISBN = getListISBN() ;
         if (listISBN.size() > 0) {
@@ -225,14 +233,15 @@ public class Bibliotheque implements Serializable {
                 ES.afficherLibelle("Liste des exemplaires existants : " + listNumExemplaires) ;
                 Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaires) ;
                 Exemplaire ex = o.getUnExemplaire(numExemplaire) ;
-                if (!ex.estDisponible()) {
+                if (ex.estEmprunte()) {
                     Emprunt em = ex.getEmprunt() ;
                     Lecteur l = em.getLecteur() ;
                     l.finEmprunt(ex, em) ;
+                    ihm.informerUtilisateur("L'exemplaire a bien été rendu.");
                     ihm.informerUtilisateur("Retour de l'exemplaire", true) ;
                 }
                 else {
-                    ihm.informerUtilisateur("Cet exemplaire est disponible, il ne peut être rendu.\nRetour au menu");
+                    ihm.informerUtilisateur("Cet exemplaire n'est pas emprunté, il ne peut être rendu.\nRetour au menu");
                 }
             }
             else {
@@ -244,41 +253,55 @@ public class Bibliotheque implements Serializable {
         }
     }
 
+    // Cas d'utilisation 'relancerLecteur'
     public void relancerLecteur (IHM ihm) {
         Collection<Lecteur> collecLecteurs = getLecteurs() ;
-        for (Lecteur l : collecLecteurs) {
-            HashSet<Emprunt> emprunts = l.getEmprunts() ;
-            int nbEmpruntsRetard = 0 ;
-            for (Emprunt em : emprunts) {
-                LocalDate dateRetour = em.getDateRetour() ;
-                if ((dateRetour.plusDays(14)).isAfter(LocalDate.now())) {
-                    nbEmpruntsRetard++ ;
-                    LocalDate dateEmprunt = em.getDateEmprunt() ;
-                    Exemplaire ex = em.getExemplaire() ;
-                    Integer numEx = ex.getNumExemplaire() ;
-                    Ouvrage o = ex.getOuvrage() ;
-                    String titre = o.getTitre() ;
-                    String  numISBN = o.getNumISBN() ;
-                    if (nbEmpruntsRetard == 1) {
-                        String nom = l.getNomLecteur() ;
-                        String prenom = l.getPrenomLecteur() ;
-                        Integer numLect = l.getNumLecteur() ;
-                        ihm.afficherInfosLecteurRetard (numLect, nom, prenom) ;
+        if (collecLecteurs.size() > 0) {
+            int nbRetardsTotal = 0 ;
+            for (Lecteur l : collecLecteurs) {
+                HashSet<Emprunt> emprunts = l.getEmprunts() ;
+                if (emprunts.size() > 0) {
+                    int nbEmpruntsRetard = 0 ;
+                    for (Emprunt em : emprunts) {
+                        LocalDate dateRetour = em.getDateRetour() ;
+                        if ((dateRetour.plusDays(14)).isBefore(LocalDate.now())) {
+                            nbEmpruntsRetard++ ;
+                            nbRetardsTotal++ ;
+                            LocalDate dateEmprunt = em.getDateEmprunt() ;
+                            Exemplaire ex = em.getExemplaire() ;
+                            Integer numEx = ex.getNumExemplaire() ;
+                            Ouvrage o = ex.getOuvrage() ;
+                            String titre = o.getTitre() ;
+                            String  numISBN = o.getNumISBN() ;
+                            if (nbEmpruntsRetard == 1) {
+                                String nom = l.getNomLecteur() ;
+                                String prenom = l.getPrenomLecteur() ;
+                                Integer numLect = l.getNumLecteur() ;
+                                ihm.afficherInfosLecteurRetard (numLect, nom, prenom) ;
+                            }
+                            ihm.afficherInfosRetard (titre, numISBN, numEx, dateEmprunt, dateRetour) ;
+                        } // else : on n'affiche rien si le lecteur n'a pas d'emprunts en retard              
                     }
-                    ihm.afficherInfosRetard (titre, numISBN, numEx, dateEmprunt, dateRetour) ;
-                }                
+                } // else : on n'affiche rien non plus si le lecteur n'a pas d'emprunts
             }
+            if (nbRetardsTotal == 0) {
+                ihm.informerUtilisateur("Aucun emprunt en retard actuellement.") ;
+            }
+            ihm.informerUtilisateur("Consultation des retards",true);
         }
+        else {
+                ihm.informerUtilisateur("Aucun lecteur dans la base.\nRetour au menu");
+            }
     }
 
+    // Méthodes liées aux lecteurs
     public void incrementerNumDernierLecteur () {
         numDernierLecteur++ ;
     }
 
-    public int getNumDernierLecteur () {
+    public Integer getNumDernierLecteur () {
         return numDernierLecteur ;
     }
-    
 
     private Lecteur unLecteur (Integer nLecteur) { 
         return lecteurs.get(nLecteur) ;
@@ -288,11 +311,16 @@ public class Bibliotheque implements Serializable {
         return lecteurs.keySet() ;
     }
 
+    private Collection<Lecteur> getLecteurs () {
+        return lecteurs.values() ;
+    }
+
     private void lierLecteur (Lecteur l, Integer num) {
         this.lecteurs.put(num, l) ;
     }
     
-     public Set <String> getListISBN(){
+    // Méthodes liées aux ouvrages
+    public Set <String> getListISBN(){
         return ouvrages.keySet();
     }
 
@@ -303,8 +331,8 @@ public class Bibliotheque implements Serializable {
     private void lierOuvrage(Ouvrage o, String ISBN) {
         this.ouvrages.put(ISBN, o);
     }
-
-    private Collection<Lecteur> getLecteurs () {
-        return lecteurs.values() ;
+    
+    public boolean verifAdequationPublic(Integer age, Public publicVise){
+        return publicVise.getAgeMin() <= age ;
     }
 }

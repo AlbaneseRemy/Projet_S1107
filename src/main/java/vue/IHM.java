@@ -206,7 +206,7 @@ public class IHM  {
         Integer nbNonEmpruntables;
         LocalDate dateRecep;
 
-        ES.afficherTitre("== Saisie d'exemplaires ==");        
+        ES.afficherTitre("== Saisie d'exemplaires ==");
         dateRecep = ES.lireDate("Saisir la date de réception : ");
 
         while (dateParution.compareTo(dateRecep) > 0 || dateRecep.compareTo(LocalDate.now()) > 0){
@@ -286,19 +286,31 @@ public class IHM  {
         ES.afficherTitre("== affichage des exemplaires de l'ouvrage ==");
         ES.afficherLibelle("Ouvrage : " + numOuvrage);
         ES.afficherLibelle("Titre : " + titre);
+        ES.afficherLibelle("n° exemplaire - état") ;
     }
-    
-    public void afficherInfosExemplaireOuvrage(Integer numEx){          
-        ES.afficherLibelle("numéro d'exemplaire : " + numEx);
+
+    public void afficherInfosExemplaireOuvrage(Integer numEx, int etat) {          
+        String mention = "" ;
+        switch (etat) {
+            case 1 :
+                mention = "\tnon empruntable" ;
+                break ;
+            case 3 :
+                mention = "\tdisponible" ;
+                break ;
+        }
+        ES.afficherLibelle("\t" + numEx + mention);
+        
     }
-    
+
     public void afficherInfosExemplaireOuvrage(Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour, Integer numLect, String nom, String prenom){  
-        ES.afficherLibelle("numéro d'exemplaire : " + numEx);
-        ES.afficherLibelle("date d'emprunt : " + dateEmprunt);
-        ES.afficherLibelle("date de retour : " + dateRetour);
-        ES.afficherLibelle("numéro : " + numLect);
-        ES.afficherLibelle("nom : " + nom);
-        ES.afficherLibelle("prénom : " + prenom);
+        //ES.afficherLibelle("numéro d'exemplaire : " + numEx + " -> cet exemplaire est emprunté");
+        ES.afficherLibelle("\t" + numEx + "\temprunté");
+        ES.afficherLibelle("\t\t   | date d'emprunt : " + dateEmprunt);
+        ES.afficherLibelle("\t\t   | date de retour : " + dateRetour);
+        ES.afficherLibelle("\t\t   | numéro : " + numLect);
+        ES.afficherLibelle("\t\t   | nom : " + nom);
+        ES.afficherLibelle("\t\t   | prénom : " + prenom);
     }
 
     public void afficherInfosEmprunt (String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour) {
@@ -318,11 +330,18 @@ public class IHM  {
         ES.afficherLibelle("titre : " + titre) ;
         ES.afficherLibelle("ISBN : " + numISBN) ;
         ES.afficherLibelle("numéro de l'exemplaire : " + numEx) ;
-        ES.afficherLibelle("Date d'emorunt : " + dateEmprunt) ;
+        ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
         ES.afficherLibelle("Date de retour : " + dateRetour) ;
-        //LocalDate nbJoursRetard = LocalDate.now().
-        //ES.afficherLibelle()
    }
+    
+    public void afficherInfosEmprunt(String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour){
+        ES.afficherTitre("== affichage des emprunts en cours ==");
+        ES.afficherLibelle("titre : "+titre);
+        ES.afficherLibelle("ISBN : "+numISBN);
+        ES.afficherLibelle("numéro de l'exemplaire : " + numEx);
+        ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
+        ES.afficherLibelle("Date de retour : " + dateRetour) ;
+    }
 
     //-----  Primitives d'affichage  -----------------------------------------------
     public void informerUtilisateur(final String msg, final boolean succes) {
@@ -332,7 +351,6 @@ public class IHM  {
     public void informerUtilisateur (final String msg) {
         ES.afficherLibelle(msg);
     }
-
 }
 
 

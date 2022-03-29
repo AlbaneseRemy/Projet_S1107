@@ -9,13 +9,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
-/**
- *
- * @author albanesr
- */
 public class Ouvrage implements Serializable {
     
     // Attributs
@@ -41,7 +38,10 @@ public class Ouvrage implements Serializable {
         this.exemplaires = new ArrayList<>();
     }
 
-    // Methode ajouterExemplaire
+    public void lierExemplaire (Exemplaire e) {
+        this.exemplaires.add(e) ;
+    }
+
     public void ajouterExemplaire (LocalDate dateRecep, Boolean estEmpruntable) {
         incrementerNumDernierExemplaire() ;
         Exemplaire e = new Exemplaire (dateRecep, estEmpruntable, this) ;
@@ -50,10 +50,6 @@ public class Ouvrage implements Serializable {
 
     public void incrementerNumDernierExemplaire() {
         this.numDernierExemplaire++;
-    }
-
-    public void lierExemplaire (Exemplaire e) {
-        this.exemplaires.add(e) ;
     }
 
     // Getters
@@ -90,15 +86,11 @@ public class Ouvrage implements Serializable {
     }
 
     public Exemplaire getUnExemplaire (Integer numExemplaire) {
-        Exemplaire exTemp = null ;
-        int i = 0 ;
-        while (i < exemplaires.size() && numExemplaire != exemplaires.get(i).getNumExemplaire())
-        {
-            i++ ;
+        for (Exemplaire ex : exemplaires) {
+            if (Objects.equals(ex.getNumExemplaire(), numExemplaire))
+                return ex ;
         }
-        if (i < exemplaires.size())
-            exTemp = exemplaires.get(i) ;
-        return exTemp ;
+        return null ;
     }
 
     public ArrayList <Integer> getListNumExemplairesOuvrage() {
@@ -108,12 +100,5 @@ public class Ouvrage implements Serializable {
         return listNumExemplaires ;
     }
 
-    public boolean verifAdequationPublic(Integer age, Public publicVise){
-        if(publicVise.getAgeMin() <= age){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    
 }

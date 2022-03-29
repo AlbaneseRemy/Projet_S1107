@@ -7,10 +7,7 @@ package modele;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-/**
- *
- * @author albanesr
- */
+
 public class Exemplaire implements Serializable{
     
     // Attributs
@@ -33,6 +30,14 @@ public class Exemplaire implements Serializable{
         this.ouvrage = ouvrage ;
     }
 
+    public void lierEmprunt (Emprunt em) {
+        emprunt = em;
+    }
+    
+    public void retirerEmprunt() {
+        emprunt = null ;
+    }
+
     // Getters
     public LocalDate getDateRecep() {
         return dateRecep;
@@ -42,15 +47,6 @@ public class Exemplaire implements Serializable{
         return numExemplaire;
     }
     
-    public boolean estDisponible(){
-        if(estEmpruntable == true && emprunt == null){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public Lecteur getLecteur() {
         return getEmprunt().getLecteur() ;
     }
@@ -63,11 +59,13 @@ public class Exemplaire implements Serializable{
         return emprunt ;
     }
 
-    public void retirerEmprunt() {
-        emprunt = null ;
+    // Méthodes d'état
+    public boolean estDisponible(){
+        return (estEmpruntable == true && emprunt == null) ;
     }
-    
-    public void lierEmprunt (Emprunt em) {
-        emprunt = em;
+
+    public boolean estEmprunte()
+    {
+        return (estEmpruntable == true && emprunt != null) ;
     }
 }
