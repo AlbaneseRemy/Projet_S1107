@@ -256,6 +256,12 @@ public class ES {
         System.out.print(libelle+" , ");
         System.out.flush();
     }
+    
+    public static void afficherArrayInt(ArrayList<Integer> list, String libelle){
+        System.out.println(libelle);
+        System.out.println(list);
+        System.out.flush();
+    }
 
     
 } // Fin de classe ES

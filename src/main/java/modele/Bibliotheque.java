@@ -175,6 +175,7 @@ public class Bibliotheque implements Serializable {
                     Ouvrage o = unOuvrage(numOuvrage);
                     ArrayList <Integer> listNumExemplaire = o.getListNumExemplairesOuvrage() ;
                     if(listNumExemplaire.size()>0){
+                        ES.afficherArrayInt(listNumExemplaire, "Liste des exemplaires existants");
                         Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaire);
                         Exemplaire e = o.getUnExemplaire(numExemplaire);
                         if(e.estDisponible()){
