@@ -135,20 +135,20 @@ public class IHM  {
     }
     
     public InfosLecteur saisirInfosLecteur (int numLecteur) {
-        String nom, prenom, mail ;
-        LocalDate dateNaissance ;
+        String nomLecteur, prenomLecteur, mailLecteur ;
+        LocalDate dateNaissanceLecteur ;
         
         ES.afficherTitre("== Saisie d'un lecteur ==");
-        nom = ES.lireChaine("Saisir le nom du lecteur :");
-        prenom = ES.lireChaine("Saisir le prénom du lecteur :");
-        dateNaissance = ES.lireDate("Saisir la date de naissance du lecteur :");
-        while(dateNaissance.compareTo(LocalDate.now()) > 0){
+        nomLecteur = ES.lireChaine("Saisir le nom du lecteur :");
+        prenomLecteur = ES.lireChaine("Saisir le prénom du lecteur :");
+        dateNaissanceLecteur = ES.lireDate("Saisir la date de naissance du lecteur :");
+        while(dateNaissanceLecteur.compareTo(LocalDate.now()) > 0){
             ES.afficherLibelle("La date de naissance doit être antérieure ou égale à la date du jour.");
-            dateNaissance = ES.lireDate("Saisir la date de naissance du lecteur :");
+            dateNaissanceLecteur = ES.lireDate("Saisir la date de naissance du lecteur :");
         }
-        mail = ES.lireEmail("Saisir l'email du lecteur :");
+        mailLecteur = ES.lireEmail("Saisir l'email du lecteur :");
 
-        return new InfosLecteur(nom, prenom, dateNaissance, mail) ;
+        return new InfosLecteur(nomLecteur, prenomLecteur, dateNaissanceLecteur, mailLecteur) ;
     }
     
     public InfosOuvrage saisirInfosOuvrage (Set<String> listISBN) {

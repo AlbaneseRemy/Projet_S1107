@@ -26,7 +26,7 @@ public class Lecteur implements Serializable {
         this.prenomLecteur = prenomLecteur ;
         this.dateNaissanceLecteur = dateNaissanceLecteur ;
         this.mailLecteur = mailLecteur ;
-        this.emprunts = new HashSet<>(); //REMPLACEMENT DU SET PAR UN HASHSET POUR POUVOIR L'INITIALISER
+        this.emprunts = new HashSet<>();
     }
 
     // Getters
@@ -72,7 +72,7 @@ public class Lecteur implements Serializable {
     }
 
     public Boolean estSature (){
-        return getNbEmprunts() > 5;
+        return getNbEmprunts() == 5;
     }
 
     public void nouvelEmprunt (Exemplaire e){
