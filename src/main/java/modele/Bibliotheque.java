@@ -5,12 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.* ;
 import util.ES;
 import vue.*;
-import vue.IHM.InfosLecteur;
 
 
 public class Bibliotheque implements Serializable {
@@ -19,7 +17,7 @@ public class Bibliotheque implements Serializable {
     private static final long serialVersionUID = 1L ;  // nécessaire pour la sérialisation
     private Integer numDernierLecteur ;
     private Map<Integer, Lecteur> lecteurs ;  // association qualifiée par le numéro d'un lecteur
-    private Map<String, Ouvrage> ouvrages ;  // association qualifiée par l'ISBN d'un ouvrage
+    private Map<String, Ouvrage> ouvrages ;   // association qualifiée par l'ISBN d'un ouvrage
 
     // Constructeur
     public Bibliotheque() {
@@ -177,7 +175,7 @@ public class Bibliotheque implements Serializable {
                     if(listNumExemplaire.size()>0){
                         ES.afficherArrayInt(listNumExemplaire, "Liste des exemplaires existants");
                         Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaire);
-                        Exemplaire e = o.getUnExemplaire(numExemplaire);
+                        Exemplaire e = o.unExemplaire(numExemplaire);
                         if(e.estDisponible()){
                             Integer age = l.getAgeLecteur();
                             Public publicVise = o.getPublicVise();
@@ -220,7 +218,7 @@ public class Bibliotheque implements Serializable {
             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
         }          
     }
-    
+
     // Cas d'utilisation 'rendreExemplaire'
     public void rendreExemplaire (IHM ihm) {
         Set <String> listISBN = getListISBN() ;
@@ -232,7 +230,7 @@ public class Bibliotheque implements Serializable {
             if (listNumExemplaires.size() > 0) {
                 ES.afficherLibelle("Liste des exemplaires existants : " + listNumExemplaires) ;
                 Integer numExemplaire = ihm.saisirNumExemplaire(listNumExemplaires) ;
-                Exemplaire ex = o.getUnExemplaire(numExemplaire) ;
+                Exemplaire ex = o.unExemplaire(numExemplaire) ;
                 if (ex.estEmprunte()) {
                     Emprunt em = ex.getEmprunt() ;
                     Lecteur l = em.getLecteur() ;

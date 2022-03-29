@@ -1,13 +1,11 @@
 package vue;
 
-import static java.lang.reflect.Array.set;
 import modele.*;
 import util.* ;
 
 import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
 * La classe IHM est responsable des interactions avec l'utilisateur/trice en

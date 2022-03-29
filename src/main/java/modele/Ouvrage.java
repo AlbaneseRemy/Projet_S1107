@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modele;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 
 public class Ouvrage implements Serializable {
@@ -85,7 +78,7 @@ public class Ouvrage implements Serializable {
         return exemplaires;
     }
 
-    public Exemplaire getUnExemplaire (Integer numExemplaire) {
+    public Exemplaire unExemplaire (Integer numExemplaire) {
         for (Exemplaire ex : exemplaires) {
             if (Objects.equals(ex.getNumExemplaire(), numExemplaire))
                 return ex ;
