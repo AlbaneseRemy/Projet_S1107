@@ -31,11 +31,11 @@ public class Bibliotheque implements Serializable {
     // Cas d'utilisation 'nouveauLecteur'
     public void nouveauLecteur (IHM ihm) {
         incrementerNumDernierLecteur() ;
-        Integer nLecteur = getNumDernierLecteur() ;
-        IHM.InfosLecteur infosLecteur = ihm.saisirInfosLecteur(nLecteur) ;
-        Lecteur l = new Lecteur (nLecteur, infosLecteur.nom, infosLecteur.prenom, infosLecteur.dateNaissance, infosLecteur.mail) ;
-        lierLecteur (l, nLecteur) ;
-        ihm.informerUtilisateur("création du lecteur de numéro : " + nLecteur, true) ;
+        Integer numLecteur = getNumDernierLecteur() ;
+        IHM.InfosLecteur infosLecteur = ihm.saisirInfosLecteur(numLecteur) ;
+        Lecteur l = new Lecteur (numLecteur, infosLecteur.nom, infosLecteur.prenom, infosLecteur.dateNaissance, infosLecteur.mail) ;
+        lierLecteur (l, numLecteur) ;
+        ihm.informerUtilisateur("création du lecteur de numéro : " + numLecteur, true) ;
     }
 
     // Cas d'utilisation 'nouvelOuvrage'
@@ -53,8 +53,8 @@ public class Bibliotheque implements Serializable {
         Set <String> listISBN = getListISBN () ;
         if (listISBN.size()>0){
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
-            String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
-            Ouvrage o = unOuvrage (numOuvrage) ;
+            String numISBN = ihm.saisirNumOuvrage(listISBN) ;
+            Ouvrage o = unOuvrage (numISBN) ;
             LocalDate dateParution = o.getDateParution() ;
             ES.afficherLibelle("Titre de l'ouvrage : " + o.getTitre()) ;
             ES.afficherLibelle("Date de parution : " + dateParution) ;
@@ -79,8 +79,8 @@ public class Bibliotheque implements Serializable {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         if (listNumLecteur.size()>0){
             ES.afficherSetInt(listNumLecteur, "Liste des lecteurs existants :");
-            Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
-            Lecteur l = unLecteur (nLecteur) ;
+            Integer numLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
+            Lecteur l = unLecteur (numLecteur) ;
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
             HashSet<Emprunt> collecEmprunts = l.getEmprunts();
             if (collecEmprunts.size()>0){
@@ -88,11 +88,11 @@ public class Bibliotheque implements Serializable {
                     LocalDate dateEmprunt = em.getDateEmprunt();
                     LocalDate dateRetour = em.getDateRetour();
                     Exemplaire e=em.getExemplaire();
-                    Integer numEx = e.getNumExemplaire();
+                    Integer numExemplaire = e.getNumExemplaire();
                     Ouvrage o = e.getOuvrage();
                     String titre = o.getTitre();
                     String numISBN = o.getNumISBN();
-                    ihm.afficherInfosEmprunt(titre, numISBN, numEx, dateEmprunt, dateRetour);
+                    ihm.afficherInfosEmprunt(titre, numISBN, numExemplaire, dateEmprunt, dateRetour);
                 }
             }
             else {
@@ -111,8 +111,8 @@ public class Bibliotheque implements Serializable {
         Set<String> listISBN = getListISBN();
         if (listISBN.size()>0){
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
-            String numOuvrage = ihm.saisirNumOuvrage(listISBN);
-            Ouvrage o = unOuvrage(numOuvrage);
+            String numISBN = ihm.saisirNumOuvrage(listISBN);
+            Ouvrage o = unOuvrage(numISBN);
             ihm.afficherInfosOuvrage(o.getTitre(), o.getNomEditeur(), o.getDateParution(), o.getNomsAuteurs(), o.getNumISBN(), o.getPublicVise());
         }
         else{
@@ -126,8 +126,8 @@ public class Bibliotheque implements Serializable {
         Set <String> listISBN = getListISBN () ;
         if (listISBN.size()>0){
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :");
-            String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
-            Ouvrage o = unOuvrage (numOuvrage) ;
+            String numISBN = ihm.saisirNumOuvrage(listISBN) ;
+            Ouvrage o = unOuvrage (numISBN) ;
             ihm.afficherInfosOuvrage(o.getNumISBN(), o.getTitre()) ;
             ArrayList <Exemplaire> exemplaires = o.getExemplaires() ;
             if (exemplaires.size()>0){
@@ -164,15 +164,15 @@ public class Bibliotheque implements Serializable {
         Set <Integer> listNumLecteur = getListNumLecteur() ;
         if (listNumLecteur.size()>0){
             ES.afficherSetInt(listNumLecteur,"Liste des lecteurs existants : ");
-            Integer nLecteur = ihm.saisirNumLecteur(listNumLecteur);
-            Lecteur l = unLecteur(nLecteur);
+            Integer numLecteur = ihm.saisirNumLecteur(listNumLecteur);
+            Lecteur l = unLecteur(numLecteur);
             boolean sature = l.estSature();
             if (sature == false){
                 Set<String> listISBN = getListISBN();
                 if (listISBN.size()>0){
                     ES.afficherSetStr(listISBN, "Liste des ouvrages existants : ");
-                    String numOuvrage = ihm.saisirNumOuvrage(listISBN);                
-                    Ouvrage o = unOuvrage(numOuvrage);
+                    String numISBN = ihm.saisirNumOuvrage(listISBN);                
+                    Ouvrage o = unOuvrage(numISBN);
                     ArrayList <Integer> listNumExemplaire = o.getListNumExemplairesOuvrage() ;
                     if(listNumExemplaire.size()>0){
                         ES.afficherArrayInt(listNumExemplaire, "Liste des exemplaires existants");
@@ -226,8 +226,8 @@ public class Bibliotheque implements Serializable {
         Set <String> listISBN = getListISBN() ;
         if (listISBN.size() > 0) {
             ES.afficherSetStr(listISBN, "Liste des ouvrages existants :") ;
-            String numOuvrage = ihm.saisirNumOuvrage(listISBN) ;
-            Ouvrage o = unOuvrage(numOuvrage) ;
+            String numISBN = ihm.saisirNumOuvrage(listISBN) ;
+            Ouvrage o = unOuvrage(numISBN) ;
             ArrayList <Integer> listNumExemplaires = o.getListNumExemplairesOuvrage() ;
             if (listNumExemplaires.size() > 0) {
                 ES.afficherLibelle("Liste des exemplaires existants : " + listNumExemplaires) ;
@@ -269,7 +269,7 @@ public class Bibliotheque implements Serializable {
                             nbRetardsTotal++ ;
                             LocalDate dateEmprunt = em.getDateEmprunt() ;
                             Exemplaire ex = em.getExemplaire() ;
-                            Integer numEx = ex.getNumExemplaire() ;
+                            Integer numExemplaire = ex.getNumExemplaire() ;
                             Ouvrage o = ex.getOuvrage() ;
                             String titre = o.getTitre() ;
                             String  numISBN = o.getNumISBN() ;
@@ -279,7 +279,7 @@ public class Bibliotheque implements Serializable {
                                 Integer numLect = l.getNumLecteur() ;
                                 ihm.afficherInfosLecteurRetard (numLect, nom, prenom) ;
                             }
-                            ihm.afficherInfosRetard (titre, numISBN, numEx, dateEmprunt, dateRetour) ;
+                            ihm.afficherInfosRetard (titre, numISBN, numExemplaire, dateEmprunt, dateRetour) ;
                         } // else : on n'affiche rien si le lecteur n'a pas d'emprunts en retard              
                     }
                 } // else : on n'affiche rien non plus si le lecteur n'a pas d'emprunts
@@ -303,8 +303,8 @@ public class Bibliotheque implements Serializable {
         return numDernierLecteur ;
     }
 
-    private Lecteur unLecteur (Integer nLecteur) { 
-        return lecteurs.get(nLecteur) ;
+    private Lecteur unLecteur (Integer numLecteur) { 
+        return lecteurs.get(numLecteur) ;
     }
 
     private Set <Integer> getListNumLecteur () {
@@ -315,8 +315,8 @@ public class Bibliotheque implements Serializable {
         return lecteurs.values() ;
     }
 
-    private void lierLecteur (Lecteur l, Integer num) {
-        this.lecteurs.put(num, l) ;
+    private void lierLecteur (Lecteur l, Integer numLecteur) {
+        this.lecteurs.put(numLecteur, l) ;
     }
     
     // Méthodes liées aux ouvrages
@@ -324,12 +324,12 @@ public class Bibliotheque implements Serializable {
         return ouvrages.keySet();
     }
 
-    private Ouvrage unOuvrage(String numOuvrage) {
-        return ouvrages.get(numOuvrage);
+    private Ouvrage unOuvrage(String numISBN) {
+        return ouvrages.get(numISBN);
     }
 
-    private void lierOuvrage(Ouvrage o, String ISBN) {
-        this.ouvrages.put(ISBN, o);
+    private void lierOuvrage(Ouvrage o, String numISBN) {
+        this.ouvrages.put(numISBN, o);
     }
     
     public boolean verifAdequationPublic(Integer age, Public publicVise){
