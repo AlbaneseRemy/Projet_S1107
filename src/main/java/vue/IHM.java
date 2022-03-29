@@ -300,7 +300,6 @@ public class IHM  {
                 break ;
         }
         ES.afficherLibelle("\t" + numEx + mention);
-        
     }
 
     public void afficherInfosExemplaireOuvrage(Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour, Integer numLect, String nom, String prenom){  
@@ -311,14 +310,6 @@ public class IHM  {
         ES.afficherLibelle("\t\t   | numéro : " + numLect);
         ES.afficherLibelle("\t\t   | nom : " + nom);
         ES.afficherLibelle("\t\t   | prénom : " + prenom);
-    }
-
-    public void afficherInfosEmprunt (String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour) {
-        ES.afficherLibelle("titre : " + titre) ;
-        ES.afficherLibelle("Numéro ISBN : " + numISBN) ;
-        ES.afficherLibelle("Numéro de l'exemplaire : " + numEx) ;
-        ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
-        ES.afficherLibelle("Date de retour : " + dateRetour) ;
     }
 
     public void afficherInfosLecteurRetard (Integer numLect, String nom, String prenom) {
