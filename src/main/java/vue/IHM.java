@@ -324,8 +324,6 @@ public class IHM  {
         ES.afficherLibelle("numéro de l'exemplaire : " + numEx) ;
         ES.afficherLibelle("Date d'emprunt : " + dateEmprunt) ;
         ES.afficherLibelle("Date de retour : " + dateRetour) ;
-        //LocalDate nbJoursRetard = LocalDate.now().
-        //ES.afficherLibelle()
    }
     
     public void afficherInfosEmprunt(String titre, String numISBN, Integer numEx, LocalDate dateEmprunt, LocalDate dateRetour){
@@ -345,7 +343,6 @@ public class IHM  {
     public void informerUtilisateur (final String msg) {
         ES.afficherLibelle(msg);
     }
-
 }
 
 

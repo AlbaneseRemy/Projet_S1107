@@ -20,14 +20,12 @@ public class Bibliotheque implements Serializable {
     private Integer numDernierLecteur ;
     private Map<Integer, Lecteur> lecteurs ;  // association qualifiée par le numéro d'un lecteur
     private Map<String, Ouvrage> ouvrages ;  // association qualifiée par l'ISBN d'un ouvrage
-    //private Map<String, Exemplaire> exemplaires;
 
     // Constructeur
     public Bibliotheque() {
         this.numDernierLecteur = 0 ;
         this.lecteurs = new HashMap<>() ;
         this.ouvrages = new HashMap<>() ;
-        //this.exemplaires = new HashMap<>();
     }
 
     // Cas d'utilisation 'nouveauLecteur'
@@ -35,8 +33,7 @@ public class Bibliotheque implements Serializable {
         incrementerNumDernierLecteur() ;
         Integer nLecteur = getNumDernierLecteur() ;
         IHM.InfosLecteur infosLecteur = ihm.saisirInfosLecteur(nLecteur) ;
-        Lecteur l = new Lecteur (nLecteur, infosLecteur.nom, infosLecteur.prenom,
-                infosLecteur.dateNaissance, infosLecteur.mail) ;
+        Lecteur l = new Lecteur (nLecteur, infosLecteur.nom, infosLecteur.prenom, infosLecteur.dateNaissance, infosLecteur.mail) ;
         lierLecteur (l, nLecteur) ;
         ihm.informerUtilisateur("création du lecteur de numéro : " + nLecteur, true) ;
     }
@@ -282,7 +279,7 @@ public class Bibliotheque implements Serializable {
                                 ihm.afficherInfosLecteurRetard (numLect, nom, prenom) ;
                             }
                             ihm.afficherInfosRetard (titre, numISBN, numEx, dateEmprunt, dateRetour) ;
-                        } // else : on n'affiche rien le lecteur n'a pas d'emprunts en retards                
+                        } // else : on n'affiche rien si le lecteur n'a pas d'emprunts en retard              
                     }
                 } // else : on n'affiche rien non plus si le lecteur n'a pas d'emprunts
             }
