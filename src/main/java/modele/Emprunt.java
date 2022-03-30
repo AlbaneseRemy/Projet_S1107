@@ -42,8 +42,4 @@ public class Emprunt implements Serializable{
     public Exemplaire getExemplaire() {
         return exemplaire ;
     }
-
-    public Ouvrage getOuvrageExemplaire(){
-        return exemplaire.getOuvrage();
-    } 
 }

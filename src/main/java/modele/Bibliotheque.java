@@ -86,9 +86,9 @@ public class Bibliotheque implements Serializable {
                 for (Emprunt em : collecEmprunts){
                     LocalDate dateEmprunt = em.getDateEmprunt();
                     LocalDate dateRetour = em.getDateRetour();
-                    Exemplaire e=em.getExemplaire();
-                    Integer numExemplaire = e.getNumExemplaire();
-                    Ouvrage o = e.getOuvrage();
+                    Exemplaire ex = em.getExemplaire();
+                    Integer numExemplaire = ex.getNumExemplaire();
+                    Ouvrage o = ex.getOuvrage();
                     String titre = o.getTitre();
                     String numISBN = o.getNumISBN();
                     ihm.afficherInfosEmprunt(titre, numISBN, numExemplaire, dateEmprunt, dateRetour);
