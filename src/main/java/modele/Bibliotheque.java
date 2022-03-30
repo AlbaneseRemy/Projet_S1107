@@ -138,11 +138,9 @@ public class Bibliotheque implements Serializable {
                     }
                     else if (ex.estDisponible()) {
                         ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), 3);
-                        //ihm.informerUtilisateur("Cet exemplaire est disponible.");
                     }
                     else {
                         ihm.afficherInfosExemplaireOuvrage(ex.getNumExemplaire(), 1);
-                        //ihm.informerUtilisateur("Cet exemplaire n'est pas empruntable.");
                     }
                 }
                 ihm.informerUtilisateur("Consultation d'exemplaires ",true);

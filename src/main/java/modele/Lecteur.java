@@ -79,16 +79,16 @@ public class Lecteur implements Serializable {
         lierEmprunt(em);
         ex.setEmprunt(em);
     }
-    
+
     private void lierEmprunt (Emprunt em) {
         emprunts.add(em);
     }
-    
+
     public void finEmprunt (Exemplaire ex, Emprunt em) {
         this.retirerEmprunt(em) ;
         ex.retirerEmprunt() ;
     }
-    
+
     public void retirerEmprunt(Emprunt em) {
         emprunts.remove(em) ;
     }
