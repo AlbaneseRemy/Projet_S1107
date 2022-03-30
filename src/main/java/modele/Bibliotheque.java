@@ -44,7 +44,7 @@ public class Bibliotheque implements Serializable {
                 infosOuvrage.nomsAuteurs, infosOuvrage.numISBN, infosOuvrage.publicVise) ;
         lierOuvrage (o, infosOuvrage.numISBN) ;
         ihm.informerUtilisateur("création de l'ouvrage de numéro ISBN : " + infosOuvrage.numISBN, true) ;
-    }     
+    }
 
     // Cas d'utilisation 'nouvelExemplaire'
     public void nouvelExemplaire(IHM ihm) {
