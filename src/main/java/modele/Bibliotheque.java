@@ -212,7 +212,7 @@ public class Bibliotheque implements Serializable {
                 ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
             }
         }
-        else{
+        else {
             ihm.informerUtilisateur("Aucun lecteur dans la base.");
             ihm.informerUtilisateur("Emprunt de l'exemplaire", false);
         }          

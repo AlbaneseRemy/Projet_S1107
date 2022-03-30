@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class Exemplaire implements Serializable{
+public class Exemplaire implements Serializable {
     
     // Attributs
     private static final long serialVersionUID = 1L;  // nécessaire pour la sérialisation
@@ -56,12 +56,11 @@ public class Exemplaire implements Serializable{
     }
 
     // Méthodes d'état d'un exemplaire
-    public boolean estDisponible(){
+    public boolean estDisponible() {
         return (estEmpruntable == true && emprunt == null) ;
     }
 
-    public boolean estEmprunte()
-    {
+    public boolean estEmprunte() {
         return (estEmpruntable == true && emprunt != null) ;
     }
 }
