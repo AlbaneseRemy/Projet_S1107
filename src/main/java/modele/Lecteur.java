@@ -63,7 +63,7 @@ public class Lecteur implements Serializable {
     public HashSet<Emprunt> getEmprunts() {
         return emprunts ;
     }
-    
+
     public Integer getNbEmprunts() {
         return emprunts.size();
     }

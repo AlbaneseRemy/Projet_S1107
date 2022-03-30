@@ -80,10 +80,10 @@ public class Bibliotheque implements Serializable {
             Integer numLecteur = ihm.saisirNumLecteur(listNumLecteur) ;
             Lecteur l = unLecteur (numLecteur) ;
             ihm.afficherInfosLecteur(l.getNumLecteur(), l.getNomLecteur(), l.getPrenomLecteur(), l.getDateNaissanceLecteur(), l.getMailLecteur(), l.getAgeLecteur()) ;
-            HashSet<Emprunt> collecEmprunts = l.getEmprunts();
-            if (collecEmprunts.size()>0){
+            HashSet<Emprunt> collectEmprunts = l.getEmprunts();
+            if (collectEmprunts.size()>0){
                 ES.afficherTitre("== affichage des emprunts en cours ==");
-                for (Emprunt em : collecEmprunts){
+                for (Emprunt em : collectEmprunts){
                     LocalDate dateEmprunt = em.getDateEmprunt();
                     LocalDate dateRetour = em.getDateRetour();
                     Exemplaire ex = em.getExemplaire();
@@ -252,10 +252,10 @@ public class Bibliotheque implements Serializable {
 
     // Cas d'utilisation 'relancerLecteur'
     public void relancerLecteur (IHM ihm) {
-        Collection<Lecteur> collecLecteurs = getLecteurs() ;
-        if (collecLecteurs.size() > 0) {
+        Collection<Lecteur> collectLecteurs = getLecteurs() ;
+        if (collectLecteurs.size() > 0) {
             int nbRetardsTotal = 0 ;
-            for (Lecteur l : collecLecteurs) {
+            for (Lecteur l : collectLecteurs) {
                 HashSet<Emprunt> emprunts = l.getEmprunts() ;
                 if (emprunts.size() > 0) {
                     int nbEmpruntsRetard = 0 ;
